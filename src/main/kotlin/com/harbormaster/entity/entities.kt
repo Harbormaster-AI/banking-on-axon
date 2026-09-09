@@ -55,7 +55,7 @@ class Bank(
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "exchangeRates") var exchangeRates:  Set<ExchangeRate>? = null,
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "consents") var consents:  Set<Consent>? = null,
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "thirdPartyProviders") var thirdPartyProviders:  Set<ThirdPartyProvider>? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class Branch(
@@ -76,7 +76,7 @@ class Branch(
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "accounts") var accounts:  Set<Account>? = null,
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "loanAccounts") var loanAccounts:  Set<LoanAccount>? = null,
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "atms") var atms:  Set<ATM>? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class ATM(
@@ -92,7 +92,7 @@ class ATM(
     var location: Address? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "branch") var branch: Branch? = null,
     @Enumerated(EnumType.STRING) var status: ATMStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class Customer(
@@ -124,7 +124,7 @@ class Customer(
     @Enumerated(EnumType.STRING) var customerType: CustomerType? = null,
     @Enumerated(EnumType.STRING) var riskRating: RiskRating? = null,
     @Enumerated(EnumType.STRING) var kycStatus: KycStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class KycProfile(
@@ -136,7 +136,7 @@ class KycProfile(
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "riskAssessments") var riskAssessments:  Set<RiskAssessment>? = null,
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "screenings") var screenings:  Set<ScreeningResult>? = null,
     @Enumerated(EnumType.STRING) var status: KycStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class IdentityDocument(
@@ -146,7 +146,7 @@ class IdentityDocument(
     var expirationDate:  Date? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "kycProfile") var kycProfile: KycProfile? = null,
     @Enumerated(EnumType.STRING) var documentType: IdentityDocumentType? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class RiskAssessment(
@@ -155,7 +155,7 @@ class RiskAssessment(
     var assessedOn:  Date? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "kycProfile") var kycProfile: KycProfile? = null,
     @Enumerated(EnumType.STRING) var rating: RiskRating? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class ScreeningResult(
@@ -164,7 +164,7 @@ class ScreeningResult(
     var provider: String? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "kycProfile") var kycProfile: KycProfile? = null,
     @Enumerated(EnumType.STRING) var outcome: ScreeningOutcome? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class BankingProduct(
@@ -177,7 +177,7 @@ class BankingProduct(
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "loanAccounts") var loanAccounts:  Set<LoanAccount>? = null,
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "paymentCards") var paymentCards:  Set<PaymentCard>? = null,
     @Enumerated(EnumType.STRING) var productCategory: ProductCategory? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class Account(
@@ -205,7 +205,7 @@ class Account(
     @Enumerated(EnumType.STRING) var accountType: AccountType? = null,
     @Enumerated(EnumType.STRING) var ownershipType: AccountOwnershipType? = null,
     @Enumerated(EnumType.STRING) var status: AccountStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class AccountStatement(
@@ -225,7 +225,7 @@ class AccountStatement(
     var closingBalance: Money? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "account") var account: Account? = null,
     @Enumerated(EnumType.STRING) var deliveryMethod: StatementDeliveryMethod? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class Transaction(
@@ -248,7 +248,7 @@ class Transaction(
     @Enumerated(EnumType.STRING) var transactionType: TransactionType? = null,
     @Enumerated(EnumType.STRING) var status: TransactionStatus? = null,
     @Enumerated(EnumType.STRING) var channel: ChannelType? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class ExternalAccount(
@@ -270,7 +270,7 @@ class ExternalAccount(
     var country: String? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "customer") var customer: Customer? = null,
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "transactions") var transactions:  Set<Transaction>? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class FundsTransfer(
@@ -296,7 +296,7 @@ class FundsTransfer(
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "transactions") var transactions:  Set<Transaction>? = null,
     @Enumerated(EnumType.STRING) var method: PaymentMethod? = null,
     @Enumerated(EnumType.STRING) var status: PaymentStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class StandingInstruction(
@@ -312,7 +312,7 @@ class StandingInstruction(
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "beneficiary") var beneficiary: ExternalAccount? = null,
     @Enumerated(EnumType.STRING) var frequency: StandingInstructionFrequency? = null,
     @Enumerated(EnumType.STRING) var status: StandingInstructionStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class PaymentCard(
@@ -331,7 +331,7 @@ class PaymentCard(
     @Enumerated(EnumType.STRING) var cardType: CardType? = null,
     @Enumerated(EnumType.STRING) var cardStatus: CardStatus? = null,
     @Enumerated(EnumType.STRING) var network: CardNetwork? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class LoanAccount(
@@ -367,7 +367,7 @@ class LoanAccount(
     @Enumerated(EnumType.STRING) var rateType: RateType? = null,
     @Enumerated(EnumType.STRING) var compounding: InterestCompounding? = null,
     @Enumerated(EnumType.STRING) var status: LoanStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class RepaymentSchedule(
@@ -392,7 +392,7 @@ class RepaymentSchedule(
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "loanAccount") var loanAccount: LoanAccount? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "payment") var payment: LoanPayment? = null,
     @Enumerated(EnumType.STRING) var status: InstallmentStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class LoanPayment(
@@ -408,7 +408,7 @@ class LoanPayment(
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "transaction") var transaction: Transaction? = null,
     @Enumerated(EnumType.STRING) var method: PaymentMethod? = null,
     @Enumerated(EnumType.STRING) var status: PaymentStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class Collateral(
@@ -429,7 +429,7 @@ class Collateral(
     var location: Address? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "loanAccount") var loanAccount: LoanAccount? = null,
     @Enumerated(EnumType.STRING) var collateralType: CollateralType? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class FeeCharge(
@@ -444,7 +444,7 @@ class FeeCharge(
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "account") var account: Account? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "loanAccount") var loanAccount: LoanAccount? = null,
     @Enumerated(EnumType.STRING) var feeType: FeeType? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class ExchangeRate(
@@ -456,7 +456,7 @@ class ExchangeRate(
     var source: String? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "bank") var bank: Bank? = null,
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "fxTrades") var fxTrades:  Set<FXTrade>? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class FXTrade(
@@ -482,7 +482,7 @@ class FXTrade(
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "destinationAccount") var destinationAccount: Account? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "transaction") var transaction: Transaction? = null,
     @Enumerated(EnumType.STRING) var status: TradeStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class Dispute(
@@ -495,7 +495,7 @@ class Dispute(
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "account") var account: Account? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "paymentCard") var paymentCard: PaymentCard? = null,
     @Enumerated(EnumType.STRING) var status: DisputeStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class Consent(
@@ -508,7 +508,7 @@ class Consent(
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "thirdPartyProvider") var thirdPartyProvider: ThirdPartyProvider? = null,
     @Enumerated(EnumType.STRING) var consentType: ConsentType? = null,
     @Enumerated(EnumType.STRING) var status: ConsentStatus? = null
-) ${$deriveFromForAuditing}
+) 
 
 @Entity
 class ThirdPartyProvider(
@@ -518,6 +518,6 @@ class ThirdPartyProvider(
     var website: String? = null,
     @OneToOne(fetch = FetchType.EAGER) @JoinColumn(name = "bank") var bank: Bank? = null,
     @OneToMany(fetch = FetchType.EAGER) @JoinColumn(name = "consents") var consents:  Set<Consent>? = null
-) ${$deriveFromForAuditing}
+) 
 
 

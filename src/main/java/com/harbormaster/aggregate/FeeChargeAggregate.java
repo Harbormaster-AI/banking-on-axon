@@ -67,9 +67,9 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateFeeChargeEvent</li>
  *      <li>DeleteFeeChargeEvent</li>
    *       <li>AssignAccountToFeeChargeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignAccountFromFeeChargeEvent</li>
   *       <li>AssignLoanAccountToFeeChargeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignLoanAccountFromFeeChargeEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -214,10 +214,10 @@ public class FeeChargeAggregate {
     @AggregateIdentifier
     private UUID feeChargeId;
     
-    private String feeCode;
-    private Money amount;
-    private  Date appliedOn;
-    private FeeType feeType;
+    private                                                                                         String feeCode;
+    private                                                                 Money amount;
+    private                                                                                                                          Date appliedOn;
+    private                                                                 FeeType feeType;
     private Account account = null;
     private LoanAccount loanAccount = null;
 

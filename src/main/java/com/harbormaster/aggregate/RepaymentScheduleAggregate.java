@@ -67,9 +67,9 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateRepaymentScheduleEvent</li>
  *      <li>DeleteRepaymentScheduleEvent</li>
    *       <li>AssignLoanAccountToRepaymentScheduleEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignLoanAccountFromRepaymentScheduleEvent</li>
   *       <li>AssignPaymentToRepaymentScheduleEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignPaymentFromRepaymentScheduleEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -218,12 +218,12 @@ public class RepaymentScheduleAggregate {
     @AggregateIdentifier
     private UUID repaymentScheduleId;
     
-    private Int installmentNumber;
-    private  Date dueDate;
-    private Money principalDue;
-    private Money interestDue;
-    private Money totalDue;
-    private InstallmentStatus status;
+    private                                                                                         int installmentNumber;
+    private                                                                                                                          Date dueDate;
+    private                                                                 Money principalDue;
+    private                                                                 Money interestDue;
+    private                                                                 Money totalDue;
+    private                                                                 InstallmentStatus status;
     private LoanAccount loanAccount = null;
     private LoanPayment payment = null;
 

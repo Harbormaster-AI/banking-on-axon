@@ -65,7 +65,7 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateIdentityDocumentEvent</li>
  *      <li>DeleteIdentityDocumentEvent</li>
    *       <li>AssignKycProfileToIdentityDocumentEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignKycProfileFromIdentityDocumentEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -178,10 +178,10 @@ public class IdentityDocumentAggregate {
     @AggregateIdentifier
     private UUID identityDocumentId;
     
-    private String documentNumber;
-    private String issuingCountry;
-    private  Date expirationDate;
-    private IdentityDocumentType documentType;
+    private                                                                                         String documentNumber;
+    private                                                                                         String issuingCountry;
+    private                                                                                                                          Date expirationDate;
+    private                                                                 IdentityDocumentType documentType;
     private KycProfile kycProfile = null;
 
     private static final Logger LOGGER 	= Logger.getLogger(IdentityDocumentAggregate.class.getName());

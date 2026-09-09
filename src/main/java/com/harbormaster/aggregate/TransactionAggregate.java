@@ -75,17 +75,17 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateTransactionEvent</li>
  *      <li>DeleteTransactionEvent</li>
    *       <li>AssignAccountToTransactionEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignAccountFromTransactionEvent</li>
   *       <li>AssignExternalCounterpartyToTransactionEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignExternalCounterpartyFromTransactionEvent</li>
   *       <li>AssignPaymentCardToTransactionEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignPaymentCardFromTransactionEvent</li>
   *       <li>AssignFundsTransferToTransactionEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignFundsTransferFromTransactionEvent</li>
   *       <li>AssignFxTradeToTransactionEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignFxTradeFromTransactionEvent</li>
   *       <li>AssignDisputeToTransactionEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignDisputeFromTransactionEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -366,14 +366,14 @@ public class TransactionAggregate {
     @AggregateIdentifier
     private UUID transactionId;
     
-    private  Date bookingDate;
-    private  Date valueDate;
-    private Money amount;
-    private String description;
-    private TransactionDirection direction;
-    private TransactionType transactionType;
-    private TransactionStatus status;
-    private ChannelType channel;
+    private                                                                                                                          Date bookingDate;
+    private                                                                                                                          Date valueDate;
+    private                                                                 Money amount;
+    private                                                                                         String description;
+    private                                                                 TransactionDirection direction;
+    private                                                                 TransactionType transactionType;
+    private                                                                 TransactionStatus status;
+    private                                                                 ChannelType channel;
     private Account account = null;
     private ExternalAccount externalCounterparty = null;
     private PaymentCard paymentCard = null;

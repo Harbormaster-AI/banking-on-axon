@@ -65,7 +65,7 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateATMEvent</li>
  *      <li>DeleteATMEvent</li>
    *       <li>AssignBranchToATMEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBranchFromATMEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -176,9 +176,9 @@ public class ATMAggregate {
     @AggregateIdentifier
     private UUID aTMId;
     
-    private String terminalId;
-    private Address location;
-    private ATMStatus status;
+    private                                                                                         String terminalId;
+    private                                                                 Address location;
+    private                                                                 ATMStatus status;
     private Branch branch = null;
 
     private static final Logger LOGGER 	= Logger.getLogger(ATMAggregate.class.getName());

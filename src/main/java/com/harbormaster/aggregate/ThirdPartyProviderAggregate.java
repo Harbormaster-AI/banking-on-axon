@@ -72,7 +72,7 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateThirdPartyProviderEvent</li>
  *      <li>DeleteThirdPartyProviderEvent</li>
    *       <li>AssignBankToThirdPartyProviderEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBankFromThirdPartyProviderEvent</li>
    *       <li>AssignConsentsToThirdPartyProviderEvent</li>
  *       <li>RemoveConsentsFromThirdPartyProviderEvent</li>
   *        </ul>
@@ -218,9 +218,9 @@ public class ThirdPartyProviderAggregate {
     @AggregateIdentifier
     private UUID thirdPartyProviderId;
     
-    private String name;
-    private String registrationId;
-    private String website;
+    private                                                                                         String name;
+    private                                                                                         String registrationId;
+    private                                                                                         String website;
     private Bank bank = null;
     private Set<Consent> consents = new HashSet<>();
 

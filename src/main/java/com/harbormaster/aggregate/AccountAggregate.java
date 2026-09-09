@@ -104,11 +104,11 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateAccountEvent</li>
  *      <li>DeleteAccountEvent</li>
    *       <li>AssignBankToAccountEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBankFromAccountEvent</li>
   *       <li>AssignBranchToAccountEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBranchFromAccountEvent</li>
   *       <li>AssignProductToAccountEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignProductFromAccountEvent</li>
    *       <li>AssignOwnersToAccountEvent</li>
  *       <li>RemoveOwnersFromAccountEvent</li>
   *       <li>AssignTransactionsToAccountEvent</li>
@@ -470,15 +470,15 @@ public class AccountAggregate {
     @AggregateIdentifier
     private UUID accountId;
     
-    private AccountNumber accountNumber;
-    private IBAN iban;
-    private String accountName;
-    private String currency;
-    private  Date openedOn;
-    private  Date closedOn;
-    private AccountType accountType;
-    private AccountOwnershipType ownershipType;
-    private AccountStatus status;
+    private                                                                 AccountNumber accountNumber;
+    private                                                                 IBAN iban;
+    private                                                                                         String accountName;
+    private                                                                                         String currency;
+    private                                                                                                                          Date openedOn;
+    private                                                                                                                          Date closedOn;
+    private                                                                 AccountType accountType;
+    private                                                                 AccountOwnershipType ownershipType;
+    private                                                                 AccountStatus status;
     private Bank bank = null;
     private Branch branch = null;
     private BankingProduct product = null;

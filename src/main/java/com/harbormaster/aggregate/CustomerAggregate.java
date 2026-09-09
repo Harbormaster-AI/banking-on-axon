@@ -121,7 +121,7 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateCustomerEvent</li>
  *      <li>DeleteCustomerEvent</li>
    *       <li>AssignBankToCustomerEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBankFromCustomerEvent</li>
    *       <li>AssignAccountsToCustomerEvent</li>
  *       <li>RemoveAccountsFromCustomerEvent</li>
   *       <li>AssignLoanAccountsToCustomerEvent</li>
@@ -528,17 +528,17 @@ public class CustomerAggregate {
     @AggregateIdentifier
     private UUID customerId;
     
-    private String firstName;
-    private String lastName;
-    private String legalName;
-    private  Date dateOfBirth;
-    private String taxId;
-    private String email;
-    private String phone;
-    private Address address;
-    private CustomerType customerType;
-    private RiskRating riskRating;
-    private KycStatus kycStatus;
+    private                                                                                         String firstName;
+    private                                                                                         String lastName;
+    private                                                                                         String legalName;
+    private                                                                                                                          Date dateOfBirth;
+    private                                                                                         String taxId;
+    private                                                                                         String email;
+    private                                                                                         String phone;
+    private                                                                 Address address;
+    private                                                                 CustomerType customerType;
+    private                                                                 RiskRating riskRating;
+    private                                                                 KycStatus kycStatus;
     private Bank bank = null;
     private Set<Account> accounts = new HashSet<>();
     private Set<LoanAccount> loanAccounts = new HashSet<>();

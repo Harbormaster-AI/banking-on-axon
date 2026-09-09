@@ -86,7 +86,7 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateKycProfileEvent</li>
  *      <li>DeleteKycProfileEvent</li>
    *       <li>AssignCustomerToKycProfileEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignCustomerFromKycProfileEvent</li>
    *       <li>AssignIdentityDocumentsToKycProfileEvent</li>
  *       <li>RemoveIdentityDocumentsFromKycProfileEvent</li>
   *       <li>AssignRiskAssessmentsToKycProfileEvent</li>
@@ -302,9 +302,9 @@ public class KycProfileAggregate {
     @AggregateIdentifier
     private UUID kycProfileId;
     
-    private String profileId;
-    private  Date lastReviewedOn;
-    private KycStatus status;
+    private                                                                                         String profileId;
+    private                                                                                                                          Date lastReviewedOn;
+    private                                                                 KycStatus status;
     private Customer customer = null;
     private Set<IdentityDocument> identityDocuments = new HashSet<>();
     private Set<RiskAssessment> riskAssessments = new HashSet<>();

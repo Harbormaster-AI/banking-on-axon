@@ -75,17 +75,17 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateFXTradeEvent</li>
  *      <li>DeleteFXTradeEvent</li>
    *       <li>AssignCustomerToFXTradeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignCustomerFromFXTradeEvent</li>
   *       <li>AssignBankToFXTradeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBankFromFXTradeEvent</li>
   *       <li>AssignExchangeRateToFXTradeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignExchangeRateFromFXTradeEvent</li>
   *       <li>AssignSourceAccountToFXTradeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignSourceAccountFromFXTradeEvent</li>
   *       <li>AssignDestinationAccountToFXTradeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignDestinationAccountFromFXTradeEvent</li>
   *       <li>AssignTransactionToFXTradeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignTransactionFromFXTradeEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -364,13 +364,13 @@ public class FXTradeAggregate {
     @AggregateIdentifier
     private UUID fXTradeId;
     
-    private String tradeReference;
-    private  Date tradeDate;
-    private  Date settlementDate;
-    private Money amountSold;
-    private Money amountBought;
-    private java.math.BigDecimal rate;
-    private TradeStatus status;
+    private                                                                                         String tradeReference;
+    private                                                                                                                          Date tradeDate;
+    private                                                                                                                          Date settlementDate;
+    private                                                                 Money amountSold;
+    private                                                                 Money amountBought;
+    private                                                                                                                          Date rate;
+    private                                                                 TradeStatus status;
     private Customer customer = null;
     private Bank bank = null;
     private ExchangeRate exchangeRate = null;

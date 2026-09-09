@@ -86,7 +86,7 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateBankingProductEvent</li>
  *      <li>DeleteBankingProductEvent</li>
    *       <li>AssignBankToBankingProductEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBankFromBankingProductEvent</li>
    *       <li>AssignAccountsToBankingProductEvent</li>
  *       <li>RemoveAccountsFromBankingProductEvent</li>
   *       <li>AssignLoanAccountsToBankingProductEvent</li>
@@ -304,10 +304,10 @@ public class BankingProductAggregate {
     @AggregateIdentifier
     private UUID bankingProductId;
     
-    private String productCode;
-    private String name;
-    private String description;
-    private ProductCategory productCategory;
+    private                                                                                         String productCode;
+    private                                                                                         String name;
+    private                                                                                         String description;
+    private                                                                 ProductCategory productCategory;
     private Bank bank = null;
     private Set<Account> accounts = new HashSet<>();
     private Set<LoanAccount> loanAccounts = new HashSet<>();

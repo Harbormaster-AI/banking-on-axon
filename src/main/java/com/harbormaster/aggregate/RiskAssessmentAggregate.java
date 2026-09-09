@@ -65,7 +65,7 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateRiskAssessmentEvent</li>
  *      <li>DeleteRiskAssessmentEvent</li>
    *       <li>AssignKycProfileToRiskAssessmentEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignKycProfileFromRiskAssessmentEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -176,9 +176,9 @@ public class RiskAssessmentAggregate {
     @AggregateIdentifier
     private UUID riskAssessmentId;
     
-    private Int score;
-    private  Date assessedOn;
-    private RiskRating rating;
+    private                                                                                         int score;
+    private                                                                                                                          Date assessedOn;
+    private                                                                 RiskRating rating;
     private KycProfile kycProfile = null;
 
     private static final Logger LOGGER 	= Logger.getLogger(RiskAssessmentAggregate.class.getName());

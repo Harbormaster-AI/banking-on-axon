@@ -67,9 +67,9 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateStandingInstructionEvent</li>
  *      <li>DeleteStandingInstructionEvent</li>
    *       <li>AssignAccountToStandingInstructionEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignAccountFromStandingInstructionEvent</li>
   *       <li>AssignBeneficiaryToStandingInstructionEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBeneficiaryFromStandingInstructionEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -216,11 +216,11 @@ public class StandingInstructionAggregate {
     @AggregateIdentifier
     private UUID standingInstructionId;
     
-    private String instructionId;
-    private Money amount;
-    private  Date nextExecutionDate;
-    private StandingInstructionFrequency frequency;
-    private StandingInstructionStatus status;
+    private                                                                                         String instructionId;
+    private                                                                 Money amount;
+    private                                                                                                                          Date nextExecutionDate;
+    private                                                                 StandingInstructionFrequency frequency;
+    private                                                                 StandingInstructionStatus status;
     private Account account = null;
     private ExternalAccount beneficiary = null;
 

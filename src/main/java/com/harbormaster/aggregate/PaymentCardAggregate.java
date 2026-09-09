@@ -76,11 +76,11 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdatePaymentCardEvent</li>
  *      <li>DeletePaymentCardEvent</li>
    *       <li>AssignBankToPaymentCardEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBankFromPaymentCardEvent</li>
   *       <li>AssignAccountToPaymentCardEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignAccountFromPaymentCardEvent</li>
   *       <li>AssignCustomerToPaymentCardEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignCustomerFromPaymentCardEvent</li>
    *       <li>AssignTransactionsToPaymentCardEvent</li>
  *       <li>RemoveTransactionsFromPaymentCardEvent</li>
   *        </ul>
@@ -298,13 +298,13 @@ public class PaymentCardAggregate {
     @AggregateIdentifier
     private UUID paymentCardId;
     
-    private CardPAN cardNumber;
-    private String embossedName;
-    private Int expiryMonth;
-    private Int expiryYear;
-    private CardType cardType;
-    private CardStatus cardStatus;
-    private CardNetwork network;
+    private                                                                 CardPAN cardNumber;
+    private                                                                                         String embossedName;
+    private                                                                                         int expiryMonth;
+    private                                                                                         int expiryYear;
+    private                                                                 CardType cardType;
+    private                                                                 CardStatus cardStatus;
+    private                                                                 CardNetwork network;
     private Bank bank = null;
     private Account account = null;
     private Customer customer = null;

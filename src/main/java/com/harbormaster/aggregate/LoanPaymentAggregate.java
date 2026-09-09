@@ -67,9 +67,9 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateLoanPaymentEvent</li>
  *      <li>DeleteLoanPaymentEvent</li>
    *       <li>AssignLoanAccountToLoanPaymentEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignLoanAccountFromLoanPaymentEvent</li>
   *       <li>AssignTransactionToLoanPaymentEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignTransactionFromLoanPaymentEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -216,11 +216,11 @@ public class LoanPaymentAggregate {
     @AggregateIdentifier
     private UUID loanPaymentId;
     
-    private String paymentReference;
-    private Money amount;
-    private  Date paymentDate;
-    private PaymentMethod method;
-    private PaymentStatus status;
+    private                                                                                         String paymentReference;
+    private                                                                 Money amount;
+    private                                                                                                                          Date paymentDate;
+    private                                                                 PaymentMethod method;
+    private                                                                 PaymentStatus status;
     private LoanAccount loanAccount = null;
     private Transaction transaction = null;
 

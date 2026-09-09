@@ -78,13 +78,13 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateFundsTransferEvent</li>
  *      <li>DeleteFundsTransferEvent</li>
    *       <li>AssignSourceAccountToFundsTransferEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignSourceAccountFromFundsTransferEvent</li>
   *       <li>AssignDestinationAccountToFundsTransferEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignDestinationAccountFromFundsTransferEvent</li>
   *       <li>AssignExternalBeneficiaryToFundsTransferEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignExternalBeneficiaryFromFundsTransferEvent</li>
   *       <li>AssignInitiatedByToFundsTransferEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignInitiatedByFromFundsTransferEvent</li>
    *       <li>AssignTransactionsToFundsTransferEvent</li>
  *       <li>RemoveTransactionsFromFundsTransferEvent</li>
   *        </ul>
@@ -336,14 +336,14 @@ public class FundsTransferAggregate {
     @AggregateIdentifier
     private UUID fundsTransferId;
     
-    private String transferReference;
-    private Money amount;
-    private  Date requestedDate;
-    private  Date executionDate;
-    private String purpose;
-    private Money feeAmount;
-    private PaymentMethod method;
-    private PaymentStatus status;
+    private                                                                                         String transferReference;
+    private                                                                 Money amount;
+    private                                                                                                                          Date requestedDate;
+    private                                                                                                                          Date executionDate;
+    private                                                                                         String purpose;
+    private                                                                 Money feeAmount;
+    private                                                                 PaymentMethod method;
+    private                                                                 PaymentStatus status;
     private Account sourceAccount = null;
     private Account destinationAccount = null;
     private ExternalAccount externalBeneficiary = null;

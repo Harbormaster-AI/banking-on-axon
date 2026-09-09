@@ -71,13 +71,13 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateDisputeEvent</li>
  *      <li>DeleteDisputeEvent</li>
    *       <li>AssignTransactionToDisputeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignTransactionFromDisputeEvent</li>
   *       <li>AssignCustomerToDisputeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignCustomerFromDisputeEvent</li>
   *       <li>AssignAccountToDisputeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignAccountFromDisputeEvent</li>
   *       <li>AssignPaymentCardToDisputeEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignPaymentCardFromDisputeEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -286,10 +286,10 @@ public class DisputeAggregate {
     @AggregateIdentifier
     private UUID disputeId;
     
-    private String disputeReference;
-    private  Date raisedOn;
-    private String reason;
-    private DisputeStatus status;
+    private                                                                                         String disputeReference;
+    private                                                                                                                          Date raisedOn;
+    private                                                                                         String reason;
+    private                                                                 DisputeStatus status;
     private Transaction transaction = null;
     private Customer customer = null;
     private Account account = null;

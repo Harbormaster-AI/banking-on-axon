@@ -65,7 +65,7 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateCollateralEvent</li>
  *      <li>DeleteCollateralEvent</li>
    *       <li>AssignLoanAccountToCollateralEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignLoanAccountFromCollateralEvent</li>
    *        </ul>
  *
  * <p>@author Harbormaster Dev Team</p>
@@ -178,10 +178,10 @@ public class CollateralAggregate {
     @AggregateIdentifier
     private UUID collateralId;
     
-    private Money appraisedValue;
-    private String description;
-    private Address location;
-    private CollateralType collateralType;
+    private                                                                 Money appraisedValue;
+    private                                                                                         String description;
+    private                                                                 Address location;
+    private                                                                 CollateralType collateralType;
     private LoanAccount loanAccount = null;
 
     private static final Logger LOGGER 	= Logger.getLogger(CollateralAggregate.class.getName());

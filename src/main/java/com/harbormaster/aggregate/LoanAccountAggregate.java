@@ -104,11 +104,11 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateLoanAccountEvent</li>
  *      <li>DeleteLoanAccountEvent</li>
    *       <li>AssignBankToLoanAccountEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBankFromLoanAccountEvent</li>
   *       <li>AssignBranchToLoanAccountEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignBranchFromLoanAccountEvent</li>
   *       <li>AssignProductToLoanAccountEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignProductFromLoanAccountEvent</li>
    *       <li>AssignBorrowersToLoanAccountEvent</li>
  *       <li>RemoveBorrowersFromLoanAccountEvent</li>
   *       <li>AssignRepaymentScheduleToLoanAccountEvent</li>
@@ -476,18 +476,18 @@ public class LoanAccountAggregate {
     @AggregateIdentifier
     private UUID loanAccountId;
     
-    private String loanNumber;
-    private Money principalAmount;
-    private Money outstandingPrincipal;
-    private Percentage interestRate;
-    private  Date originationDate;
-    private  Date maturityDate;
-    private Int paymentDayOfMonth;
-    private String currency;
-    private LoanType loanType;
-    private RateType rateType;
-    private InterestCompounding compounding;
-    private LoanStatus status;
+    private                                                                                         String loanNumber;
+    private                                                                 Money principalAmount;
+    private                                                                 Money outstandingPrincipal;
+    private                                                                 Percentage interestRate;
+    private                                                                                                                          Date originationDate;
+    private                                                                                                                          Date maturityDate;
+    private                                                                                         int paymentDayOfMonth;
+    private                                                                                         String currency;
+    private                                                                 LoanType loanType;
+    private                                                                 RateType rateType;
+    private                                                                 InterestCompounding compounding;
+    private                                                                 LoanStatus status;
     private Bank bank = null;
     private Branch branch = null;
     private BankingProduct product = null;

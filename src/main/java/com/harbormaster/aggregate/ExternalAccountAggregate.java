@@ -72,7 +72,7 @@ import org.springframework.context.annotation.Profile;
  *      <li>UpdateExternalAccountEvent</li>
  *      <li>DeleteExternalAccountEvent</li>
    *       <li>AssignCustomerToExternalAccountEvent</li>
- *       $<li>{singleAssociation.getUnAssignFromEventAlias()}</li>
+ *       <li>UnAssignCustomerFromExternalAccountEvent</li>
    *       <li>AssignTransactionsToExternalAccountEvent</li>
  *       <li>RemoveTransactionsFromExternalAccountEvent</li>
   *        </ul>
@@ -224,12 +224,12 @@ public class ExternalAccountAggregate {
     @AggregateIdentifier
     private UUID externalAccountId;
     
-    private String name;
-    private IBAN iban;
-    private AccountNumber accountNumber;
-    private BIC bic;
-    private String bankName;
-    private String country;
+    private                                                                                         String name;
+    private                                                                 IBAN iban;
+    private                                                                 AccountNumber accountNumber;
+    private                                                                 BIC bic;
+    private                                                                                         String bankName;
+    private                                                                                         String country;
     private Customer customer = null;
     private Set<Transaction> transactions = new HashSet<>();
 

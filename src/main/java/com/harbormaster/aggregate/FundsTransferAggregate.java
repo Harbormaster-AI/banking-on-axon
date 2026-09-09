@@ -336,14 +336,14 @@ public class FundsTransferAggregate {
     @AggregateIdentifier
     private UUID fundsTransferId;
     
-    private String transferReference;
-    private Money amount;
-    private Date requestedDate;
-    private Date executionDate;
-    private String purpose;
-    private Money feeAmount;
-    private PaymentMethod method;
-    private PaymentStatus status;
+    private  Set<${attribute.getAssociation().getType()}> transferReference;
+    private  Set<${attribute.getAssociation().getType()}> amount;
+    private  Set<${attribute.getAssociation().getType()}> requestedDate;
+    private  Set<${attribute.getAssociation().getType()}> executionDate;
+    private  Set<${attribute.getAssociation().getType()}> purpose;
+    private  Set<${attribute.getAssociation().getType()}> feeAmount;
+    private  Set<${attribute.getAssociation().getType()}> method;
+    private  Set<${attribute.getAssociation().getType()}> status;
     private Account sourceAccount = null;
     private Account destinationAccount = null;
     private ExternalAccount externalBeneficiary = null;

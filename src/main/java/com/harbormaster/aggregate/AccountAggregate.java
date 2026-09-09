@@ -470,15 +470,15 @@ public class AccountAggregate {
     @AggregateIdentifier
     private UUID accountId;
     
-    private AccountNumber accountNumber;
-    private IBAN iban;
-    private String accountName;
-    private String currency;
-    private Date openedOn;
-    private Date closedOn;
-    private AccountType accountType;
-    private AccountOwnershipType ownershipType;
-    private AccountStatus status;
+    private  Set<${attribute.getAssociation().getType()}> accountNumber;
+    private  Set<${attribute.getAssociation().getType()}> iban;
+    private  Set<${attribute.getAssociation().getType()}> accountName;
+    private  Set<${attribute.getAssociation().getType()}> currency;
+    private  Set<${attribute.getAssociation().getType()}> openedOn;
+    private  Set<${attribute.getAssociation().getType()}> closedOn;
+    private  Set<${attribute.getAssociation().getType()}> accountType;
+    private  Set<${attribute.getAssociation().getType()}> ownershipType;
+    private  Set<${attribute.getAssociation().getType()}> status;
     private Bank bank = null;
     private Branch branch = null;
     private BankingProduct product = null;

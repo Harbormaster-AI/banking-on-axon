@@ -222,11 +222,11 @@ public class ExchangeRateAggregate {
     @AggregateIdentifier
     private UUID exchangeRateId;
     
-    private String baseCurrency;
-    private String counterCurrency;
-    private java.math.BigDecimal rate;
-    private Date asOf;
-    private String source;
+    private  Set<${attribute.getAssociation().getType()}> baseCurrency;
+    private  Set<${attribute.getAssociation().getType()}> counterCurrency;
+    private  Set<${attribute.getAssociation().getType()}> rate;
+    private  Set<${attribute.getAssociation().getType()}> asOf;
+    private  Set<${attribute.getAssociation().getType()}> source;
     private Bank bank = null;
     private Set<FXTrade> fxTrades = new HashSet<>();
 

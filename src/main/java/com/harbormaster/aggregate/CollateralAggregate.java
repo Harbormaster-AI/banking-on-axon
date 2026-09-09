@@ -178,10 +178,10 @@ public class CollateralAggregate {
     @AggregateIdentifier
     private UUID collateralId;
     
-    private Money appraisedValue;
-    private String description;
-    private Address location;
-    private CollateralType collateralType;
+    private  Set<${attribute.getAssociation().getType()}> appraisedValue;
+    private  Set<${attribute.getAssociation().getType()}> description;
+    private  Set<${attribute.getAssociation().getType()}> location;
+    private  Set<${attribute.getAssociation().getType()}> collateralType;
     private LoanAccount loanAccount = null;
 
     private static final Logger LOGGER 	= Logger.getLogger(CollateralAggregate.class.getName());

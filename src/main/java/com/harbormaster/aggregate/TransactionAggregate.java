@@ -366,14 +366,14 @@ public class TransactionAggregate {
     @AggregateIdentifier
     private UUID transactionId;
     
-    private Date bookingDate;
-    private Date valueDate;
-    private Money amount;
-    private String description;
-    private TransactionDirection direction;
-    private TransactionType transactionType;
-    private TransactionStatus status;
-    private ChannelType channel;
+    private  Set<${attribute.getAssociation().getType()}> bookingDate;
+    private  Set<${attribute.getAssociation().getType()}> valueDate;
+    private  Set<${attribute.getAssociation().getType()}> amount;
+    private  Set<${attribute.getAssociation().getType()}> description;
+    private  Set<${attribute.getAssociation().getType()}> direction;
+    private  Set<${attribute.getAssociation().getType()}> transactionType;
+    private  Set<${attribute.getAssociation().getType()}> status;
+    private  Set<${attribute.getAssociation().getType()}> channel;
     private Account account = null;
     private ExternalAccount externalCounterparty = null;
     private PaymentCard paymentCard = null;

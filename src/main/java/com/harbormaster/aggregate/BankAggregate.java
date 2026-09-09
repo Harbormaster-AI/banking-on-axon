@@ -522,11 +522,11 @@ public class BankAggregate {
     @AggregateIdentifier
     private UUID bankId;
     
-    private String name;
-    private String legalName;
-    private BIC swiftBic;
-    private String headquartersCountry;
-    private String website;
+    private  Set<${attribute.getAssociation().getType()}> name;
+    private  Set<${attribute.getAssociation().getType()}> legalName;
+    private  Set<${attribute.getAssociation().getType()}> swiftBic;
+    private  Set<${attribute.getAssociation().getType()}> headquartersCountry;
+    private  Set<${attribute.getAssociation().getType()}> website;
     private Set<Branch> branches = new HashSet<>();
     private Set<BankingProduct> products = new HashSet<>();
     private Set<Customer> customers = new HashSet<>();

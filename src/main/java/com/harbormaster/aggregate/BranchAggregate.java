@@ -306,11 +306,11 @@ public class BranchAggregate {
     @AggregateIdentifier
     private UUID branchId;
     
-    private String name;
-    private String branchCode;
-    private Address address;
-    private String phone;
-    private String openingHours;
+    private  Set<${attribute.getAssociation().getType()}> name;
+    private  Set<${attribute.getAssociation().getType()}> branchCode;
+    private  Set<${attribute.getAssociation().getType()}> address;
+    private  Set<${attribute.getAssociation().getType()}> phone;
+    private  Set<${attribute.getAssociation().getType()}> openingHours;
     private Bank bank = null;
     private Set<Account> accounts = new HashSet<>();
     private Set<LoanAccount> loanAccounts = new HashSet<>();

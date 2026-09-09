@@ -216,11 +216,11 @@ public class StandingInstructionAggregate {
     @AggregateIdentifier
     private UUID standingInstructionId;
     
-    private String instructionId;
-    private Money amount;
-    private Date nextExecutionDate;
-    private StandingInstructionFrequency frequency;
-    private StandingInstructionStatus status;
+    private  Set<${attribute.getAssociation().getType()}> instructionId;
+    private  Set<${attribute.getAssociation().getType()}> amount;
+    private  Set<${attribute.getAssociation().getType()}> nextExecutionDate;
+    private  Set<${attribute.getAssociation().getType()}> frequency;
+    private  Set<${attribute.getAssociation().getType()}> status;
     private Account account = null;
     private ExternalAccount beneficiary = null;
 

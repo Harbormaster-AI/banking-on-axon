@@ -214,10 +214,10 @@ public class FeeChargeAggregate {
     @AggregateIdentifier
     private UUID feeChargeId;
     
-    private String feeCode;
-    private Money amount;
-    private Date appliedOn;
-    private FeeType feeType;
+    private  Set<${attribute.getAssociation().getType()}> feeCode;
+    private  Set<${attribute.getAssociation().getType()}> amount;
+    private  Set<${attribute.getAssociation().getType()}> appliedOn;
+    private  Set<${attribute.getAssociation().getType()}> feeType;
     private Account account = null;
     private LoanAccount loanAccount = null;
 

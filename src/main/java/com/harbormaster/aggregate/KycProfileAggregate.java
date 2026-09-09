@@ -302,9 +302,9 @@ public class KycProfileAggregate {
     @AggregateIdentifier
     private UUID kycProfileId;
     
-    private String profileId;
-    private Date lastReviewedOn;
-    private KycStatus status;
+    private  Set<${attribute.getAssociation().getType()}> profileId;
+    private  Set<${attribute.getAssociation().getType()}> lastReviewedOn;
+    private  Set<${attribute.getAssociation().getType()}> status;
     private Customer customer = null;
     private Set<IdentityDocument> identityDocuments = new HashSet<>();
     private Set<RiskAssessment> riskAssessments = new HashSet<>();

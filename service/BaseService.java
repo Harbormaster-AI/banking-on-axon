@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.BeansException;
 
 /**
- * Base class for application business delegates.
+ * Base class for application business service.
  * <p>
  * @author Harbormaster Dev Team
  */

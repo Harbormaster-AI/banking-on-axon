@@ -6,7 +6,7 @@ LABEL org.opencontainers.image.version="0.0.1"
 LABEL com.harbormaster.blueprint="Axon4-Framework-Server"
 LABEL com.harbormaster.model="Banking Industry Domain Model"
 LABEL com.harbormaster.generated="2026-09-08"
-#LABEL com.harbormaster.certification="e9bf9ac3-49e0-4401-8e77-29265c7a0893"
+#LABEL com.harbormaster.certification="a678dca7-de69-405d-8f34-c51b21cc9a36"
 
 RUN addgroup -S spring && adduser -S -G spring spring
 USER spring:spring

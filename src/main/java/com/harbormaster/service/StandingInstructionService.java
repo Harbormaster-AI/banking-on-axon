@@ -441,10 +441,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final StandingInstructionValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private StandingInstructionValidator validator;
 	private StandingInstruction standingInstruction 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(StandingInstructionService.class.getName());
     

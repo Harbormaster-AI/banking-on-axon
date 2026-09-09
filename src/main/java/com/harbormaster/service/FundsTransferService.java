@@ -629,10 +629,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final FundsTransferValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private FundsTransferValidator validator;
 	private FundsTransfer fundsTransfer 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(FundsTransferService.class.getName());
     

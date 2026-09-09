@@ -441,10 +441,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final LoanPaymentValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private LoanPaymentValidator validator;
 	private LoanPayment loanPayment 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(LoanPaymentService.class.getName());
     

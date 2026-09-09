@@ -685,10 +685,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final FXTradeValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private FXTradeValidator validator;
 	private FXTrade fXTrade 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(FXTradeService.class.getName());
     

@@ -446,10 +446,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final ExchangeRateValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private ExchangeRateValidator validator;
 	private ExchangeRate exchangeRate 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(ExchangeRateService.class.getName());
     

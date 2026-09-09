@@ -380,10 +380,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final ATMValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private ATMValidator validator;
 	private ATM aTM 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(ATMService.class.getName());
     

@@ -563,10 +563,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final DisputeValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private DisputeValidator validator;
 	private Dispute dispute 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(DisputeService.class.getName());
     

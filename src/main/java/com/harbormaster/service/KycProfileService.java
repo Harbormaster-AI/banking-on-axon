@@ -578,10 +578,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final KycProfileValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private KycProfileValidator validator;
 	private KycProfile kycProfile 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(KycProfileService.class.getName());
     

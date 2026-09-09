@@ -446,10 +446,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final ThirdPartyProviderValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private ThirdPartyProviderValidator validator;
 	private ThirdPartyProvider thirdPartyProvider 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(ThirdPartyProviderService.class.getName());
     

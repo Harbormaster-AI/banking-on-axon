@@ -441,10 +441,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final RepaymentScheduleValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private RepaymentScheduleValidator validator;
 	private RepaymentSchedule repaymentSchedule 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(RepaymentScheduleService.class.getName());
     

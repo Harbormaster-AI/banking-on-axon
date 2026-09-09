@@ -578,10 +578,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final BankingProductValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private BankingProductValidator validator;
 	private BankingProduct bankingProduct 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(BankingProductService.class.getName());
     

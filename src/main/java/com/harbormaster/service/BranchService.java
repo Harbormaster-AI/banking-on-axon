@@ -578,10 +578,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final BranchValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private BranchValidator validator;
 	private Branch branch 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(BranchService.class.getName());
     

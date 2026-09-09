@@ -908,10 +908,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final CustomerValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private CustomerValidator validator;
 	private Customer customer 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(CustomerService.class.getName());
     

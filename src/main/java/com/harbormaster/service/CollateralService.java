@@ -380,10 +380,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final CollateralValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private CollateralValidator validator;
 	private Collateral collateral 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(CollateralService.class.getName());
     

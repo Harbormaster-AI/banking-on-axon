@@ -568,10 +568,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final PaymentCardValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private PaymentCardValidator validator;
 	private PaymentCard paymentCard 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(PaymentCardService.class.getName());
     

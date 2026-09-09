@@ -446,10 +446,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final ExternalAccountValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private ExternalAccountValidator validator;
 	private ExternalAccount externalAccount 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(ExternalAccountService.class.getName());
     

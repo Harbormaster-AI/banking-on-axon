@@ -441,10 +441,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final FeeChargeValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private FeeChargeValidator validator;
 	private FeeCharge feeCharge 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(FeeChargeService.class.getName());
     

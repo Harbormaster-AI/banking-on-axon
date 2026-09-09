@@ -380,10 +380,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final IdentityDocumentValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private IdentityDocumentValidator validator;
 	private IdentityDocument identityDocument 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(IdentityDocumentService.class.getName());
     

@@ -568,10 +568,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final ConsentValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private ConsentValidator validator;
 	private Consent consent 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(ConsentService.class.getName());
     

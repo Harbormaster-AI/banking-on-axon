@@ -685,10 +685,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final TransactionValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private TransactionValidator validator;
 	private Transaction transaction 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(TransactionService.class.getName());
     

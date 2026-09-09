@@ -380,10 +380,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final RiskAssessmentValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private RiskAssessmentValidator validator;
 	private RiskAssessment riskAssessment 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(RiskAssessmentService.class.getName());
     

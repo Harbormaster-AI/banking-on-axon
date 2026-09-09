@@ -380,10 +380,10 @@ extends BaseService {
 //************************************************************************
 // Attributes
 //************************************************************************
-	private final QueryGateway queryGateway;
-	private final CommandGateway commandGateway;
-	private final QueryUpdateEmitter queryUpdateEmitter;
-	private final AccountStatementValidator validator;
+	private QueryGateway queryGateway;
+	private CommandGateway commandGateway;
+	private QueryUpdateEmitter queryUpdateEmitter;
+	private AccountStatementValidator validator;
 	private AccountStatement accountStatement 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(AccountStatementService.class.getName());
     

@@ -224,7 +224,7 @@ public class ExchangeRateAggregate {
     
     private String baseCurrency;
     private String counterCurrency;
-    private  String rate;
+    private java.math.BigDecimal rate;
     private  Date asOf;
     private String source;
     private Bank bank = null;

@@ -369,7 +369,7 @@ public class FXTradeAggregate {
     private  Date settlementDate;
     private Money amountSold;
     private Money amountBought;
-    private  String rate;
+    private java.math.BigDecimal rate;
     private TradeStatus status;
     private Customer customer = null;
     private Bank bank = null;

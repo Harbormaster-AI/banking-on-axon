@@ -36,7 +36,8 @@ import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-    
+
+import com.harbormaster.controller.*;
 /**
  * <h2>LoanAccountQueryRestController as REST API</h2>
  * <p>

@@ -224,7 +224,7 @@ public class ExchangeRateAggregate {
     
     private String baseCurrency;
     private String counterCurrency;
-    private  Date rate;
+    private  String rate;
     private  Date asOf;
     private String source;
     private Bank bank = null;

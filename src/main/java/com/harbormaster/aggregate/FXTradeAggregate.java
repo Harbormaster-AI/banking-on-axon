@@ -369,7 +369,7 @@ public class FXTradeAggregate {
     private  Date settlementDate;
     private Money amountSold;
     private Money amountBought;
-    private  Date rate;
+    private  String rate;
     private TradeStatus status;
     private Customer customer = null;
     private Bank bank = null;

@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/IdentityDocument")
 public class IdentityDocumentRestController extends BaseSpringRestController {
 
+	public IdentityDocumentRestController( IdentityDocumentService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a IdentityDocument.  if not key provided, calls create, otherwise calls save
      * @param		IdentityDocument	identityDocument
@@ -94,7 +98,7 @@ public class IdentityDocumentRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = IdentityDocumentService.getIdentityDocumentInstance().createIdentityDocument( command );
+			completableFuture = service.createIdentityDocument( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class IdentityDocumentRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateIdentityDocumentCommand
 			// -----------------------------------------------
-			completableFuture = IdentityDocumentService.getIdentityDocumentInstance().updateIdentityDocument(command);;
+			completableFuture = service.updateIdentityDocument(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "IdentityDocumentController:update() - successfully update IdentityDocument - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class IdentityDocumentRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteIdentityDocumentCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	IdentityDocumentService delegate = IdentityDocumentService.getIdentityDocumentInstance();
+        	IdentityDocumentService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted IdentityDocument with key " + command.getIdentityDocumentId() );
@@ -155,7 +159,7 @@ public class IdentityDocumentRestController extends BaseSpringRestController {
     	IdentityDocument entity = null;
 
     	try {  
-    		entity = IdentityDocumentService.getIdentityDocumentInstance().getIdentityDocument( new IdentityDocumentFetchOneSummary( uuid ) );   
+    		entity = service.getIdentityDocument( new IdentityDocumentFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load IdentityDocument using Id " + uuid );
@@ -175,7 +179,7 @@ public class IdentityDocumentRestController extends BaseSpringRestController {
         
     	try {
             // load the IdentityDocument
-            identityDocumentList = IdentityDocumentService.getIdentityDocumentInstance().getAllIdentityDocument();
+            identityDocumentList = service.getAllIdentityDocument();
             
             if ( identityDocumentList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all IdentityDocuments" );
@@ -196,7 +200,7 @@ public class IdentityDocumentRestController extends BaseSpringRestController {
 	@PutMapping("/assignKycProfile")
 	public void assignKycProfile( @RequestBody AssignKycProfileToIdentityDocumentCommand command ) {
 		try {
-			IdentityDocumentService.getIdentityDocumentInstance().assignKycProfile( command );   
+			service.assignKycProfile( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign KycProfile", exc );
@@ -210,7 +214,7 @@ public class IdentityDocumentRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignKycProfile")
 	public void unAssignKycProfile( @RequestBody(required=true)  UnAssignKycProfileFromIdentityDocumentCommand command ) {
 		try {
-			IdentityDocumentService.getIdentityDocumentInstance().unAssignKycProfile( command );   
+			service.unAssignKycProfile( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign KycProfile", exc );
@@ -225,6 +229,7 @@ public class IdentityDocumentRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected IdentityDocument identityDocument = null;
-    private static final Logger LOGGER = Logger.getLogger(IdentityDocumentRestController.class.getName());
+	protected IdentityDocumentService service = null;
+	private static final Logger LOGGER = Logger.getLogger(IdentityDocumentRestController.class.getName());
     
 }

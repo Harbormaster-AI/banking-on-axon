@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/DisputeQuery")
 public class DisputeQueryRestController extends BaseSpringRestController {
 	
+	public DisputeQueryRestController( DisputeService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a Dispute using a UUID
      * @param		UUID disputeId
@@ -95,7 +99,7 @@ public class DisputeQueryRestController extends BaseSpringRestController {
     	Dispute entity = null;
 
     	try {  
-    		entity = DisputeService.getDisputeInstance().getDispute( new DisputeFetchOneSummary( disputeId ) );
+    		entity = service.getDispute( new DisputeFetchOneSummary( disputeId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Dispute using Id " + disputeId );
@@ -115,7 +119,7 @@ public class DisputeQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Dispute
-            disputeList = DisputeService.getDisputeInstance().getAllDispute();
+            disputeList = service.getAllDispute();
             
             if ( disputeList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Disputes" );
@@ -135,6 +139,7 @@ public class DisputeQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected Dispute dispute = null;
+    protected DisputeService service = null;
     private static final Logger LOGGER = Logger.getLogger(DisputeQueryRestController.class.getName());
     
 }

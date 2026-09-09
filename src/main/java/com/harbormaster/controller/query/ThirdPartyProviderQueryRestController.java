@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/ThirdPartyProviderQuery")
 public class ThirdPartyProviderQueryRestController extends BaseSpringRestController {
 	
+	public ThirdPartyProviderQueryRestController( ThirdPartyProviderService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a ThirdPartyProvider using a UUID
      * @param		UUID thirdPartyProviderId
@@ -95,7 +99,7 @@ public class ThirdPartyProviderQueryRestController extends BaseSpringRestControl
     	ThirdPartyProvider entity = null;
 
     	try {  
-    		entity = ThirdPartyProviderService.getThirdPartyProviderInstance().getThirdPartyProvider( new ThirdPartyProviderFetchOneSummary( thirdPartyProviderId ) );
+    		entity = service.getThirdPartyProvider( new ThirdPartyProviderFetchOneSummary( thirdPartyProviderId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ThirdPartyProvider using Id " + thirdPartyProviderId );
@@ -115,7 +119,7 @@ public class ThirdPartyProviderQueryRestController extends BaseSpringRestControl
         
     	try {
             // load the ThirdPartyProvider
-            thirdPartyProviderList = ThirdPartyProviderService.getThirdPartyProviderInstance().getAllThirdPartyProvider();
+            thirdPartyProviderList = service.getAllThirdPartyProvider();
             
             if ( thirdPartyProviderList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ThirdPartyProviders" );
@@ -135,6 +139,7 @@ public class ThirdPartyProviderQueryRestController extends BaseSpringRestControl
 // Attributes
 //************************************************************************
     protected ThirdPartyProvider thirdPartyProvider = null;
+    protected ThirdPartyProviderService service = null;
     private static final Logger LOGGER = Logger.getLogger(ThirdPartyProviderQueryRestController.class.getName());
     
 }

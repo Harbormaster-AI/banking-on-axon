@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/TransactionQuery")
 public class TransactionQueryRestController extends BaseSpringRestController {
 	
+	public TransactionQueryRestController( TransactionService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a Transaction using a UUID
      * @param		UUID transactionId
@@ -95,7 +99,7 @@ public class TransactionQueryRestController extends BaseSpringRestController {
     	Transaction entity = null;
 
     	try {  
-    		entity = TransactionService.getTransactionInstance().getTransaction( new TransactionFetchOneSummary( transactionId ) );
+    		entity = service.getTransaction( new TransactionFetchOneSummary( transactionId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Transaction using Id " + transactionId );
@@ -115,7 +119,7 @@ public class TransactionQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Transaction
-            transactionList = TransactionService.getTransactionInstance().getAllTransaction();
+            transactionList = service.getAllTransaction();
             
             if ( transactionList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Transactions" );
@@ -135,6 +139,7 @@ public class TransactionQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected Transaction transaction = null;
+    protected TransactionService service = null;
     private static final Logger LOGGER = Logger.getLogger(TransactionQueryRestController.class.getName());
     
 }

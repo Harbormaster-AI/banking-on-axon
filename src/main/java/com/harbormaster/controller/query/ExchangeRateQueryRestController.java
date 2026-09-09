@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/ExchangeRateQuery")
 public class ExchangeRateQueryRestController extends BaseSpringRestController {
 	
+	public ExchangeRateQueryRestController( ExchangeRateService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a ExchangeRate using a UUID
      * @param		UUID exchangeRateId
@@ -95,7 +99,7 @@ public class ExchangeRateQueryRestController extends BaseSpringRestController {
     	ExchangeRate entity = null;
 
     	try {  
-    		entity = ExchangeRateService.getExchangeRateInstance().getExchangeRate( new ExchangeRateFetchOneSummary( exchangeRateId ) );
+    		entity = service.getExchangeRate( new ExchangeRateFetchOneSummary( exchangeRateId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ExchangeRate using Id " + exchangeRateId );
@@ -115,7 +119,7 @@ public class ExchangeRateQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the ExchangeRate
-            exchangeRateList = ExchangeRateService.getExchangeRateInstance().getAllExchangeRate();
+            exchangeRateList = service.getAllExchangeRate();
             
             if ( exchangeRateList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ExchangeRates" );
@@ -135,6 +139,7 @@ public class ExchangeRateQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected ExchangeRate exchangeRate = null;
+    protected ExchangeRateService service = null;
     private static final Logger LOGGER = Logger.getLogger(ExchangeRateQueryRestController.class.getName());
     
 }

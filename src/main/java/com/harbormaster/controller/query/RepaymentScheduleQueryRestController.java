@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/RepaymentScheduleQuery")
 public class RepaymentScheduleQueryRestController extends BaseSpringRestController {
 	
+	public RepaymentScheduleQueryRestController( RepaymentScheduleService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a RepaymentSchedule using a UUID
      * @param		UUID repaymentScheduleId
@@ -95,7 +99,7 @@ public class RepaymentScheduleQueryRestController extends BaseSpringRestControll
     	RepaymentSchedule entity = null;
 
     	try {  
-    		entity = RepaymentScheduleService.getRepaymentScheduleInstance().getRepaymentSchedule( new RepaymentScheduleFetchOneSummary( repaymentScheduleId ) );
+    		entity = service.getRepaymentSchedule( new RepaymentScheduleFetchOneSummary( repaymentScheduleId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load RepaymentSchedule using Id " + repaymentScheduleId );
@@ -115,7 +119,7 @@ public class RepaymentScheduleQueryRestController extends BaseSpringRestControll
         
     	try {
             // load the RepaymentSchedule
-            repaymentScheduleList = RepaymentScheduleService.getRepaymentScheduleInstance().getAllRepaymentSchedule();
+            repaymentScheduleList = service.getAllRepaymentSchedule();
             
             if ( repaymentScheduleList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all RepaymentSchedules" );
@@ -135,6 +139,7 @@ public class RepaymentScheduleQueryRestController extends BaseSpringRestControll
 // Attributes
 //************************************************************************
     protected RepaymentSchedule repaymentSchedule = null;
+    protected RepaymentScheduleService service = null;
     private static final Logger LOGGER = Logger.getLogger(RepaymentScheduleQueryRestController.class.getName());
     
 }

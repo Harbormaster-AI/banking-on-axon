@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/ConsentQuery")
 public class ConsentQueryRestController extends BaseSpringRestController {
 	
+	public ConsentQueryRestController( ConsentService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a Consent using a UUID
      * @param		UUID consentId
@@ -95,7 +99,7 @@ public class ConsentQueryRestController extends BaseSpringRestController {
     	Consent entity = null;
 
     	try {  
-    		entity = ConsentService.getConsentInstance().getConsent( new ConsentFetchOneSummary( consentId ) );
+    		entity = service.getConsent( new ConsentFetchOneSummary( consentId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Consent using Id " + consentId );
@@ -115,7 +119,7 @@ public class ConsentQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Consent
-            consentList = ConsentService.getConsentInstance().getAllConsent();
+            consentList = service.getAllConsent();
             
             if ( consentList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Consents" );
@@ -135,6 +139,7 @@ public class ConsentQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected Consent consent = null;
+    protected ConsentService service = null;
     private static final Logger LOGGER = Logger.getLogger(ConsentQueryRestController.class.getName());
     
 }

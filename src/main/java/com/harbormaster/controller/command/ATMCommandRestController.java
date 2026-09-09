@@ -100,7 +100,6 @@ public class ATMCommandRestController extends BaseSpringRestController {
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateATMCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createATM( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class ATMCommandRestController extends BaseSpringRestController {
 		DeleteATMCommand command = new DeleteATMCommand( aTMId );
 
     	try {
-        	ATMService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ATM with key " + command.getATMId() );
         }
         catch( Throwable exc ) {

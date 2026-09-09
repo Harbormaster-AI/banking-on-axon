@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/Collateral")
 public class CollateralRestController extends BaseSpringRestController {
 
+	public CollateralRestController( CollateralService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a Collateral.  if not key provided, calls create, otherwise calls save
      * @param		Collateral	collateral
@@ -94,7 +98,7 @@ public class CollateralRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = CollateralService.getCollateralInstance().createCollateral( command );
+			completableFuture = service.createCollateral( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class CollateralRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateCollateralCommand
 			// -----------------------------------------------
-			completableFuture = CollateralService.getCollateralInstance().updateCollateral(command);;
+			completableFuture = service.updateCollateral(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "CollateralController:update() - successfully update Collateral - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class CollateralRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteCollateralCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	CollateralService delegate = CollateralService.getCollateralInstance();
+        	CollateralService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Collateral with key " + command.getCollateralId() );
@@ -155,7 +159,7 @@ public class CollateralRestController extends BaseSpringRestController {
     	Collateral entity = null;
 
     	try {  
-    		entity = CollateralService.getCollateralInstance().getCollateral( new CollateralFetchOneSummary( uuid ) );   
+    		entity = service.getCollateral( new CollateralFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Collateral using Id " + uuid );
@@ -175,7 +179,7 @@ public class CollateralRestController extends BaseSpringRestController {
         
     	try {
             // load the Collateral
-            collateralList = CollateralService.getCollateralInstance().getAllCollateral();
+            collateralList = service.getAllCollateral();
             
             if ( collateralList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Collaterals" );
@@ -196,7 +200,7 @@ public class CollateralRestController extends BaseSpringRestController {
 	@PutMapping("/assignLoanAccount")
 	public void assignLoanAccount( @RequestBody AssignLoanAccountToCollateralCommand command ) {
 		try {
-			CollateralService.getCollateralInstance().assignLoanAccount( command );   
+			service.assignLoanAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign LoanAccount", exc );
@@ -210,7 +214,7 @@ public class CollateralRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignLoanAccount")
 	public void unAssignLoanAccount( @RequestBody(required=true)  UnAssignLoanAccountFromCollateralCommand command ) {
 		try {
-			CollateralService.getCollateralInstance().unAssignLoanAccount( command );   
+			service.unAssignLoanAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign LoanAccount", exc );
@@ -225,6 +229,7 @@ public class CollateralRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected Collateral collateral = null;
-    private static final Logger LOGGER = Logger.getLogger(CollateralRestController.class.getName());
+	protected CollateralService service = null;
+	private static final Logger LOGGER = Logger.getLogger(CollateralRestController.class.getName());
     
 }

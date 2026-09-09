@@ -100,7 +100,6 @@ public class CollateralCommandRestController extends BaseSpringRestController {
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateCollateralCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createCollateral( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class CollateralCommandRestController extends BaseSpringRestController {
 		DeleteCollateralCommand command = new DeleteCollateralCommand( collateralId );
 
     	try {
-        	CollateralService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Collateral with key " + command.getCollateralId() );
         }
         catch( Throwable exc ) {

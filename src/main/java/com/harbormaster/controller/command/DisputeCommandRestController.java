@@ -100,7 +100,6 @@ public class DisputeCommandRestController extends BaseSpringRestController {
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateDisputeCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createDispute( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class DisputeCommandRestController extends BaseSpringRestController {
 		DeleteDisputeCommand command = new DeleteDisputeCommand( disputeId );
 
     	try {
-        	DisputeService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Dispute with key " + command.getDisputeId() );
         }
         catch( Throwable exc ) {

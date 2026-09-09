@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/BankQuery")
 public class BankQueryRestController extends BaseSpringRestController {
 	
+	public BankQueryRestController( BankService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a Bank using a UUID
      * @param		UUID bankId
@@ -95,7 +99,7 @@ public class BankQueryRestController extends BaseSpringRestController {
     	Bank entity = null;
 
     	try {  
-    		entity = BankService.getBankInstance().getBank( new BankFetchOneSummary( bankId ) );
+    		entity = service.getBank( new BankFetchOneSummary( bankId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Bank using Id " + bankId );
@@ -115,7 +119,7 @@ public class BankQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Bank
-            bankList = BankService.getBankInstance().getAllBank();
+            bankList = service.getAllBank();
             
             if ( bankList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Banks" );
@@ -135,6 +139,7 @@ public class BankQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected Bank bank = null;
+    protected BankService service = null;
     private static final Logger LOGGER = Logger.getLogger(BankQueryRestController.class.getName());
     
 }

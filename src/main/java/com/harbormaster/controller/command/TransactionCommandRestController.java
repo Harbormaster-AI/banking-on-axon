@@ -100,7 +100,6 @@ public class TransactionCommandRestController extends BaseSpringRestController {
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateTransactionCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createTransaction( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class TransactionCommandRestController extends BaseSpringRestController {
 		DeleteTransactionCommand command = new DeleteTransactionCommand( transactionId );
 
     	try {
-        	TransactionService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Transaction with key " + command.getTransactionId() );
         }
         catch( Throwable exc ) {

@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/IdentityDocumentQuery")
 public class IdentityDocumentQueryRestController extends BaseSpringRestController {
 	
+	public IdentityDocumentQueryRestController( IdentityDocumentService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a IdentityDocument using a UUID
      * @param		UUID identityDocumentId
@@ -95,7 +99,7 @@ public class IdentityDocumentQueryRestController extends BaseSpringRestControlle
     	IdentityDocument entity = null;
 
     	try {  
-    		entity = IdentityDocumentService.getIdentityDocumentInstance().getIdentityDocument( new IdentityDocumentFetchOneSummary( identityDocumentId ) );
+    		entity = service.getIdentityDocument( new IdentityDocumentFetchOneSummary( identityDocumentId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load IdentityDocument using Id " + identityDocumentId );
@@ -115,7 +119,7 @@ public class IdentityDocumentQueryRestController extends BaseSpringRestControlle
         
     	try {
             // load the IdentityDocument
-            identityDocumentList = IdentityDocumentService.getIdentityDocumentInstance().getAllIdentityDocument();
+            identityDocumentList = service.getAllIdentityDocument();
             
             if ( identityDocumentList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all IdentityDocuments" );
@@ -135,6 +139,7 @@ public class IdentityDocumentQueryRestController extends BaseSpringRestControlle
 // Attributes
 //************************************************************************
     protected IdentityDocument identityDocument = null;
+    protected IdentityDocumentService service = null;
     private static final Logger LOGGER = Logger.getLogger(IdentityDocumentQueryRestController.class.getName());
     
 }

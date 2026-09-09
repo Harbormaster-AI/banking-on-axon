@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/FeeChargeQuery")
 public class FeeChargeQueryRestController extends BaseSpringRestController {
 	
+	public FeeChargeQueryRestController( FeeChargeService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a FeeCharge using a UUID
      * @param		UUID feeChargeId
@@ -95,7 +99,7 @@ public class FeeChargeQueryRestController extends BaseSpringRestController {
     	FeeCharge entity = null;
 
     	try {  
-    		entity = FeeChargeService.getFeeChargeInstance().getFeeCharge( new FeeChargeFetchOneSummary( feeChargeId ) );
+    		entity = service.getFeeCharge( new FeeChargeFetchOneSummary( feeChargeId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load FeeCharge using Id " + feeChargeId );
@@ -115,7 +119,7 @@ public class FeeChargeQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the FeeCharge
-            feeChargeList = FeeChargeService.getFeeChargeInstance().getAllFeeCharge();
+            feeChargeList = service.getAllFeeCharge();
             
             if ( feeChargeList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all FeeCharges" );
@@ -135,6 +139,7 @@ public class FeeChargeQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected FeeCharge feeCharge = null;
+    protected FeeChargeService service = null;
     private static final Logger LOGGER = Logger.getLogger(FeeChargeQueryRestController.class.getName());
     
 }

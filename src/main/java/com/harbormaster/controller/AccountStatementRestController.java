@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/AccountStatement")
 public class AccountStatementRestController extends BaseSpringRestController {
 
+	public AccountStatementRestController( AccountStatementService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a AccountStatement.  if not key provided, calls create, otherwise calls save
      * @param		AccountStatement	accountStatement
@@ -94,7 +98,7 @@ public class AccountStatementRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = AccountStatementService.getAccountStatementInstance().createAccountStatement( command );
+			completableFuture = service.createAccountStatement( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class AccountStatementRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateAccountStatementCommand
 			// -----------------------------------------------
-			completableFuture = AccountStatementService.getAccountStatementInstance().updateAccountStatement(command);;
+			completableFuture = service.updateAccountStatement(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "AccountStatementController:update() - successfully update AccountStatement - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class AccountStatementRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteAccountStatementCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	AccountStatementService delegate = AccountStatementService.getAccountStatementInstance();
+        	AccountStatementService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted AccountStatement with key " + command.getAccountStatementId() );
@@ -155,7 +159,7 @@ public class AccountStatementRestController extends BaseSpringRestController {
     	AccountStatement entity = null;
 
     	try {  
-    		entity = AccountStatementService.getAccountStatementInstance().getAccountStatement( new AccountStatementFetchOneSummary( uuid ) );   
+    		entity = service.getAccountStatement( new AccountStatementFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load AccountStatement using Id " + uuid );
@@ -175,7 +179,7 @@ public class AccountStatementRestController extends BaseSpringRestController {
         
     	try {
             // load the AccountStatement
-            accountStatementList = AccountStatementService.getAccountStatementInstance().getAllAccountStatement();
+            accountStatementList = service.getAllAccountStatement();
             
             if ( accountStatementList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all AccountStatements" );
@@ -196,7 +200,7 @@ public class AccountStatementRestController extends BaseSpringRestController {
 	@PutMapping("/assignAccount")
 	public void assignAccount( @RequestBody AssignAccountToAccountStatementCommand command ) {
 		try {
-			AccountStatementService.getAccountStatementInstance().assignAccount( command );   
+			service.assignAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Account", exc );
@@ -210,7 +214,7 @@ public class AccountStatementRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignAccount")
 	public void unAssignAccount( @RequestBody(required=true)  UnAssignAccountFromAccountStatementCommand command ) {
 		try {
-			AccountStatementService.getAccountStatementInstance().unAssignAccount( command );   
+			service.unAssignAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Account", exc );
@@ -225,6 +229,7 @@ public class AccountStatementRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected AccountStatement accountStatement = null;
-    private static final Logger LOGGER = Logger.getLogger(AccountStatementRestController.class.getName());
+	protected AccountStatementService service = null;
+	private static final Logger LOGGER = Logger.getLogger(AccountStatementRestController.class.getName());
     
 }

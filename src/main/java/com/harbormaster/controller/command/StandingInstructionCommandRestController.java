@@ -100,7 +100,6 @@ public class StandingInstructionCommandRestController extends BaseSpringRestCont
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateStandingInstructionCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createStandingInstruction( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class StandingInstructionCommandRestController extends BaseSpringRestCont
 		DeleteStandingInstructionCommand command = new DeleteStandingInstructionCommand( standingInstructionId );
 
     	try {
-        	StandingInstructionService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted StandingInstruction with key " + command.getStandingInstructionId() );
         }
         catch( Throwable exc ) {

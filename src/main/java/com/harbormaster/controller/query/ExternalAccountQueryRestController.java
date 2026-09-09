@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/ExternalAccountQuery")
 public class ExternalAccountQueryRestController extends BaseSpringRestController {
 	
+	public ExternalAccountQueryRestController( ExternalAccountService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a ExternalAccount using a UUID
      * @param		UUID externalAccountId
@@ -95,7 +99,7 @@ public class ExternalAccountQueryRestController extends BaseSpringRestController
     	ExternalAccount entity = null;
 
     	try {  
-    		entity = ExternalAccountService.getExternalAccountInstance().getExternalAccount( new ExternalAccountFetchOneSummary( externalAccountId ) );
+    		entity = service.getExternalAccount( new ExternalAccountFetchOneSummary( externalAccountId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ExternalAccount using Id " + externalAccountId );
@@ -115,7 +119,7 @@ public class ExternalAccountQueryRestController extends BaseSpringRestController
         
     	try {
             // load the ExternalAccount
-            externalAccountList = ExternalAccountService.getExternalAccountInstance().getAllExternalAccount();
+            externalAccountList = service.getAllExternalAccount();
             
             if ( externalAccountList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ExternalAccounts" );
@@ -135,6 +139,7 @@ public class ExternalAccountQueryRestController extends BaseSpringRestController
 // Attributes
 //************************************************************************
     protected ExternalAccount externalAccount = null;
+    protected ExternalAccountService service = null;
     private static final Logger LOGGER = Logger.getLogger(ExternalAccountQueryRestController.class.getName());
     
 }

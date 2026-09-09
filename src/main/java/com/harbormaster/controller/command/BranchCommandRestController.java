@@ -100,7 +100,6 @@ public class BranchCommandRestController extends BaseSpringRestController {
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateBranchCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createBranch( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class BranchCommandRestController extends BaseSpringRestController {
 		DeleteBranchCommand command = new DeleteBranchCommand( branchId );
 
     	try {
-        	BranchService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Branch with key " + command.getBranchId() );
         }
         catch( Throwable exc ) {

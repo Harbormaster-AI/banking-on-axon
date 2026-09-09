@@ -100,7 +100,6 @@ public class ConsentCommandRestController extends BaseSpringRestController {
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateConsentCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createConsent( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class ConsentCommandRestController extends BaseSpringRestController {
 		DeleteConsentCommand command = new DeleteConsentCommand( consentId );
 
     	try {
-        	ConsentService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Consent with key " + command.getConsentId() );
         }
         catch( Throwable exc ) {

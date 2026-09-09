@@ -100,7 +100,6 @@ public class IdentityDocumentCommandRestController extends BaseSpringRestControl
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateIdentityDocumentCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createIdentityDocument( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class IdentityDocumentCommandRestController extends BaseSpringRestControl
 		DeleteIdentityDocumentCommand command = new DeleteIdentityDocumentCommand( identityDocumentId );
 
     	try {
-        	IdentityDocumentService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted IdentityDocument with key " + command.getIdentityDocumentId() );
         }
         catch( Throwable exc ) {

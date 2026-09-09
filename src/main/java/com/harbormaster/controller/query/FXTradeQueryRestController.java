@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/FXTradeQuery")
 public class FXTradeQueryRestController extends BaseSpringRestController {
 	
+	public FXTradeQueryRestController( FXTradeService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a FXTrade using a UUID
      * @param		UUID fXTradeId
@@ -95,7 +99,7 @@ public class FXTradeQueryRestController extends BaseSpringRestController {
     	FXTrade entity = null;
 
     	try {  
-    		entity = FXTradeService.getFXTradeInstance().getFXTrade( new FXTradeFetchOneSummary( fXTradeId ) );
+    		entity = service.getFXTrade( new FXTradeFetchOneSummary( fXTradeId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load FXTrade using Id " + fXTradeId );
@@ -115,7 +119,7 @@ public class FXTradeQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the FXTrade
-            fXTradeList = FXTradeService.getFXTradeInstance().getAllFXTrade();
+            fXTradeList = service.getAllFXTrade();
             
             if ( fXTradeList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all FXTrades" );
@@ -135,6 +139,7 @@ public class FXTradeQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected FXTrade fXTrade = null;
+    protected FXTradeService service = null;
     private static final Logger LOGGER = Logger.getLogger(FXTradeQueryRestController.class.getName());
     
 }

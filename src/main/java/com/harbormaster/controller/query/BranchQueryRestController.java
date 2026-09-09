@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/BranchQuery")
 public class BranchQueryRestController extends BaseSpringRestController {
 	
+	public BranchQueryRestController( BranchService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a Branch using a UUID
      * @param		UUID branchId
@@ -95,7 +99,7 @@ public class BranchQueryRestController extends BaseSpringRestController {
     	Branch entity = null;
 
     	try {  
-    		entity = BranchService.getBranchInstance().getBranch( new BranchFetchOneSummary( branchId ) );
+    		entity = service.getBranch( new BranchFetchOneSummary( branchId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Branch using Id " + branchId );
@@ -115,7 +119,7 @@ public class BranchQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Branch
-            branchList = BranchService.getBranchInstance().getAllBranch();
+            branchList = service.getAllBranch();
             
             if ( branchList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Branchs" );
@@ -135,6 +139,7 @@ public class BranchQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected Branch branch = null;
+    protected BranchService service = null;
     private static final Logger LOGGER = Logger.getLogger(BranchQueryRestController.class.getName());
     
 }

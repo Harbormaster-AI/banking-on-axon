@@ -100,7 +100,6 @@ public class ExchangeRateCommandRestController extends BaseSpringRestController 
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateExchangeRateCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createExchangeRate( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class ExchangeRateCommandRestController extends BaseSpringRestController 
 		DeleteExchangeRateCommand command = new DeleteExchangeRateCommand( exchangeRateId );
 
     	try {
-        	ExchangeRateService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ExchangeRate with key " + command.getExchangeRateId() );
         }
         catch( Throwable exc ) {

@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/KycProfile")
 public class KycProfileRestController extends BaseSpringRestController {
 
+	public KycProfileRestController( KycProfileService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a KycProfile.  if not key provided, calls create, otherwise calls save
      * @param		KycProfile	kycProfile
@@ -94,7 +98,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = KycProfileService.getKycProfileInstance().createKycProfile( command );
+			completableFuture = service.createKycProfile( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateKycProfileCommand
 			// -----------------------------------------------
-			completableFuture = KycProfileService.getKycProfileInstance().updateKycProfile(command);;
+			completableFuture = service.updateKycProfile(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "KycProfileController:update() - successfully update KycProfile - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class KycProfileRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteKycProfileCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	KycProfileService delegate = KycProfileService.getKycProfileInstance();
+        	KycProfileService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted KycProfile with key " + command.getKycProfileId() );
@@ -155,7 +159,7 @@ public class KycProfileRestController extends BaseSpringRestController {
     	KycProfile entity = null;
 
     	try {  
-    		entity = KycProfileService.getKycProfileInstance().getKycProfile( new KycProfileFetchOneSummary( uuid ) );   
+    		entity = service.getKycProfile( new KycProfileFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load KycProfile using Id " + uuid );
@@ -175,7 +179,7 @@ public class KycProfileRestController extends BaseSpringRestController {
         
     	try {
             // load the KycProfile
-            kycProfileList = KycProfileService.getKycProfileInstance().getAllKycProfile();
+            kycProfileList = service.getAllKycProfile();
             
             if ( kycProfileList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all KycProfiles" );
@@ -196,7 +200,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 	@PutMapping("/assignCustomer")
 	public void assignCustomer( @RequestBody AssignCustomerToKycProfileCommand command ) {
 		try {
-			KycProfileService.getKycProfileInstance().assignCustomer( command );   
+			service.assignCustomer( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Customer", exc );
@@ -210,7 +214,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignCustomer")
 	public void unAssignCustomer( @RequestBody(required=true)  UnAssignCustomerFromKycProfileCommand command ) {
 		try {
-			KycProfileService.getKycProfileInstance().unAssignCustomer( command );   
+			service.unAssignCustomer( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Customer", exc );
@@ -225,7 +229,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 	@PutMapping("/addToIdentityDocuments")
 	public void addToIdentityDocuments( @RequestBody(required=true) AssignIdentityDocumentsToKycProfileCommand command ) {
 		try {
-			KycProfileService.getKycProfileInstance().addToIdentityDocuments( command );   
+			service.addToIdentityDocuments( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set IdentityDocuments", exc );
@@ -240,7 +244,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 	public void removeFromIdentityDocuments( 	@RequestBody(required=true) RemoveIdentityDocumentsFromKycProfileCommand command )
 	{		
 		try {
-			KycProfileService.getKycProfileInstance().removeFromIdentityDocuments( command );
+			service.removeFromIdentityDocuments( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set IdentityDocuments", exc );
@@ -254,7 +258,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 	@PutMapping("/addToRiskAssessments")
 	public void addToRiskAssessments( @RequestBody(required=true) AssignRiskAssessmentsToKycProfileCommand command ) {
 		try {
-			KycProfileService.getKycProfileInstance().addToRiskAssessments( command );   
+			service.addToRiskAssessments( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set RiskAssessments", exc );
@@ -269,7 +273,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 	public void removeFromRiskAssessments( 	@RequestBody(required=true) RemoveRiskAssessmentsFromKycProfileCommand command )
 	{		
 		try {
-			KycProfileService.getKycProfileInstance().removeFromRiskAssessments( command );
+			service.removeFromRiskAssessments( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set RiskAssessments", exc );
@@ -283,7 +287,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 	@PutMapping("/addToScreenings")
 	public void addToScreenings( @RequestBody(required=true) AssignScreeningsToKycProfileCommand command ) {
 		try {
-			KycProfileService.getKycProfileInstance().addToScreenings( command );   
+			service.addToScreenings( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Screenings", exc );
@@ -298,7 +302,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 	public void removeFromScreenings( 	@RequestBody(required=true) RemoveScreeningsFromKycProfileCommand command )
 	{		
 		try {
-			KycProfileService.getKycProfileInstance().removeFromScreenings( command );
+			service.removeFromScreenings( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Screenings", exc );
@@ -312,6 +316,7 @@ public class KycProfileRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected KycProfile kycProfile = null;
-    private static final Logger LOGGER = Logger.getLogger(KycProfileRestController.class.getName());
+	protected KycProfileService service = null;
+	private static final Logger LOGGER = Logger.getLogger(KycProfileRestController.class.getName());
     
 }

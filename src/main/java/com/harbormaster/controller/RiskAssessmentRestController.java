@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/RiskAssessment")
 public class RiskAssessmentRestController extends BaseSpringRestController {
 
+	public RiskAssessmentRestController( RiskAssessmentService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a RiskAssessment.  if not key provided, calls create, otherwise calls save
      * @param		RiskAssessment	riskAssessment
@@ -94,7 +98,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = RiskAssessmentService.getRiskAssessmentInstance().createRiskAssessment( command );
+			completableFuture = service.createRiskAssessment( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateRiskAssessmentCommand
 			// -----------------------------------------------
-			completableFuture = RiskAssessmentService.getRiskAssessmentInstance().updateRiskAssessment(command);;
+			completableFuture = service.updateRiskAssessment(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "RiskAssessmentController:update() - successfully update RiskAssessment - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteRiskAssessmentCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	RiskAssessmentService delegate = RiskAssessmentService.getRiskAssessmentInstance();
+        	RiskAssessmentService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted RiskAssessment with key " + command.getRiskAssessmentId() );
@@ -155,7 +159,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
     	RiskAssessment entity = null;
 
     	try {  
-    		entity = RiskAssessmentService.getRiskAssessmentInstance().getRiskAssessment( new RiskAssessmentFetchOneSummary( uuid ) );   
+    		entity = service.getRiskAssessment( new RiskAssessmentFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load RiskAssessment using Id " + uuid );
@@ -175,7 +179,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
         
     	try {
             // load the RiskAssessment
-            riskAssessmentList = RiskAssessmentService.getRiskAssessmentInstance().getAllRiskAssessment();
+            riskAssessmentList = service.getAllRiskAssessment();
             
             if ( riskAssessmentList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all RiskAssessments" );
@@ -196,7 +200,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
 	@PutMapping("/assignKycProfile")
 	public void assignKycProfile( @RequestBody AssignKycProfileToRiskAssessmentCommand command ) {
 		try {
-			RiskAssessmentService.getRiskAssessmentInstance().assignKycProfile( command );   
+			service.assignKycProfile( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign KycProfile", exc );
@@ -210,7 +214,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignKycProfile")
 	public void unAssignKycProfile( @RequestBody(required=true)  UnAssignKycProfileFromRiskAssessmentCommand command ) {
 		try {
-			RiskAssessmentService.getRiskAssessmentInstance().unAssignKycProfile( command );   
+			service.unAssignKycProfile( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign KycProfile", exc );
@@ -225,6 +229,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected RiskAssessment riskAssessment = null;
-    private static final Logger LOGGER = Logger.getLogger(RiskAssessmentRestController.class.getName());
+	protected RiskAssessmentService service = null;
+	private static final Logger LOGGER = Logger.getLogger(RiskAssessmentRestController.class.getName());
     
 }

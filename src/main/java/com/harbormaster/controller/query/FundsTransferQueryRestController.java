@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/FundsTransferQuery")
 public class FundsTransferQueryRestController extends BaseSpringRestController {
 	
+	public FundsTransferQueryRestController( FundsTransferService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a FundsTransfer using a UUID
      * @param		UUID fundsTransferId
@@ -95,7 +99,7 @@ public class FundsTransferQueryRestController extends BaseSpringRestController {
     	FundsTransfer entity = null;
 
     	try {  
-    		entity = FundsTransferService.getFundsTransferInstance().getFundsTransfer( new FundsTransferFetchOneSummary( fundsTransferId ) );
+    		entity = service.getFundsTransfer( new FundsTransferFetchOneSummary( fundsTransferId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load FundsTransfer using Id " + fundsTransferId );
@@ -115,7 +119,7 @@ public class FundsTransferQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the FundsTransfer
-            fundsTransferList = FundsTransferService.getFundsTransferInstance().getAllFundsTransfer();
+            fundsTransferList = service.getAllFundsTransfer();
             
             if ( fundsTransferList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all FundsTransfers" );
@@ -135,6 +139,7 @@ public class FundsTransferQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected FundsTransfer fundsTransfer = null;
+    protected FundsTransferService service = null;
     private static final Logger LOGGER = Logger.getLogger(FundsTransferQueryRestController.class.getName());
     
 }

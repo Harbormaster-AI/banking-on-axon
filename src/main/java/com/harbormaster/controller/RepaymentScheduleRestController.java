@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/RepaymentSchedule")
 public class RepaymentScheduleRestController extends BaseSpringRestController {
 
+	public RepaymentScheduleRestController( RepaymentScheduleService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a RepaymentSchedule.  if not key provided, calls create, otherwise calls save
      * @param		RepaymentSchedule	repaymentSchedule
@@ -94,7 +98,7 @@ public class RepaymentScheduleRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = RepaymentScheduleService.getRepaymentScheduleInstance().createRepaymentSchedule( command );
+			completableFuture = service.createRepaymentSchedule( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class RepaymentScheduleRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateRepaymentScheduleCommand
 			// -----------------------------------------------
-			completableFuture = RepaymentScheduleService.getRepaymentScheduleInstance().updateRepaymentSchedule(command);;
+			completableFuture = service.updateRepaymentSchedule(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "RepaymentScheduleController:update() - successfully update RepaymentSchedule - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class RepaymentScheduleRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteRepaymentScheduleCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	RepaymentScheduleService delegate = RepaymentScheduleService.getRepaymentScheduleInstance();
+        	RepaymentScheduleService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted RepaymentSchedule with key " + command.getRepaymentScheduleId() );
@@ -155,7 +159,7 @@ public class RepaymentScheduleRestController extends BaseSpringRestController {
     	RepaymentSchedule entity = null;
 
     	try {  
-    		entity = RepaymentScheduleService.getRepaymentScheduleInstance().getRepaymentSchedule( new RepaymentScheduleFetchOneSummary( uuid ) );   
+    		entity = service.getRepaymentSchedule( new RepaymentScheduleFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load RepaymentSchedule using Id " + uuid );
@@ -175,7 +179,7 @@ public class RepaymentScheduleRestController extends BaseSpringRestController {
         
     	try {
             // load the RepaymentSchedule
-            repaymentScheduleList = RepaymentScheduleService.getRepaymentScheduleInstance().getAllRepaymentSchedule();
+            repaymentScheduleList = service.getAllRepaymentSchedule();
             
             if ( repaymentScheduleList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all RepaymentSchedules" );
@@ -196,7 +200,7 @@ public class RepaymentScheduleRestController extends BaseSpringRestController {
 	@PutMapping("/assignLoanAccount")
 	public void assignLoanAccount( @RequestBody AssignLoanAccountToRepaymentScheduleCommand command ) {
 		try {
-			RepaymentScheduleService.getRepaymentScheduleInstance().assignLoanAccount( command );   
+			service.assignLoanAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign LoanAccount", exc );
@@ -210,7 +214,7 @@ public class RepaymentScheduleRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignLoanAccount")
 	public void unAssignLoanAccount( @RequestBody(required=true)  UnAssignLoanAccountFromRepaymentScheduleCommand command ) {
 		try {
-			RepaymentScheduleService.getRepaymentScheduleInstance().unAssignLoanAccount( command );   
+			service.unAssignLoanAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign LoanAccount", exc );
@@ -224,7 +228,7 @@ public class RepaymentScheduleRestController extends BaseSpringRestController {
 	@PutMapping("/assignPayment")
 	public void assignPayment( @RequestBody AssignPaymentToRepaymentScheduleCommand command ) {
 		try {
-			RepaymentScheduleService.getRepaymentScheduleInstance().assignPayment( command );   
+			service.assignPayment( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Payment", exc );
@@ -238,7 +242,7 @@ public class RepaymentScheduleRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignPayment")
 	public void unAssignPayment( @RequestBody(required=true)  UnAssignPaymentFromRepaymentScheduleCommand command ) {
 		try {
-			RepaymentScheduleService.getRepaymentScheduleInstance().unAssignPayment( command );   
+			service.unAssignPayment( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Payment", exc );
@@ -253,6 +257,7 @@ public class RepaymentScheduleRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected RepaymentSchedule repaymentSchedule = null;
-    private static final Logger LOGGER = Logger.getLogger(RepaymentScheduleRestController.class.getName());
+	protected RepaymentScheduleService service = null;
+	private static final Logger LOGGER = Logger.getLogger(RepaymentScheduleRestController.class.getName());
     
 }

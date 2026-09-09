@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/CustomerQuery")
 public class CustomerQueryRestController extends BaseSpringRestController {
 	
+	public CustomerQueryRestController( CustomerService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a Customer using a UUID
      * @param		UUID customerId
@@ -95,7 +99,7 @@ public class CustomerQueryRestController extends BaseSpringRestController {
     	Customer entity = null;
 
     	try {  
-    		entity = CustomerService.getCustomerInstance().getCustomer( new CustomerFetchOneSummary( customerId ) );
+    		entity = service.getCustomer( new CustomerFetchOneSummary( customerId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Customer using Id " + customerId );
@@ -115,7 +119,7 @@ public class CustomerQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Customer
-            customerList = CustomerService.getCustomerInstance().getAllCustomer();
+            customerList = service.getAllCustomer();
             
             if ( customerList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Customers" );
@@ -135,6 +139,7 @@ public class CustomerQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected Customer customer = null;
+    protected CustomerService service = null;
     private static final Logger LOGGER = Logger.getLogger(CustomerQueryRestController.class.getName());
     
 }

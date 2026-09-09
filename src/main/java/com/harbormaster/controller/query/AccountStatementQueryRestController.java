@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/AccountStatementQuery")
 public class AccountStatementQueryRestController extends BaseSpringRestController {
 	
+	public AccountStatementQueryRestController( AccountStatementService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a AccountStatement using a UUID
      * @param		UUID accountStatementId
@@ -95,7 +99,7 @@ public class AccountStatementQueryRestController extends BaseSpringRestControlle
     	AccountStatement entity = null;
 
     	try {  
-    		entity = AccountStatementService.getAccountStatementInstance().getAccountStatement( new AccountStatementFetchOneSummary( accountStatementId ) );
+    		entity = service.getAccountStatement( new AccountStatementFetchOneSummary( accountStatementId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load AccountStatement using Id " + accountStatementId );
@@ -115,7 +119,7 @@ public class AccountStatementQueryRestController extends BaseSpringRestControlle
         
     	try {
             // load the AccountStatement
-            accountStatementList = AccountStatementService.getAccountStatementInstance().getAllAccountStatement();
+            accountStatementList = service.getAllAccountStatement();
             
             if ( accountStatementList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all AccountStatements" );
@@ -135,6 +139,7 @@ public class AccountStatementQueryRestController extends BaseSpringRestControlle
 // Attributes
 //************************************************************************
     protected AccountStatement accountStatement = null;
+    protected AccountStatementService service = null;
     private static final Logger LOGGER = Logger.getLogger(AccountStatementQueryRestController.class.getName());
     
 }

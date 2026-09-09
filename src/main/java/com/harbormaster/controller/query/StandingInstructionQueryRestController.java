@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/StandingInstructionQuery")
 public class StandingInstructionQueryRestController extends BaseSpringRestController {
 	
+	public StandingInstructionQueryRestController( StandingInstructionService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a StandingInstruction using a UUID
      * @param		UUID standingInstructionId
@@ -95,7 +99,7 @@ public class StandingInstructionQueryRestController extends BaseSpringRestContro
     	StandingInstruction entity = null;
 
     	try {  
-    		entity = StandingInstructionService.getStandingInstructionInstance().getStandingInstruction( new StandingInstructionFetchOneSummary( standingInstructionId ) );
+    		entity = service.getStandingInstruction( new StandingInstructionFetchOneSummary( standingInstructionId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load StandingInstruction using Id " + standingInstructionId );
@@ -115,7 +119,7 @@ public class StandingInstructionQueryRestController extends BaseSpringRestContro
         
     	try {
             // load the StandingInstruction
-            standingInstructionList = StandingInstructionService.getStandingInstructionInstance().getAllStandingInstruction();
+            standingInstructionList = service.getAllStandingInstruction();
             
             if ( standingInstructionList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all StandingInstructions" );
@@ -135,6 +139,7 @@ public class StandingInstructionQueryRestController extends BaseSpringRestContro
 // Attributes
 //************************************************************************
     protected StandingInstruction standingInstruction = null;
+    protected StandingInstructionService service = null;
     private static final Logger LOGGER = Logger.getLogger(StandingInstructionQueryRestController.class.getName());
     
 }

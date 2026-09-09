@@ -100,7 +100,6 @@ public class FeeChargeCommandRestController extends BaseSpringRestController {
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateFeeChargeCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createFeeCharge( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class FeeChargeCommandRestController extends BaseSpringRestController {
 		DeleteFeeChargeCommand command = new DeleteFeeChargeCommand( feeChargeId );
 
     	try {
-        	FeeChargeService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted FeeCharge with key " + command.getFeeChargeId() );
         }
         catch( Throwable exc ) {

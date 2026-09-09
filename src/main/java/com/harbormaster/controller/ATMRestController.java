@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/ATM")
 public class ATMRestController extends BaseSpringRestController {
 
+	public ATMRestController( ATMService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a ATM.  if not key provided, calls create, otherwise calls save
      * @param		ATM	aTM
@@ -94,7 +98,7 @@ public class ATMRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = ATMService.getATMInstance().createATM( command );
+			completableFuture = service.createATM( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class ATMRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateATMCommand
 			// -----------------------------------------------
-			completableFuture = ATMService.getATMInstance().updateATM(command);;
+			completableFuture = service.updateATM(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "ATMController:update() - successfully update ATM - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class ATMRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteATMCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	ATMService delegate = ATMService.getATMInstance();
+        	ATMService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ATM with key " + command.getATMId() );
@@ -155,7 +159,7 @@ public class ATMRestController extends BaseSpringRestController {
     	ATM entity = null;
 
     	try {  
-    		entity = ATMService.getATMInstance().getATM( new ATMFetchOneSummary( uuid ) );   
+    		entity = service.getATM( new ATMFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ATM using Id " + uuid );
@@ -175,7 +179,7 @@ public class ATMRestController extends BaseSpringRestController {
         
     	try {
             // load the ATM
-            aTMList = ATMService.getATMInstance().getAllATM();
+            aTMList = service.getAllATM();
             
             if ( aTMList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ATMs" );
@@ -196,7 +200,7 @@ public class ATMRestController extends BaseSpringRestController {
 	@PutMapping("/assignBranch")
 	public void assignBranch( @RequestBody AssignBranchToATMCommand command ) {
 		try {
-			ATMService.getATMInstance().assignBranch( command );   
+			service.assignBranch( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Branch", exc );
@@ -210,7 +214,7 @@ public class ATMRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBranch")
 	public void unAssignBranch( @RequestBody(required=true)  UnAssignBranchFromATMCommand command ) {
 		try {
-			ATMService.getATMInstance().unAssignBranch( command );   
+			service.unAssignBranch( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Branch", exc );
@@ -225,6 +229,7 @@ public class ATMRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected ATM aTM = null;
-    private static final Logger LOGGER = Logger.getLogger(ATMRestController.class.getName());
+	protected ATMService service = null;
+	private static final Logger LOGGER = Logger.getLogger(ATMRestController.class.getName());
     
 }

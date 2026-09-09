@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/ScreeningResultQuery")
 public class ScreeningResultQueryRestController extends BaseSpringRestController {
 	
+	public ScreeningResultQueryRestController( ScreeningResultService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a ScreeningResult using a UUID
      * @param		UUID screeningResultId
@@ -95,7 +99,7 @@ public class ScreeningResultQueryRestController extends BaseSpringRestController
     	ScreeningResult entity = null;
 
     	try {  
-    		entity = ScreeningResultService.getScreeningResultInstance().getScreeningResult( new ScreeningResultFetchOneSummary( screeningResultId ) );
+    		entity = service.getScreeningResult( new ScreeningResultFetchOneSummary( screeningResultId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ScreeningResult using Id " + screeningResultId );
@@ -115,7 +119,7 @@ public class ScreeningResultQueryRestController extends BaseSpringRestController
         
     	try {
             // load the ScreeningResult
-            screeningResultList = ScreeningResultService.getScreeningResultInstance().getAllScreeningResult();
+            screeningResultList = service.getAllScreeningResult();
             
             if ( screeningResultList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ScreeningResults" );
@@ -135,6 +139,7 @@ public class ScreeningResultQueryRestController extends BaseSpringRestController
 // Attributes
 //************************************************************************
     protected ScreeningResult screeningResult = null;
+    protected ScreeningResultService service = null;
     private static final Logger LOGGER = Logger.getLogger(ScreeningResultQueryRestController.class.getName());
     
 }

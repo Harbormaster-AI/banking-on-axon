@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/ExternalAccount")
 public class ExternalAccountRestController extends BaseSpringRestController {
 
+	public ExternalAccountRestController( ExternalAccountService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a ExternalAccount.  if not key provided, calls create, otherwise calls save
      * @param		ExternalAccount	externalAccount
@@ -94,7 +98,7 @@ public class ExternalAccountRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = ExternalAccountService.getExternalAccountInstance().createExternalAccount( command );
+			completableFuture = service.createExternalAccount( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class ExternalAccountRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateExternalAccountCommand
 			// -----------------------------------------------
-			completableFuture = ExternalAccountService.getExternalAccountInstance().updateExternalAccount(command);;
+			completableFuture = service.updateExternalAccount(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "ExternalAccountController:update() - successfully update ExternalAccount - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class ExternalAccountRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteExternalAccountCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	ExternalAccountService delegate = ExternalAccountService.getExternalAccountInstance();
+        	ExternalAccountService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ExternalAccount with key " + command.getExternalAccountId() );
@@ -155,7 +159,7 @@ public class ExternalAccountRestController extends BaseSpringRestController {
     	ExternalAccount entity = null;
 
     	try {  
-    		entity = ExternalAccountService.getExternalAccountInstance().getExternalAccount( new ExternalAccountFetchOneSummary( uuid ) );   
+    		entity = service.getExternalAccount( new ExternalAccountFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ExternalAccount using Id " + uuid );
@@ -175,7 +179,7 @@ public class ExternalAccountRestController extends BaseSpringRestController {
         
     	try {
             // load the ExternalAccount
-            externalAccountList = ExternalAccountService.getExternalAccountInstance().getAllExternalAccount();
+            externalAccountList = service.getAllExternalAccount();
             
             if ( externalAccountList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ExternalAccounts" );
@@ -196,7 +200,7 @@ public class ExternalAccountRestController extends BaseSpringRestController {
 	@PutMapping("/assignCustomer")
 	public void assignCustomer( @RequestBody AssignCustomerToExternalAccountCommand command ) {
 		try {
-			ExternalAccountService.getExternalAccountInstance().assignCustomer( command );   
+			service.assignCustomer( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Customer", exc );
@@ -210,7 +214,7 @@ public class ExternalAccountRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignCustomer")
 	public void unAssignCustomer( @RequestBody(required=true)  UnAssignCustomerFromExternalAccountCommand command ) {
 		try {
-			ExternalAccountService.getExternalAccountInstance().unAssignCustomer( command );   
+			service.unAssignCustomer( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Customer", exc );
@@ -225,7 +229,7 @@ public class ExternalAccountRestController extends BaseSpringRestController {
 	@PutMapping("/addToTransactions")
 	public void addToTransactions( @RequestBody(required=true) AssignTransactionsToExternalAccountCommand command ) {
 		try {
-			ExternalAccountService.getExternalAccountInstance().addToTransactions( command );   
+			service.addToTransactions( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Transactions", exc );
@@ -240,7 +244,7 @@ public class ExternalAccountRestController extends BaseSpringRestController {
 	public void removeFromTransactions( 	@RequestBody(required=true) RemoveTransactionsFromExternalAccountCommand command )
 	{		
 		try {
-			ExternalAccountService.getExternalAccountInstance().removeFromTransactions( command );
+			service.removeFromTransactions( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Transactions", exc );
@@ -254,6 +258,7 @@ public class ExternalAccountRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected ExternalAccount externalAccount = null;
-    private static final Logger LOGGER = Logger.getLogger(ExternalAccountRestController.class.getName());
+	protected ExternalAccountService service = null;
+	private static final Logger LOGGER = Logger.getLogger(ExternalAccountRestController.class.getName());
     
 }

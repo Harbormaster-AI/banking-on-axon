@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/Dispute")
 public class DisputeRestController extends BaseSpringRestController {
 
+	public DisputeRestController( DisputeService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a Dispute.  if not key provided, calls create, otherwise calls save
      * @param		Dispute	dispute
@@ -94,7 +98,7 @@ public class DisputeRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = DisputeService.getDisputeInstance().createDispute( command );
+			completableFuture = service.createDispute( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class DisputeRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateDisputeCommand
 			// -----------------------------------------------
-			completableFuture = DisputeService.getDisputeInstance().updateDispute(command);;
+			completableFuture = service.updateDispute(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "DisputeController:update() - successfully update Dispute - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class DisputeRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteDisputeCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	DisputeService delegate = DisputeService.getDisputeInstance();
+        	DisputeService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Dispute with key " + command.getDisputeId() );
@@ -155,7 +159,7 @@ public class DisputeRestController extends BaseSpringRestController {
     	Dispute entity = null;
 
     	try {  
-    		entity = DisputeService.getDisputeInstance().getDispute( new DisputeFetchOneSummary( uuid ) );   
+    		entity = service.getDispute( new DisputeFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Dispute using Id " + uuid );
@@ -175,7 +179,7 @@ public class DisputeRestController extends BaseSpringRestController {
         
     	try {
             // load the Dispute
-            disputeList = DisputeService.getDisputeInstance().getAllDispute();
+            disputeList = service.getAllDispute();
             
             if ( disputeList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Disputes" );
@@ -196,7 +200,7 @@ public class DisputeRestController extends BaseSpringRestController {
 	@PutMapping("/assignTransaction")
 	public void assignTransaction( @RequestBody AssignTransactionToDisputeCommand command ) {
 		try {
-			DisputeService.getDisputeInstance().assignTransaction( command );   
+			service.assignTransaction( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Transaction", exc );
@@ -210,7 +214,7 @@ public class DisputeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignTransaction")
 	public void unAssignTransaction( @RequestBody(required=true)  UnAssignTransactionFromDisputeCommand command ) {
 		try {
-			DisputeService.getDisputeInstance().unAssignTransaction( command );   
+			service.unAssignTransaction( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Transaction", exc );
@@ -224,7 +228,7 @@ public class DisputeRestController extends BaseSpringRestController {
 	@PutMapping("/assignCustomer")
 	public void assignCustomer( @RequestBody AssignCustomerToDisputeCommand command ) {
 		try {
-			DisputeService.getDisputeInstance().assignCustomer( command );   
+			service.assignCustomer( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Customer", exc );
@@ -238,7 +242,7 @@ public class DisputeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignCustomer")
 	public void unAssignCustomer( @RequestBody(required=true)  UnAssignCustomerFromDisputeCommand command ) {
 		try {
-			DisputeService.getDisputeInstance().unAssignCustomer( command );   
+			service.unAssignCustomer( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Customer", exc );
@@ -252,7 +256,7 @@ public class DisputeRestController extends BaseSpringRestController {
 	@PutMapping("/assignAccount")
 	public void assignAccount( @RequestBody AssignAccountToDisputeCommand command ) {
 		try {
-			DisputeService.getDisputeInstance().assignAccount( command );   
+			service.assignAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Account", exc );
@@ -266,7 +270,7 @@ public class DisputeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignAccount")
 	public void unAssignAccount( @RequestBody(required=true)  UnAssignAccountFromDisputeCommand command ) {
 		try {
-			DisputeService.getDisputeInstance().unAssignAccount( command );   
+			service.unAssignAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Account", exc );
@@ -280,7 +284,7 @@ public class DisputeRestController extends BaseSpringRestController {
 	@PutMapping("/assignPaymentCard")
 	public void assignPaymentCard( @RequestBody AssignPaymentCardToDisputeCommand command ) {
 		try {
-			DisputeService.getDisputeInstance().assignPaymentCard( command );   
+			service.assignPaymentCard( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign PaymentCard", exc );
@@ -294,7 +298,7 @@ public class DisputeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignPaymentCard")
 	public void unAssignPaymentCard( @RequestBody(required=true)  UnAssignPaymentCardFromDisputeCommand command ) {
 		try {
-			DisputeService.getDisputeInstance().unAssignPaymentCard( command );   
+			service.unAssignPaymentCard( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign PaymentCard", exc );
@@ -309,6 +313,7 @@ public class DisputeRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected Dispute dispute = null;
-    private static final Logger LOGGER = Logger.getLogger(DisputeRestController.class.getName());
+	protected DisputeService service = null;
+	private static final Logger LOGGER = Logger.getLogger(DisputeRestController.class.getName());
     
 }

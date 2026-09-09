@@ -101,10 +101,16 @@ extends BaseService {
      * Default Constructor 
      */
     public RiskAssessmentService()  {
-    	queryGateway 		= applicationContext.getBean(QueryGateway.class);
-    	commandGateway 		= applicationContext.getBean(CommandGateway.class);
-    	queryUpdateEmitter  = applicationContext.getBean(QueryUpdateEmitter.class);
-		validator			= applicationContext.getBean(RiskAssessmentValidator.class);
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext ctx) throws BeansException {
+		super.setApplicationContext(ctx);
+
+		queryGateway 		= ctx.getBean(QueryGateway.class);
+		commandGateway 		= ctx.getBean(CommandGateway.class);
+		queryUpdateEmitter  = ctx.getBean(QueryUpdateEmitter.class);
+		validator			= ctx.getBean(RiskAssessmentValidator.class);
 	}
 
 

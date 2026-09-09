@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/ThirdPartyProvider")
 public class ThirdPartyProviderRestController extends BaseSpringRestController {
 
+	public ThirdPartyProviderRestController( ThirdPartyProviderService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a ThirdPartyProvider.  if not key provided, calls create, otherwise calls save
      * @param		ThirdPartyProvider	thirdPartyProvider
@@ -94,7 +98,7 @@ public class ThirdPartyProviderRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = ThirdPartyProviderService.getThirdPartyProviderInstance().createThirdPartyProvider( command );
+			completableFuture = service.createThirdPartyProvider( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class ThirdPartyProviderRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateThirdPartyProviderCommand
 			// -----------------------------------------------
-			completableFuture = ThirdPartyProviderService.getThirdPartyProviderInstance().updateThirdPartyProvider(command);;
+			completableFuture = service.updateThirdPartyProvider(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "ThirdPartyProviderController:update() - successfully update ThirdPartyProvider - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class ThirdPartyProviderRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteThirdPartyProviderCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	ThirdPartyProviderService delegate = ThirdPartyProviderService.getThirdPartyProviderInstance();
+        	ThirdPartyProviderService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ThirdPartyProvider with key " + command.getThirdPartyProviderId() );
@@ -155,7 +159,7 @@ public class ThirdPartyProviderRestController extends BaseSpringRestController {
     	ThirdPartyProvider entity = null;
 
     	try {  
-    		entity = ThirdPartyProviderService.getThirdPartyProviderInstance().getThirdPartyProvider( new ThirdPartyProviderFetchOneSummary( uuid ) );   
+    		entity = service.getThirdPartyProvider( new ThirdPartyProviderFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ThirdPartyProvider using Id " + uuid );
@@ -175,7 +179,7 @@ public class ThirdPartyProviderRestController extends BaseSpringRestController {
         
     	try {
             // load the ThirdPartyProvider
-            thirdPartyProviderList = ThirdPartyProviderService.getThirdPartyProviderInstance().getAllThirdPartyProvider();
+            thirdPartyProviderList = service.getAllThirdPartyProvider();
             
             if ( thirdPartyProviderList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ThirdPartyProviders" );
@@ -196,7 +200,7 @@ public class ThirdPartyProviderRestController extends BaseSpringRestController {
 	@PutMapping("/assignBank")
 	public void assignBank( @RequestBody AssignBankToThirdPartyProviderCommand command ) {
 		try {
-			ThirdPartyProviderService.getThirdPartyProviderInstance().assignBank( command );   
+			service.assignBank( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Bank", exc );
@@ -210,7 +214,7 @@ public class ThirdPartyProviderRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBank")
 	public void unAssignBank( @RequestBody(required=true)  UnAssignBankFromThirdPartyProviderCommand command ) {
 		try {
-			ThirdPartyProviderService.getThirdPartyProviderInstance().unAssignBank( command );   
+			service.unAssignBank( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Bank", exc );
@@ -225,7 +229,7 @@ public class ThirdPartyProviderRestController extends BaseSpringRestController {
 	@PutMapping("/addToConsents")
 	public void addToConsents( @RequestBody(required=true) AssignConsentsToThirdPartyProviderCommand command ) {
 		try {
-			ThirdPartyProviderService.getThirdPartyProviderInstance().addToConsents( command );   
+			service.addToConsents( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Consents", exc );
@@ -240,7 +244,7 @@ public class ThirdPartyProviderRestController extends BaseSpringRestController {
 	public void removeFromConsents( 	@RequestBody(required=true) RemoveConsentsFromThirdPartyProviderCommand command )
 	{		
 		try {
-			ThirdPartyProviderService.getThirdPartyProviderInstance().removeFromConsents( command );
+			service.removeFromConsents( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Consents", exc );
@@ -254,6 +258,7 @@ public class ThirdPartyProviderRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected ThirdPartyProvider thirdPartyProvider = null;
-    private static final Logger LOGGER = Logger.getLogger(ThirdPartyProviderRestController.class.getName());
+	protected ThirdPartyProviderService service = null;
+	private static final Logger LOGGER = Logger.getLogger(ThirdPartyProviderRestController.class.getName());
     
 }

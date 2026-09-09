@@ -100,7 +100,6 @@ public class ExternalAccountCommandRestController extends BaseSpringRestControll
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateExternalAccountCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createExternalAccount( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class ExternalAccountCommandRestController extends BaseSpringRestControll
 		DeleteExternalAccountCommand command = new DeleteExternalAccountCommand( externalAccountId );
 
     	try {
-        	ExternalAccountService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ExternalAccount with key " + command.getExternalAccountId() );
         }
         catch( Throwable exc ) {

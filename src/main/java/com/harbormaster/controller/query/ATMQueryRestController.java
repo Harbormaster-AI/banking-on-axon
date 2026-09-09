@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/ATMQuery")
 public class ATMQueryRestController extends BaseSpringRestController {
 	
+	public ATMQueryRestController( ATMService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a ATM using a UUID
      * @param		UUID aTMId
@@ -95,7 +99,7 @@ public class ATMQueryRestController extends BaseSpringRestController {
     	ATM entity = null;
 
     	try {  
-    		entity = ATMService.getATMInstance().getATM( new ATMFetchOneSummary( aTMId ) );
+    		entity = service.getATM( new ATMFetchOneSummary( aTMId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ATM using Id " + aTMId );
@@ -115,7 +119,7 @@ public class ATMQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the ATM
-            aTMList = ATMService.getATMInstance().getAllATM();
+            aTMList = service.getAllATM();
             
             if ( aTMList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ATMs" );
@@ -135,6 +139,7 @@ public class ATMQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected ATM aTM = null;
+    protected ATMService service = null;
     private static final Logger LOGGER = Logger.getLogger(ATMQueryRestController.class.getName());
     
 }

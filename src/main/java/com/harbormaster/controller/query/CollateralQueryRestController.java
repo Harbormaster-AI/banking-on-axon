@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/CollateralQuery")
 public class CollateralQueryRestController extends BaseSpringRestController {
 	
+	public CollateralQueryRestController( CollateralService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a Collateral using a UUID
      * @param		UUID collateralId
@@ -95,7 +99,7 @@ public class CollateralQueryRestController extends BaseSpringRestController {
     	Collateral entity = null;
 
     	try {  
-    		entity = CollateralService.getCollateralInstance().getCollateral( new CollateralFetchOneSummary( collateralId ) );
+    		entity = service.getCollateral( new CollateralFetchOneSummary( collateralId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Collateral using Id " + collateralId );
@@ -115,7 +119,7 @@ public class CollateralQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Collateral
-            collateralList = CollateralService.getCollateralInstance().getAllCollateral();
+            collateralList = service.getAllCollateral();
             
             if ( collateralList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Collaterals" );
@@ -135,6 +139,7 @@ public class CollateralQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected Collateral collateral = null;
+    protected CollateralService service = null;
     private static final Logger LOGGER = Logger.getLogger(CollateralQueryRestController.class.getName());
     
 }

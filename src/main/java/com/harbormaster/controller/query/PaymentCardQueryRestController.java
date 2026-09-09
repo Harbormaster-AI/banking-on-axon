@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/PaymentCardQuery")
 public class PaymentCardQueryRestController extends BaseSpringRestController {
 	
+	public PaymentCardQueryRestController( PaymentCardService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a PaymentCard using a UUID
      * @param		UUID paymentCardId
@@ -95,7 +99,7 @@ public class PaymentCardQueryRestController extends BaseSpringRestController {
     	PaymentCard entity = null;
 
     	try {  
-    		entity = PaymentCardService.getPaymentCardInstance().getPaymentCard( new PaymentCardFetchOneSummary( paymentCardId ) );
+    		entity = service.getPaymentCard( new PaymentCardFetchOneSummary( paymentCardId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load PaymentCard using Id " + paymentCardId );
@@ -115,7 +119,7 @@ public class PaymentCardQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the PaymentCard
-            paymentCardList = PaymentCardService.getPaymentCardInstance().getAllPaymentCard();
+            paymentCardList = service.getAllPaymentCard();
             
             if ( paymentCardList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all PaymentCards" );
@@ -135,6 +139,7 @@ public class PaymentCardQueryRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected PaymentCard paymentCard = null;
+    protected PaymentCardService service = null;
     private static final Logger LOGGER = Logger.getLogger(PaymentCardQueryRestController.class.getName());
     
 }

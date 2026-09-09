@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/FeeCharge")
 public class FeeChargeRestController extends BaseSpringRestController {
 
+	public FeeChargeRestController( FeeChargeService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a FeeCharge.  if not key provided, calls create, otherwise calls save
      * @param		FeeCharge	feeCharge
@@ -94,7 +98,7 @@ public class FeeChargeRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = FeeChargeService.getFeeChargeInstance().createFeeCharge( command );
+			completableFuture = service.createFeeCharge( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class FeeChargeRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateFeeChargeCommand
 			// -----------------------------------------------
-			completableFuture = FeeChargeService.getFeeChargeInstance().updateFeeCharge(command);;
+			completableFuture = service.updateFeeCharge(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "FeeChargeController:update() - successfully update FeeCharge - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class FeeChargeRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteFeeChargeCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	FeeChargeService delegate = FeeChargeService.getFeeChargeInstance();
+        	FeeChargeService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted FeeCharge with key " + command.getFeeChargeId() );
@@ -155,7 +159,7 @@ public class FeeChargeRestController extends BaseSpringRestController {
     	FeeCharge entity = null;
 
     	try {  
-    		entity = FeeChargeService.getFeeChargeInstance().getFeeCharge( new FeeChargeFetchOneSummary( uuid ) );   
+    		entity = service.getFeeCharge( new FeeChargeFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load FeeCharge using Id " + uuid );
@@ -175,7 +179,7 @@ public class FeeChargeRestController extends BaseSpringRestController {
         
     	try {
             // load the FeeCharge
-            feeChargeList = FeeChargeService.getFeeChargeInstance().getAllFeeCharge();
+            feeChargeList = service.getAllFeeCharge();
             
             if ( feeChargeList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all FeeCharges" );
@@ -196,7 +200,7 @@ public class FeeChargeRestController extends BaseSpringRestController {
 	@PutMapping("/assignAccount")
 	public void assignAccount( @RequestBody AssignAccountToFeeChargeCommand command ) {
 		try {
-			FeeChargeService.getFeeChargeInstance().assignAccount( command );   
+			service.assignAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Account", exc );
@@ -210,7 +214,7 @@ public class FeeChargeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignAccount")
 	public void unAssignAccount( @RequestBody(required=true)  UnAssignAccountFromFeeChargeCommand command ) {
 		try {
-			FeeChargeService.getFeeChargeInstance().unAssignAccount( command );   
+			service.unAssignAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Account", exc );
@@ -224,7 +228,7 @@ public class FeeChargeRestController extends BaseSpringRestController {
 	@PutMapping("/assignLoanAccount")
 	public void assignLoanAccount( @RequestBody AssignLoanAccountToFeeChargeCommand command ) {
 		try {
-			FeeChargeService.getFeeChargeInstance().assignLoanAccount( command );   
+			service.assignLoanAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign LoanAccount", exc );
@@ -238,7 +242,7 @@ public class FeeChargeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignLoanAccount")
 	public void unAssignLoanAccount( @RequestBody(required=true)  UnAssignLoanAccountFromFeeChargeCommand command ) {
 		try {
-			FeeChargeService.getFeeChargeInstance().unAssignLoanAccount( command );   
+			service.unAssignLoanAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign LoanAccount", exc );
@@ -253,6 +257,7 @@ public class FeeChargeRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected FeeCharge feeCharge = null;
-    private static final Logger LOGGER = Logger.getLogger(FeeChargeRestController.class.getName());
+	protected FeeChargeService service = null;
+	private static final Logger LOGGER = Logger.getLogger(FeeChargeRestController.class.getName());
     
 }

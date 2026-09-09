@@ -84,6 +84,10 @@ import com.harbormaster.exception.*;
 @RequestMapping("/ScreeningResult")
 public class ScreeningResultRestController extends BaseSpringRestController {
 
+	public ScreeningResultRestController( ScreeningResultService service ) {
+		this.service = service;
+	}
+	
     /**
      * Handles create a ScreeningResult.  if not key provided, calls create, otherwise calls save
      * @param		ScreeningResult	screeningResult
@@ -94,7 +98,7 @@ public class ScreeningResultRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = ScreeningResultService.getScreeningResultInstance().createScreeningResult( command );
+			completableFuture = service.createScreeningResult( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +119,7 @@ public class ScreeningResultRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateScreeningResultCommand
 			// -----------------------------------------------
-			completableFuture = ScreeningResultService.getScreeningResultInstance().updateScreeningResult(command);;
+			completableFuture = service.updateScreeningResult(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "ScreeningResultController:update() - successfully update ScreeningResult - " + exc.getMessage());        	
@@ -133,7 +137,7 @@ public class ScreeningResultRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteScreeningResultCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	ScreeningResultService delegate = ScreeningResultService.getScreeningResultInstance();
+        	ScreeningResultService delegate = service;
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ScreeningResult with key " + command.getScreeningResultId() );
@@ -155,7 +159,7 @@ public class ScreeningResultRestController extends BaseSpringRestController {
     	ScreeningResult entity = null;
 
     	try {  
-    		entity = ScreeningResultService.getScreeningResultInstance().getScreeningResult( new ScreeningResultFetchOneSummary( uuid ) );   
+    		entity = service.getScreeningResult( new ScreeningResultFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ScreeningResult using Id " + uuid );
@@ -175,7 +179,7 @@ public class ScreeningResultRestController extends BaseSpringRestController {
         
     	try {
             // load the ScreeningResult
-            screeningResultList = ScreeningResultService.getScreeningResultInstance().getAllScreeningResult();
+            screeningResultList = service.getAllScreeningResult();
             
             if ( screeningResultList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ScreeningResults" );
@@ -196,7 +200,7 @@ public class ScreeningResultRestController extends BaseSpringRestController {
 	@PutMapping("/assignKycProfile")
 	public void assignKycProfile( @RequestBody AssignKycProfileToScreeningResultCommand command ) {
 		try {
-			ScreeningResultService.getScreeningResultInstance().assignKycProfile( command );   
+			service.assignKycProfile( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign KycProfile", exc );
@@ -210,7 +214,7 @@ public class ScreeningResultRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignKycProfile")
 	public void unAssignKycProfile( @RequestBody(required=true)  UnAssignKycProfileFromScreeningResultCommand command ) {
 		try {
-			ScreeningResultService.getScreeningResultInstance().unAssignKycProfile( command );   
+			service.unAssignKycProfile( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign KycProfile", exc );
@@ -225,6 +229,7 @@ public class ScreeningResultRestController extends BaseSpringRestController {
 // Attributes
 //************************************************************************
     protected ScreeningResult screeningResult = null;
-    private static final Logger LOGGER = Logger.getLogger(ScreeningResultRestController.class.getName());
+	protected ScreeningResultService service = null;
+	private static final Logger LOGGER = Logger.getLogger(ScreeningResultRestController.class.getName());
     
 }

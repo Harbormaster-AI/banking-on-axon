@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/BankingProductQuery")
 public class BankingProductQueryRestController extends BaseSpringRestController {
 	
+	public BankingProductQueryRestController( BankingProductService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a BankingProduct using a UUID
      * @param		UUID bankingProductId
@@ -95,7 +99,7 @@ public class BankingProductQueryRestController extends BaseSpringRestController 
     	BankingProduct entity = null;
 
     	try {  
-    		entity = BankingProductService.getBankingProductInstance().getBankingProduct( new BankingProductFetchOneSummary( bankingProductId ) );
+    		entity = service.getBankingProduct( new BankingProductFetchOneSummary( bankingProductId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load BankingProduct using Id " + bankingProductId );
@@ -115,7 +119,7 @@ public class BankingProductQueryRestController extends BaseSpringRestController 
         
     	try {
             // load the BankingProduct
-            bankingProductList = BankingProductService.getBankingProductInstance().getAllBankingProduct();
+            bankingProductList = service.getAllBankingProduct();
             
             if ( bankingProductList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all BankingProducts" );
@@ -135,6 +139,7 @@ public class BankingProductQueryRestController extends BaseSpringRestController 
 // Attributes
 //************************************************************************
     protected BankingProduct bankingProduct = null;
+    protected BankingProductService service = null;
     private static final Logger LOGGER = Logger.getLogger(BankingProductQueryRestController.class.getName());
     
 }

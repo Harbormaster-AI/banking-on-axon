@@ -100,7 +100,6 @@ public class ThirdPartyProviderCommandRestController extends BaseSpringRestContr
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateThirdPartyProviderCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createThirdPartyProvider( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class ThirdPartyProviderCommandRestController extends BaseSpringRestContr
 		DeleteThirdPartyProviderCommand command = new DeleteThirdPartyProviderCommand( thirdPartyProviderId );
 
     	try {
-        	ThirdPartyProviderService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ThirdPartyProvider with key " + command.getThirdPartyProviderId() );
         }
         catch( Throwable exc ) {

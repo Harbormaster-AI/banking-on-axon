@@ -100,7 +100,6 @@ public class ScreeningResultCommandRestController extends BaseSpringRestControll
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateScreeningResultCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createScreeningResult( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class ScreeningResultCommandRestController extends BaseSpringRestControll
 		DeleteScreeningResultCommand command = new DeleteScreeningResultCommand( screeningResultId );
 
     	try {
-        	ScreeningResultService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ScreeningResult with key " + command.getScreeningResultId() );
         }
         catch( Throwable exc ) {

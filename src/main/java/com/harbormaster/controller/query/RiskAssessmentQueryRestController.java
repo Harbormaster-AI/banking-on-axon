@@ -85,6 +85,10 @@ import com.harbormaster.controller.*;
 @RequestMapping("/RiskAssessmentQuery")
 public class RiskAssessmentQueryRestController extends BaseSpringRestController {
 	
+	public RiskAssessmentQueryRestController( RiskAssessmentService service ) {
+        this.service = service;
+    }
+    
     /**
      * Handles loading a RiskAssessment using a UUID
      * @param		UUID riskAssessmentId
@@ -95,7 +99,7 @@ public class RiskAssessmentQueryRestController extends BaseSpringRestController 
     	RiskAssessment entity = null;
 
     	try {  
-    		entity = RiskAssessmentService.getRiskAssessmentInstance().getRiskAssessment( new RiskAssessmentFetchOneSummary( riskAssessmentId ) );
+    		entity = service.getRiskAssessment( new RiskAssessmentFetchOneSummary( riskAssessmentId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load RiskAssessment using Id " + riskAssessmentId );
@@ -115,7 +119,7 @@ public class RiskAssessmentQueryRestController extends BaseSpringRestController 
         
     	try {
             // load the RiskAssessment
-            riskAssessmentList = RiskAssessmentService.getRiskAssessmentInstance().getAllRiskAssessment();
+            riskAssessmentList = service.getAllRiskAssessment();
             
             if ( riskAssessmentList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all RiskAssessments" );
@@ -135,6 +139,7 @@ public class RiskAssessmentQueryRestController extends BaseSpringRestController 
 // Attributes
 //************************************************************************
     protected RiskAssessment riskAssessment = null;
+    protected RiskAssessmentService service = null;
     private static final Logger LOGGER = Logger.getLogger(RiskAssessmentQueryRestController.class.getName());
     
 }

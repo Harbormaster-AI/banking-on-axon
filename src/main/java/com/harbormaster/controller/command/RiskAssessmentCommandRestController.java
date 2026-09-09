@@ -100,7 +100,6 @@ public class RiskAssessmentCommandRestController extends BaseSpringRestControlle
     public CompletableFuture<UUID> create( @RequestBody(required=true) CreateRiskAssessmentCommand command ) {
 		CompletableFuture<UUID> completableFuture = null;
 		try {
-
 			completableFuture = service.createRiskAssessment( command );
         }
         catch( Throwable exc ) {
@@ -142,9 +141,7 @@ public class RiskAssessmentCommandRestController extends BaseSpringRestControlle
 		DeleteRiskAssessmentCommand command = new DeleteRiskAssessmentCommand( riskAssessmentId );
 
     	try {
-        	RiskAssessmentService delegate = service;
-
-        	completableFuture = delegate.delete( command );
+        	completableFuture = service.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted RiskAssessment with key " + command.getRiskAssessmentId() );
         }
         catch( Throwable exc ) {

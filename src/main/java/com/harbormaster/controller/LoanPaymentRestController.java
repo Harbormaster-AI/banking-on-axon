@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	LoanPaymentBusinessDelegate
+ *  	LoanPaymentBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class LoanPaymentRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = LoanPaymentBusinessDelegate.getLoanPaymentInstance().createLoanPayment( command );
+			completableFuture = LoanPaymentService.getLoanPaymentInstance().createLoanPayment( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class LoanPaymentRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateLoanPaymentCommand
 			// -----------------------------------------------
-			completableFuture = LoanPaymentBusinessDelegate.getLoanPaymentInstance().updateLoanPayment(command);;
+			completableFuture = LoanPaymentService.getLoanPaymentInstance().updateLoanPayment(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "LoanPaymentController:update() - successfully update LoanPayment - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class LoanPaymentRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteLoanPaymentCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	LoanPaymentBusinessDelegate delegate = LoanPaymentBusinessDelegate.getLoanPaymentInstance();
+        	LoanPaymentService delegate = LoanPaymentService.getLoanPaymentInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted LoanPayment with key " + command.getLoanPaymentId() );
@@ -155,7 +155,7 @@ public class LoanPaymentRestController extends BaseSpringRestController {
     	LoanPayment entity = null;
 
     	try {  
-    		entity = LoanPaymentBusinessDelegate.getLoanPaymentInstance().getLoanPayment( new LoanPaymentFetchOneSummary( uuid ) );   
+    		entity = LoanPaymentService.getLoanPaymentInstance().getLoanPayment( new LoanPaymentFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load LoanPayment using Id " + uuid );
@@ -175,7 +175,7 @@ public class LoanPaymentRestController extends BaseSpringRestController {
         
     	try {
             // load the LoanPayment
-            loanPaymentList = LoanPaymentBusinessDelegate.getLoanPaymentInstance().getAllLoanPayment();
+            loanPaymentList = LoanPaymentService.getLoanPaymentInstance().getAllLoanPayment();
             
             if ( loanPaymentList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all LoanPayments" );
@@ -196,7 +196,7 @@ public class LoanPaymentRestController extends BaseSpringRestController {
 	@PutMapping("/assignLoanAccount")
 	public void assignLoanAccount( @RequestBody AssignLoanAccountToLoanPaymentCommand command ) {
 		try {
-			LoanPaymentBusinessDelegate.getLoanPaymentInstance().assignLoanAccount( command );   
+			LoanPaymentService.getLoanPaymentInstance().assignLoanAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign LoanAccount", exc );
@@ -210,7 +210,7 @@ public class LoanPaymentRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignLoanAccount")
 	public void unAssignLoanAccount( @RequestBody(required=true)  UnAssignLoanAccountFromLoanPaymentCommand command ) {
 		try {
-			LoanPaymentBusinessDelegate.getLoanPaymentInstance().unAssignLoanAccount( command );   
+			LoanPaymentService.getLoanPaymentInstance().unAssignLoanAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign LoanAccount", exc );
@@ -224,7 +224,7 @@ public class LoanPaymentRestController extends BaseSpringRestController {
 	@PutMapping("/assignTransaction")
 	public void assignTransaction( @RequestBody AssignTransactionToLoanPaymentCommand command ) {
 		try {
-			LoanPaymentBusinessDelegate.getLoanPaymentInstance().assignTransaction( command );   
+			LoanPaymentService.getLoanPaymentInstance().assignTransaction( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Transaction", exc );
@@ -238,7 +238,7 @@ public class LoanPaymentRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignTransaction")
 	public void unAssignTransaction( @RequestBody(required=true)  UnAssignTransactionFromLoanPaymentCommand command ) {
 		try {
-			LoanPaymentBusinessDelegate.getLoanPaymentInstance().unAssignTransaction( command );   
+			LoanPaymentService.getLoanPaymentInstance().unAssignTransaction( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Transaction", exc );

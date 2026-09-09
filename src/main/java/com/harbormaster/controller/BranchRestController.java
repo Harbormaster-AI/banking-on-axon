@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	BranchBusinessDelegate
+ *  	BranchBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class BranchRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = BranchBusinessDelegate.getBranchInstance().createBranch( command );
+			completableFuture = BranchService.getBranchInstance().createBranch( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class BranchRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateBranchCommand
 			// -----------------------------------------------
-			completableFuture = BranchBusinessDelegate.getBranchInstance().updateBranch(command);;
+			completableFuture = BranchService.getBranchInstance().updateBranch(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "BranchController:update() - successfully update Branch - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class BranchRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteBranchCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	BranchBusinessDelegate delegate = BranchBusinessDelegate.getBranchInstance();
+        	BranchService delegate = BranchService.getBranchInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Branch with key " + command.getBranchId() );
@@ -155,7 +155,7 @@ public class BranchRestController extends BaseSpringRestController {
     	Branch entity = null;
 
     	try {  
-    		entity = BranchBusinessDelegate.getBranchInstance().getBranch( new BranchFetchOneSummary( uuid ) );   
+    		entity = BranchService.getBranchInstance().getBranch( new BranchFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Branch using Id " + uuid );
@@ -175,7 +175,7 @@ public class BranchRestController extends BaseSpringRestController {
         
     	try {
             // load the Branch
-            branchList = BranchBusinessDelegate.getBranchInstance().getAllBranch();
+            branchList = BranchService.getBranchInstance().getAllBranch();
             
             if ( branchList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Branchs" );
@@ -196,7 +196,7 @@ public class BranchRestController extends BaseSpringRestController {
 	@PutMapping("/assignBank")
 	public void assignBank( @RequestBody AssignBankToBranchCommand command ) {
 		try {
-			BranchBusinessDelegate.getBranchInstance().assignBank( command );   
+			BranchService.getBranchInstance().assignBank( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Bank", exc );
@@ -210,7 +210,7 @@ public class BranchRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBank")
 	public void unAssignBank( @RequestBody(required=true)  UnAssignBankFromBranchCommand command ) {
 		try {
-			BranchBusinessDelegate.getBranchInstance().unAssignBank( command );   
+			BranchService.getBranchInstance().unAssignBank( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Bank", exc );
@@ -225,7 +225,7 @@ public class BranchRestController extends BaseSpringRestController {
 	@PutMapping("/addToAccounts")
 	public void addToAccounts( @RequestBody(required=true) AssignAccountsToBranchCommand command ) {
 		try {
-			BranchBusinessDelegate.getBranchInstance().addToAccounts( command );   
+			BranchService.getBranchInstance().addToAccounts( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Accounts", exc );
@@ -240,7 +240,7 @@ public class BranchRestController extends BaseSpringRestController {
 	public void removeFromAccounts( 	@RequestBody(required=true) RemoveAccountsFromBranchCommand command )
 	{		
 		try {
-			BranchBusinessDelegate.getBranchInstance().removeFromAccounts( command );
+			BranchService.getBranchInstance().removeFromAccounts( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Accounts", exc );
@@ -254,7 +254,7 @@ public class BranchRestController extends BaseSpringRestController {
 	@PutMapping("/addToLoanAccounts")
 	public void addToLoanAccounts( @RequestBody(required=true) AssignLoanAccountsToBranchCommand command ) {
 		try {
-			BranchBusinessDelegate.getBranchInstance().addToLoanAccounts( command );   
+			BranchService.getBranchInstance().addToLoanAccounts( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set LoanAccounts", exc );
@@ -269,7 +269,7 @@ public class BranchRestController extends BaseSpringRestController {
 	public void removeFromLoanAccounts( 	@RequestBody(required=true) RemoveLoanAccountsFromBranchCommand command )
 	{		
 		try {
-			BranchBusinessDelegate.getBranchInstance().removeFromLoanAccounts( command );
+			BranchService.getBranchInstance().removeFromLoanAccounts( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set LoanAccounts", exc );
@@ -283,7 +283,7 @@ public class BranchRestController extends BaseSpringRestController {
 	@PutMapping("/addToAtms")
 	public void addToAtms( @RequestBody(required=true) AssignAtmsToBranchCommand command ) {
 		try {
-			BranchBusinessDelegate.getBranchInstance().addToAtms( command );   
+			BranchService.getBranchInstance().addToAtms( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Atms", exc );
@@ -298,7 +298,7 @@ public class BranchRestController extends BaseSpringRestController {
 	public void removeFromAtms( 	@RequestBody(required=true) RemoveAtmsFromBranchCommand command )
 	{		
 		try {
-			BranchBusinessDelegate.getBranchInstance().removeFromAtms( command );
+			BranchService.getBranchInstance().removeFromAtms( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Atms", exc );

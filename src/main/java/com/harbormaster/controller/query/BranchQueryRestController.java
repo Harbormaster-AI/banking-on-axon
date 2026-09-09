@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>BranchQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	BranchBusinessDelegate
+ *  	BranchService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class BranchQueryRestController extends BaseSpringRestController {
     	Branch entity = null;
 
     	try {  
-    		entity = BranchBusinessDelegate.getBranchInstance().getBranch( new BranchFetchOneSummary( branchId ) );
+    		entity = BranchService.getBranchInstance().getBranch( new BranchFetchOneSummary( branchId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Branch using Id " + branchId );
@@ -116,7 +114,7 @@ public class BranchQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Branch
-            branchList = BranchBusinessDelegate.getBranchInstance().getAllBranch();
+            branchList = BranchService.getBranchInstance().getAllBranch();
             
             if ( branchList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Branchs" );

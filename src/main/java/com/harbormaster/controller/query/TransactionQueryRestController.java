@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>TransactionQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	TransactionBusinessDelegate
+ *  	TransactionService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class TransactionQueryRestController extends BaseSpringRestController {
     	Transaction entity = null;
 
     	try {  
-    		entity = TransactionBusinessDelegate.getTransactionInstance().getTransaction( new TransactionFetchOneSummary( transactionId ) );
+    		entity = TransactionService.getTransactionInstance().getTransaction( new TransactionFetchOneSummary( transactionId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Transaction using Id " + transactionId );
@@ -116,7 +114,7 @@ public class TransactionQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Transaction
-            transactionList = TransactionBusinessDelegate.getTransactionInstance().getAllTransaction();
+            transactionList = TransactionService.getTransactionInstance().getAllTransaction();
             
             if ( transactionList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Transactions" );

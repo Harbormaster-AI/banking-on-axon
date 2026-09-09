@@ -88,7 +88,7 @@ public class ATMTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a ATM" );
 
 			try {            
-				ATM entity = ATMBusinessDelegate.getATMInstance().createATM( generateNewEntity() );
+				ATM entity = ATMService.getATMInstance().createATM( generateNewEntity() );
 				thePrimaryKey = entity.getATMId();
 				LOGGER.info( "-- Successfully created a ATM with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class ATMTest{
 			ATMFetchOneSummary fetchOneSummary = new ATMFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = ATMBusinessDelegate.getATMInstance().getATM( fetchOneSummary );
+				entity = ATMService.getATMInstance().getATM( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class ATMTest{
 				// for use later on...
 				thePrimaryKey = entity.getATMId();
 
-				ATMBusinessDelegate proxy = ATMBusinessDelegate.getATMInstance();            
+				ATMService proxy = ATMService.getATMInstance();            
 				proxy.updateATM( entity );   
 
 				LOGGER.info( "-- Successfully saved ATM - " + entity.toString() );
@@ -172,7 +172,7 @@ public class ATMTest{
 
 			try{
 			    ATM entity = testRead(); 
-				ATMBusinessDelegate.getATMInstance().delete( entity );
+				ATMService.getATMInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted ATM with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class ATMTest{
 			List<ATM> collection  = null;
 
 			try {
-				// call the static get method on the ATMBusinessDelegate
-				collection = ATMBusinessDelegate.getATMInstance().getAllATM();
+				// call the static get method on the ATMService
+				collection = ATMService.getATMInstance().getAllATM();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

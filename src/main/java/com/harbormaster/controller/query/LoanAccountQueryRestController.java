@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>LoanAccountQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	LoanAccountBusinessDelegate
+ *  	LoanAccountService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class LoanAccountQueryRestController extends BaseSpringRestController {
     	LoanAccount entity = null;
 
     	try {  
-    		entity = LoanAccountBusinessDelegate.getLoanAccountInstance().getLoanAccount( new LoanAccountFetchOneSummary( loanAccountId ) );
+    		entity = LoanAccountService.getLoanAccountInstance().getLoanAccount( new LoanAccountFetchOneSummary( loanAccountId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load LoanAccount using Id " + loanAccountId );
@@ -116,7 +114,7 @@ public class LoanAccountQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the LoanAccount
-            loanAccountList = LoanAccountBusinessDelegate.getLoanAccountInstance().getAllLoanAccount();
+            loanAccountList = LoanAccountService.getLoanAccountInstance().getAllLoanAccount();
             
             if ( loanAccountList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all LoanAccounts" );

@@ -88,7 +88,7 @@ public class RiskAssessmentTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a RiskAssessment" );
 
 			try {            
-				RiskAssessment entity = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().createRiskAssessment( generateNewEntity() );
+				RiskAssessment entity = RiskAssessmentService.getRiskAssessmentInstance().createRiskAssessment( generateNewEntity() );
 				thePrimaryKey = entity.getRiskAssessmentId();
 				LOGGER.info( "-- Successfully created a RiskAssessment with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class RiskAssessmentTest{
 			RiskAssessmentFetchOneSummary fetchOneSummary = new RiskAssessmentFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().getRiskAssessment( fetchOneSummary );
+				entity = RiskAssessmentService.getRiskAssessmentInstance().getRiskAssessment( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class RiskAssessmentTest{
 				// for use later on...
 				thePrimaryKey = entity.getRiskAssessmentId();
 
-				RiskAssessmentBusinessDelegate proxy = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance();            
+				RiskAssessmentService proxy = RiskAssessmentService.getRiskAssessmentInstance();            
 				proxy.updateRiskAssessment( entity );   
 
 				LOGGER.info( "-- Successfully saved RiskAssessment - " + entity.toString() );
@@ -172,7 +172,7 @@ public class RiskAssessmentTest{
 
 			try{
 			    RiskAssessment entity = testRead(); 
-				RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().delete( entity );
+				RiskAssessmentService.getRiskAssessmentInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted RiskAssessment with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class RiskAssessmentTest{
 			List<RiskAssessment> collection  = null;
 
 			try {
-				// call the static get method on the RiskAssessmentBusinessDelegate
-				collection = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().getAllRiskAssessment();
+				// call the static get method on the RiskAssessmentService
+				collection = RiskAssessmentService.getRiskAssessmentInstance().getAllRiskAssessment();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

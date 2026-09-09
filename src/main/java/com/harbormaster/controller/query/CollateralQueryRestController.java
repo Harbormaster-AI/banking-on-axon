@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>CollateralQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	CollateralBusinessDelegate
+ *  	CollateralService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class CollateralQueryRestController extends BaseSpringRestController {
     	Collateral entity = null;
 
     	try {  
-    		entity = CollateralBusinessDelegate.getCollateralInstance().getCollateral( new CollateralFetchOneSummary( collateralId ) );
+    		entity = CollateralService.getCollateralInstance().getCollateral( new CollateralFetchOneSummary( collateralId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Collateral using Id " + collateralId );
@@ -116,7 +114,7 @@ public class CollateralQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Collateral
-            collateralList = CollateralBusinessDelegate.getCollateralInstance().getAllCollateral();
+            collateralList = CollateralService.getCollateralInstance().getAllCollateral();
             
             if ( collateralList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Collaterals" );

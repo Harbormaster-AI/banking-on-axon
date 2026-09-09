@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	LoanAccountBusinessDelegate
+ *  	LoanAccountBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = LoanAccountBusinessDelegate.getLoanAccountInstance().createLoanAccount( command );
+			completableFuture = LoanAccountService.getLoanAccountInstance().createLoanAccount( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateLoanAccountCommand
 			// -----------------------------------------------
-			completableFuture = LoanAccountBusinessDelegate.getLoanAccountInstance().updateLoanAccount(command);;
+			completableFuture = LoanAccountService.getLoanAccountInstance().updateLoanAccount(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "LoanAccountController:update() - successfully update LoanAccount - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteLoanAccountCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	LoanAccountBusinessDelegate delegate = LoanAccountBusinessDelegate.getLoanAccountInstance();
+        	LoanAccountService delegate = LoanAccountService.getLoanAccountInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted LoanAccount with key " + command.getLoanAccountId() );
@@ -155,7 +155,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
     	LoanAccount entity = null;
 
     	try {  
-    		entity = LoanAccountBusinessDelegate.getLoanAccountInstance().getLoanAccount( new LoanAccountFetchOneSummary( uuid ) );   
+    		entity = LoanAccountService.getLoanAccountInstance().getLoanAccount( new LoanAccountFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load LoanAccount using Id " + uuid );
@@ -175,7 +175,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
         
     	try {
             // load the LoanAccount
-            loanAccountList = LoanAccountBusinessDelegate.getLoanAccountInstance().getAllLoanAccount();
+            loanAccountList = LoanAccountService.getLoanAccountInstance().getAllLoanAccount();
             
             if ( loanAccountList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all LoanAccounts" );
@@ -196,7 +196,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/assignBank")
 	public void assignBank( @RequestBody AssignBankToLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().assignBank( command );   
+			LoanAccountService.getLoanAccountInstance().assignBank( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Bank", exc );
@@ -210,7 +210,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBank")
 	public void unAssignBank( @RequestBody(required=true)  UnAssignBankFromLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().unAssignBank( command );   
+			LoanAccountService.getLoanAccountInstance().unAssignBank( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Bank", exc );
@@ -224,7 +224,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/assignBranch")
 	public void assignBranch( @RequestBody AssignBranchToLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().assignBranch( command );   
+			LoanAccountService.getLoanAccountInstance().assignBranch( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Branch", exc );
@@ -238,7 +238,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBranch")
 	public void unAssignBranch( @RequestBody(required=true)  UnAssignBranchFromLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().unAssignBranch( command );   
+			LoanAccountService.getLoanAccountInstance().unAssignBranch( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Branch", exc );
@@ -252,7 +252,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/assignProduct")
 	public void assignProduct( @RequestBody AssignProductToLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().assignProduct( command );   
+			LoanAccountService.getLoanAccountInstance().assignProduct( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Product", exc );
@@ -266,7 +266,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignProduct")
 	public void unAssignProduct( @RequestBody(required=true)  UnAssignProductFromLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().unAssignProduct( command );   
+			LoanAccountService.getLoanAccountInstance().unAssignProduct( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Product", exc );
@@ -281,7 +281,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/addToBorrowers")
 	public void addToBorrowers( @RequestBody(required=true) AssignBorrowersToLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().addToBorrowers( command );   
+			LoanAccountService.getLoanAccountInstance().addToBorrowers( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Borrowers", exc );
@@ -296,7 +296,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	public void removeFromBorrowers( 	@RequestBody(required=true) RemoveBorrowersFromLoanAccountCommand command )
 	{		
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().removeFromBorrowers( command );
+			LoanAccountService.getLoanAccountInstance().removeFromBorrowers( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Borrowers", exc );
@@ -310,7 +310,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/addToRepaymentSchedule")
 	public void addToRepaymentSchedule( @RequestBody(required=true) AssignRepaymentScheduleToLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().addToRepaymentSchedule( command );   
+			LoanAccountService.getLoanAccountInstance().addToRepaymentSchedule( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set RepaymentSchedule", exc );
@@ -325,7 +325,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	public void removeFromRepaymentSchedule( 	@RequestBody(required=true) RemoveRepaymentScheduleFromLoanAccountCommand command )
 	{		
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().removeFromRepaymentSchedule( command );
+			LoanAccountService.getLoanAccountInstance().removeFromRepaymentSchedule( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set RepaymentSchedule", exc );
@@ -339,7 +339,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/addToPayments")
 	public void addToPayments( @RequestBody(required=true) AssignPaymentsToLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().addToPayments( command );   
+			LoanAccountService.getLoanAccountInstance().addToPayments( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Payments", exc );
@@ -354,7 +354,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	public void removeFromPayments( 	@RequestBody(required=true) RemovePaymentsFromLoanAccountCommand command )
 	{		
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().removeFromPayments( command );
+			LoanAccountService.getLoanAccountInstance().removeFromPayments( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Payments", exc );
@@ -368,7 +368,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/addToCollateral")
 	public void addToCollateral( @RequestBody(required=true) AssignCollateralToLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().addToCollateral( command );   
+			LoanAccountService.getLoanAccountInstance().addToCollateral( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Collateral", exc );
@@ -383,7 +383,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	public void removeFromCollateral( 	@RequestBody(required=true) RemoveCollateralFromLoanAccountCommand command )
 	{		
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().removeFromCollateral( command );
+			LoanAccountService.getLoanAccountInstance().removeFromCollateral( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Collateral", exc );
@@ -397,7 +397,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	@PutMapping("/addToFeeCharges")
 	public void addToFeeCharges( @RequestBody(required=true) AssignFeeChargesToLoanAccountCommand command ) {
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().addToFeeCharges( command );   
+			LoanAccountService.getLoanAccountInstance().addToFeeCharges( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set FeeCharges", exc );
@@ -412,7 +412,7 @@ public class LoanAccountRestController extends BaseSpringRestController {
 	public void removeFromFeeCharges( 	@RequestBody(required=true) RemoveFeeChargesFromLoanAccountCommand command )
 	{		
 		try {
-			LoanAccountBusinessDelegate.getLoanAccountInstance().removeFromFeeCharges( command );
+			LoanAccountService.getLoanAccountInstance().removeFromFeeCharges( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set FeeCharges", exc );

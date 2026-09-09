@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>DisputeQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	DisputeBusinessDelegate
+ *  	DisputeService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class DisputeQueryRestController extends BaseSpringRestController {
     	Dispute entity = null;
 
     	try {  
-    		entity = DisputeBusinessDelegate.getDisputeInstance().getDispute( new DisputeFetchOneSummary( disputeId ) );
+    		entity = DisputeService.getDisputeInstance().getDispute( new DisputeFetchOneSummary( disputeId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Dispute using Id " + disputeId );
@@ -116,7 +114,7 @@ public class DisputeQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Dispute
-            disputeList = DisputeBusinessDelegate.getDisputeInstance().getAllDispute();
+            disputeList = DisputeService.getDisputeInstance().getAllDispute();
             
             if ( disputeList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Disputes" );

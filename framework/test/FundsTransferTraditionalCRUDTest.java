@@ -88,7 +88,7 @@ public class FundsTransferTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a FundsTransfer" );
 
 			try {            
-				FundsTransfer entity = FundsTransferBusinessDelegate.getFundsTransferInstance().createFundsTransfer( generateNewEntity() );
+				FundsTransfer entity = FundsTransferService.getFundsTransferInstance().createFundsTransfer( generateNewEntity() );
 				thePrimaryKey = entity.getFundsTransferId();
 				LOGGER.info( "-- Successfully created a FundsTransfer with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class FundsTransferTest{
 			FundsTransferFetchOneSummary fetchOneSummary = new FundsTransferFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = FundsTransferBusinessDelegate.getFundsTransferInstance().getFundsTransfer( fetchOneSummary );
+				entity = FundsTransferService.getFundsTransferInstance().getFundsTransfer( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class FundsTransferTest{
 				// for use later on...
 				thePrimaryKey = entity.getFundsTransferId();
 
-				FundsTransferBusinessDelegate proxy = FundsTransferBusinessDelegate.getFundsTransferInstance();            
+				FundsTransferService proxy = FundsTransferService.getFundsTransferInstance();            
 				proxy.updateFundsTransfer( entity );   
 
 				LOGGER.info( "-- Successfully saved FundsTransfer - " + entity.toString() );
@@ -172,7 +172,7 @@ public class FundsTransferTest{
 
 			try{
 			    FundsTransfer entity = testRead(); 
-				FundsTransferBusinessDelegate.getFundsTransferInstance().delete( entity );
+				FundsTransferService.getFundsTransferInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted FundsTransfer with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class FundsTransferTest{
 			List<FundsTransfer> collection  = null;
 
 			try {
-				// call the static get method on the FundsTransferBusinessDelegate
-				collection = FundsTransferBusinessDelegate.getFundsTransferInstance().getAllFundsTransfer();
+				// call the static get method on the FundsTransferService
+				collection = FundsTransferService.getFundsTransferInstance().getAllFundsTransfer();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

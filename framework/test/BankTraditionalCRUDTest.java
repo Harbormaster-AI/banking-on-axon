@@ -88,7 +88,7 @@ public class BankTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a Bank" );
 
 			try {            
-				Bank entity = BankBusinessDelegate.getBankInstance().createBank( generateNewEntity() );
+				Bank entity = BankService.getBankInstance().createBank( generateNewEntity() );
 				thePrimaryKey = entity.getBankId();
 				LOGGER.info( "-- Successfully created a Bank with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class BankTest{
 			BankFetchOneSummary fetchOneSummary = new BankFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = BankBusinessDelegate.getBankInstance().getBank( fetchOneSummary );
+				entity = BankService.getBankInstance().getBank( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class BankTest{
 				// for use later on...
 				thePrimaryKey = entity.getBankId();
 
-				BankBusinessDelegate proxy = BankBusinessDelegate.getBankInstance();            
+				BankService proxy = BankService.getBankInstance();            
 				proxy.updateBank( entity );   
 
 				LOGGER.info( "-- Successfully saved Bank - " + entity.toString() );
@@ -172,7 +172,7 @@ public class BankTest{
 
 			try{
 			    Bank entity = testRead(); 
-				BankBusinessDelegate.getBankInstance().delete( entity );
+				BankService.getBankInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted Bank with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class BankTest{
 			List<Bank> collection  = null;
 
 			try {
-				// call the static get method on the BankBusinessDelegate
-				collection = BankBusinessDelegate.getBankInstance().getAllBank();
+				// call the static get method on the BankService
+				collection = BankService.getBankInstance().getAllBank();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

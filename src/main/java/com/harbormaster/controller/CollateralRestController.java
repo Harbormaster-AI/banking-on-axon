@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	CollateralBusinessDelegate
+ *  	CollateralBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class CollateralRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = CollateralBusinessDelegate.getCollateralInstance().createCollateral( command );
+			completableFuture = CollateralService.getCollateralInstance().createCollateral( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class CollateralRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateCollateralCommand
 			// -----------------------------------------------
-			completableFuture = CollateralBusinessDelegate.getCollateralInstance().updateCollateral(command);;
+			completableFuture = CollateralService.getCollateralInstance().updateCollateral(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "CollateralController:update() - successfully update Collateral - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class CollateralRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteCollateralCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	CollateralBusinessDelegate delegate = CollateralBusinessDelegate.getCollateralInstance();
+        	CollateralService delegate = CollateralService.getCollateralInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Collateral with key " + command.getCollateralId() );
@@ -155,7 +155,7 @@ public class CollateralRestController extends BaseSpringRestController {
     	Collateral entity = null;
 
     	try {  
-    		entity = CollateralBusinessDelegate.getCollateralInstance().getCollateral( new CollateralFetchOneSummary( uuid ) );   
+    		entity = CollateralService.getCollateralInstance().getCollateral( new CollateralFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Collateral using Id " + uuid );
@@ -175,7 +175,7 @@ public class CollateralRestController extends BaseSpringRestController {
         
     	try {
             // load the Collateral
-            collateralList = CollateralBusinessDelegate.getCollateralInstance().getAllCollateral();
+            collateralList = CollateralService.getCollateralInstance().getAllCollateral();
             
             if ( collateralList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Collaterals" );
@@ -196,7 +196,7 @@ public class CollateralRestController extends BaseSpringRestController {
 	@PutMapping("/assignLoanAccount")
 	public void assignLoanAccount( @RequestBody AssignLoanAccountToCollateralCommand command ) {
 		try {
-			CollateralBusinessDelegate.getCollateralInstance().assignLoanAccount( command );   
+			CollateralService.getCollateralInstance().assignLoanAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign LoanAccount", exc );
@@ -210,7 +210,7 @@ public class CollateralRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignLoanAccount")
 	public void unAssignLoanAccount( @RequestBody(required=true)  UnAssignLoanAccountFromCollateralCommand command ) {
 		try {
-			CollateralBusinessDelegate.getCollateralInstance().unAssignLoanAccount( command );   
+			CollateralService.getCollateralInstance().unAssignLoanAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign LoanAccount", exc );

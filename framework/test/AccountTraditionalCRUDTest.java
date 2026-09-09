@@ -88,7 +88,7 @@ public class AccountTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a Account" );
 
 			try {            
-				Account entity = AccountBusinessDelegate.getAccountInstance().createAccount( generateNewEntity() );
+				Account entity = AccountService.getAccountInstance().createAccount( generateNewEntity() );
 				thePrimaryKey = entity.getAccountId();
 				LOGGER.info( "-- Successfully created a Account with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class AccountTest{
 			AccountFetchOneSummary fetchOneSummary = new AccountFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = AccountBusinessDelegate.getAccountInstance().getAccount( fetchOneSummary );
+				entity = AccountService.getAccountInstance().getAccount( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class AccountTest{
 				// for use later on...
 				thePrimaryKey = entity.getAccountId();
 
-				AccountBusinessDelegate proxy = AccountBusinessDelegate.getAccountInstance();            
+				AccountService proxy = AccountService.getAccountInstance();            
 				proxy.updateAccount( entity );   
 
 				LOGGER.info( "-- Successfully saved Account - " + entity.toString() );
@@ -172,7 +172,7 @@ public class AccountTest{
 
 			try{
 			    Account entity = testRead(); 
-				AccountBusinessDelegate.getAccountInstance().delete( entity );
+				AccountService.getAccountInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted Account with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class AccountTest{
 			List<Account> collection  = null;
 
 			try {
-				// call the static get method on the AccountBusinessDelegate
-				collection = AccountBusinessDelegate.getAccountInstance().getAllAccount();
+				// call the static get method on the AccountService
+				collection = AccountService.getAccountInstance().getAllAccount();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

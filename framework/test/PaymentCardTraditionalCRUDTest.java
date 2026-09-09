@@ -88,7 +88,7 @@ public class PaymentCardTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a PaymentCard" );
 
 			try {            
-				PaymentCard entity = PaymentCardBusinessDelegate.getPaymentCardInstance().createPaymentCard( generateNewEntity() );
+				PaymentCard entity = PaymentCardService.getPaymentCardInstance().createPaymentCard( generateNewEntity() );
 				thePrimaryKey = entity.getPaymentCardId();
 				LOGGER.info( "-- Successfully created a PaymentCard with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class PaymentCardTest{
 			PaymentCardFetchOneSummary fetchOneSummary = new PaymentCardFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = PaymentCardBusinessDelegate.getPaymentCardInstance().getPaymentCard( fetchOneSummary );
+				entity = PaymentCardService.getPaymentCardInstance().getPaymentCard( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class PaymentCardTest{
 				// for use later on...
 				thePrimaryKey = entity.getPaymentCardId();
 
-				PaymentCardBusinessDelegate proxy = PaymentCardBusinessDelegate.getPaymentCardInstance();            
+				PaymentCardService proxy = PaymentCardService.getPaymentCardInstance();            
 				proxy.updatePaymentCard( entity );   
 
 				LOGGER.info( "-- Successfully saved PaymentCard - " + entity.toString() );
@@ -172,7 +172,7 @@ public class PaymentCardTest{
 
 			try{
 			    PaymentCard entity = testRead(); 
-				PaymentCardBusinessDelegate.getPaymentCardInstance().delete( entity );
+				PaymentCardService.getPaymentCardInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted PaymentCard with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class PaymentCardTest{
 			List<PaymentCard> collection  = null;
 
 			try {
-				// call the static get method on the PaymentCardBusinessDelegate
-				collection = PaymentCardBusinessDelegate.getPaymentCardInstance().getAllPaymentCard();
+				// call the static get method on the PaymentCardService
+				collection = PaymentCardService.getPaymentCardInstance().getAllPaymentCard();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

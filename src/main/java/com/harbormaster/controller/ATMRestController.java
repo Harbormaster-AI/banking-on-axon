@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	ATMBusinessDelegate
+ *  	ATMBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class ATMRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = ATMBusinessDelegate.getATMInstance().createATM( command );
+			completableFuture = ATMService.getATMInstance().createATM( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class ATMRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateATMCommand
 			// -----------------------------------------------
-			completableFuture = ATMBusinessDelegate.getATMInstance().updateATM(command);;
+			completableFuture = ATMService.getATMInstance().updateATM(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "ATMController:update() - successfully update ATM - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class ATMRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteATMCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	ATMBusinessDelegate delegate = ATMBusinessDelegate.getATMInstance();
+        	ATMService delegate = ATMService.getATMInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ATM with key " + command.getATMId() );
@@ -155,7 +155,7 @@ public class ATMRestController extends BaseSpringRestController {
     	ATM entity = null;
 
     	try {  
-    		entity = ATMBusinessDelegate.getATMInstance().getATM( new ATMFetchOneSummary( uuid ) );   
+    		entity = ATMService.getATMInstance().getATM( new ATMFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ATM using Id " + uuid );
@@ -175,7 +175,7 @@ public class ATMRestController extends BaseSpringRestController {
         
     	try {
             // load the ATM
-            aTMList = ATMBusinessDelegate.getATMInstance().getAllATM();
+            aTMList = ATMService.getATMInstance().getAllATM();
             
             if ( aTMList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ATMs" );
@@ -196,7 +196,7 @@ public class ATMRestController extends BaseSpringRestController {
 	@PutMapping("/assignBranch")
 	public void assignBranch( @RequestBody AssignBranchToATMCommand command ) {
 		try {
-			ATMBusinessDelegate.getATMInstance().assignBranch( command );   
+			ATMService.getATMInstance().assignBranch( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Branch", exc );
@@ -210,7 +210,7 @@ public class ATMRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBranch")
 	public void unAssignBranch( @RequestBody(required=true)  UnAssignBranchFromATMCommand command ) {
 		try {
-			ATMBusinessDelegate.getATMInstance().unAssignBranch( command );   
+			ATMService.getATMInstance().unAssignBranch( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Branch", exc );

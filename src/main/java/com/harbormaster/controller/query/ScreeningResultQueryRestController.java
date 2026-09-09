@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>ScreeningResultQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	ScreeningResultBusinessDelegate
+ *  	ScreeningResultService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class ScreeningResultQueryRestController extends BaseSpringRestController
     	ScreeningResult entity = null;
 
     	try {  
-    		entity = ScreeningResultBusinessDelegate.getScreeningResultInstance().getScreeningResult( new ScreeningResultFetchOneSummary( screeningResultId ) );
+    		entity = ScreeningResultService.getScreeningResultInstance().getScreeningResult( new ScreeningResultFetchOneSummary( screeningResultId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ScreeningResult using Id " + screeningResultId );
@@ -116,7 +114,7 @@ public class ScreeningResultQueryRestController extends BaseSpringRestController
         
     	try {
             // load the ScreeningResult
-            screeningResultList = ScreeningResultBusinessDelegate.getScreeningResultInstance().getAllScreeningResult();
+            screeningResultList = ScreeningResultService.getScreeningResultInstance().getAllScreeningResult();
             
             if ( screeningResultList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ScreeningResults" );

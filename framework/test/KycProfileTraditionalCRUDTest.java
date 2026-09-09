@@ -88,7 +88,7 @@ public class KycProfileTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a KycProfile" );
 
 			try {            
-				KycProfile entity = KycProfileBusinessDelegate.getKycProfileInstance().createKycProfile( generateNewEntity() );
+				KycProfile entity = KycProfileService.getKycProfileInstance().createKycProfile( generateNewEntity() );
 				thePrimaryKey = entity.getKycProfileId();
 				LOGGER.info( "-- Successfully created a KycProfile with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class KycProfileTest{
 			KycProfileFetchOneSummary fetchOneSummary = new KycProfileFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = KycProfileBusinessDelegate.getKycProfileInstance().getKycProfile( fetchOneSummary );
+				entity = KycProfileService.getKycProfileInstance().getKycProfile( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class KycProfileTest{
 				// for use later on...
 				thePrimaryKey = entity.getKycProfileId();
 
-				KycProfileBusinessDelegate proxy = KycProfileBusinessDelegate.getKycProfileInstance();            
+				KycProfileService proxy = KycProfileService.getKycProfileInstance();            
 				proxy.updateKycProfile( entity );   
 
 				LOGGER.info( "-- Successfully saved KycProfile - " + entity.toString() );
@@ -172,7 +172,7 @@ public class KycProfileTest{
 
 			try{
 			    KycProfile entity = testRead(); 
-				KycProfileBusinessDelegate.getKycProfileInstance().delete( entity );
+				KycProfileService.getKycProfileInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted KycProfile with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class KycProfileTest{
 			List<KycProfile> collection  = null;
 
 			try {
-				// call the static get method on the KycProfileBusinessDelegate
-				collection = KycProfileBusinessDelegate.getKycProfileInstance().getAllKycProfile();
+				// call the static get method on the KycProfileService
+				collection = KycProfileService.getKycProfileInstance().getAllKycProfile();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

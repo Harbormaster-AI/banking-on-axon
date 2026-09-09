@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>StandingInstructionQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	StandingInstructionBusinessDelegate
+ *  	StandingInstructionService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class StandingInstructionQueryRestController extends BaseSpringRestContro
     	StandingInstruction entity = null;
 
     	try {  
-    		entity = StandingInstructionBusinessDelegate.getStandingInstructionInstance().getStandingInstruction( new StandingInstructionFetchOneSummary( standingInstructionId ) );
+    		entity = StandingInstructionService.getStandingInstructionInstance().getStandingInstruction( new StandingInstructionFetchOneSummary( standingInstructionId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load StandingInstruction using Id " + standingInstructionId );
@@ -116,7 +114,7 @@ public class StandingInstructionQueryRestController extends BaseSpringRestContro
         
     	try {
             // load the StandingInstruction
-            standingInstructionList = StandingInstructionBusinessDelegate.getStandingInstructionInstance().getAllStandingInstruction();
+            standingInstructionList = StandingInstructionService.getStandingInstructionInstance().getAllStandingInstruction();
             
             if ( standingInstructionList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all StandingInstructions" );

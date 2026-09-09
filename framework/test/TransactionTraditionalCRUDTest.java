@@ -88,7 +88,7 @@ public class TransactionTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a Transaction" );
 
 			try {            
-				Transaction entity = TransactionBusinessDelegate.getTransactionInstance().createTransaction( generateNewEntity() );
+				Transaction entity = TransactionService.getTransactionInstance().createTransaction( generateNewEntity() );
 				thePrimaryKey = entity.getTransactionId();
 				LOGGER.info( "-- Successfully created a Transaction with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class TransactionTest{
 			TransactionFetchOneSummary fetchOneSummary = new TransactionFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = TransactionBusinessDelegate.getTransactionInstance().getTransaction( fetchOneSummary );
+				entity = TransactionService.getTransactionInstance().getTransaction( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class TransactionTest{
 				// for use later on...
 				thePrimaryKey = entity.getTransactionId();
 
-				TransactionBusinessDelegate proxy = TransactionBusinessDelegate.getTransactionInstance();            
+				TransactionService proxy = TransactionService.getTransactionInstance();            
 				proxy.updateTransaction( entity );   
 
 				LOGGER.info( "-- Successfully saved Transaction - " + entity.toString() );
@@ -172,7 +172,7 @@ public class TransactionTest{
 
 			try{
 			    Transaction entity = testRead(); 
-				TransactionBusinessDelegate.getTransactionInstance().delete( entity );
+				TransactionService.getTransactionInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted Transaction with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class TransactionTest{
 			List<Transaction> collection  = null;
 
 			try {
-				// call the static get method on the TransactionBusinessDelegate
-				collection = TransactionBusinessDelegate.getTransactionInstance().getAllTransaction();
+				// call the static get method on the TransactionService
+				collection = TransactionService.getTransactionInstance().getAllTransaction();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

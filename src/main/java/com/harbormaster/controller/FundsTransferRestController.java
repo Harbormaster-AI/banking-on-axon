@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	FundsTransferBusinessDelegate
+ *  	FundsTransferBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = FundsTransferBusinessDelegate.getFundsTransferInstance().createFundsTransfer( command );
+			completableFuture = FundsTransferService.getFundsTransferInstance().createFundsTransfer( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateFundsTransferCommand
 			// -----------------------------------------------
-			completableFuture = FundsTransferBusinessDelegate.getFundsTransferInstance().updateFundsTransfer(command);;
+			completableFuture = FundsTransferService.getFundsTransferInstance().updateFundsTransfer(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "FundsTransferController:update() - successfully update FundsTransfer - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteFundsTransferCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	FundsTransferBusinessDelegate delegate = FundsTransferBusinessDelegate.getFundsTransferInstance();
+        	FundsTransferService delegate = FundsTransferService.getFundsTransferInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted FundsTransfer with key " + command.getFundsTransferId() );
@@ -155,7 +155,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
     	FundsTransfer entity = null;
 
     	try {  
-    		entity = FundsTransferBusinessDelegate.getFundsTransferInstance().getFundsTransfer( new FundsTransferFetchOneSummary( uuid ) );   
+    		entity = FundsTransferService.getFundsTransferInstance().getFundsTransfer( new FundsTransferFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load FundsTransfer using Id " + uuid );
@@ -175,7 +175,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
         
     	try {
             // load the FundsTransfer
-            fundsTransferList = FundsTransferBusinessDelegate.getFundsTransferInstance().getAllFundsTransfer();
+            fundsTransferList = FundsTransferService.getFundsTransferInstance().getAllFundsTransfer();
             
             if ( fundsTransferList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all FundsTransfers" );
@@ -196,7 +196,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 	@PutMapping("/assignSourceAccount")
 	public void assignSourceAccount( @RequestBody AssignSourceAccountToFundsTransferCommand command ) {
 		try {
-			FundsTransferBusinessDelegate.getFundsTransferInstance().assignSourceAccount( command );   
+			FundsTransferService.getFundsTransferInstance().assignSourceAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign SourceAccount", exc );
@@ -210,7 +210,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignSourceAccount")
 	public void unAssignSourceAccount( @RequestBody(required=true)  UnAssignSourceAccountFromFundsTransferCommand command ) {
 		try {
-			FundsTransferBusinessDelegate.getFundsTransferInstance().unAssignSourceAccount( command );   
+			FundsTransferService.getFundsTransferInstance().unAssignSourceAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign SourceAccount", exc );
@@ -224,7 +224,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 	@PutMapping("/assignDestinationAccount")
 	public void assignDestinationAccount( @RequestBody AssignDestinationAccountToFundsTransferCommand command ) {
 		try {
-			FundsTransferBusinessDelegate.getFundsTransferInstance().assignDestinationAccount( command );   
+			FundsTransferService.getFundsTransferInstance().assignDestinationAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign DestinationAccount", exc );
@@ -238,7 +238,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignDestinationAccount")
 	public void unAssignDestinationAccount( @RequestBody(required=true)  UnAssignDestinationAccountFromFundsTransferCommand command ) {
 		try {
-			FundsTransferBusinessDelegate.getFundsTransferInstance().unAssignDestinationAccount( command );   
+			FundsTransferService.getFundsTransferInstance().unAssignDestinationAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign DestinationAccount", exc );
@@ -252,7 +252,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 	@PutMapping("/assignExternalBeneficiary")
 	public void assignExternalBeneficiary( @RequestBody AssignExternalBeneficiaryToFundsTransferCommand command ) {
 		try {
-			FundsTransferBusinessDelegate.getFundsTransferInstance().assignExternalBeneficiary( command );   
+			FundsTransferService.getFundsTransferInstance().assignExternalBeneficiary( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign ExternalBeneficiary", exc );
@@ -266,7 +266,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignExternalBeneficiary")
 	public void unAssignExternalBeneficiary( @RequestBody(required=true)  UnAssignExternalBeneficiaryFromFundsTransferCommand command ) {
 		try {
-			FundsTransferBusinessDelegate.getFundsTransferInstance().unAssignExternalBeneficiary( command );   
+			FundsTransferService.getFundsTransferInstance().unAssignExternalBeneficiary( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign ExternalBeneficiary", exc );
@@ -280,7 +280,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 	@PutMapping("/assignInitiatedBy")
 	public void assignInitiatedBy( @RequestBody AssignInitiatedByToFundsTransferCommand command ) {
 		try {
-			FundsTransferBusinessDelegate.getFundsTransferInstance().assignInitiatedBy( command );   
+			FundsTransferService.getFundsTransferInstance().assignInitiatedBy( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign InitiatedBy", exc );
@@ -294,7 +294,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignInitiatedBy")
 	public void unAssignInitiatedBy( @RequestBody(required=true)  UnAssignInitiatedByFromFundsTransferCommand command ) {
 		try {
-			FundsTransferBusinessDelegate.getFundsTransferInstance().unAssignInitiatedBy( command );   
+			FundsTransferService.getFundsTransferInstance().unAssignInitiatedBy( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign InitiatedBy", exc );
@@ -309,7 +309,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 	@PutMapping("/addToTransactions")
 	public void addToTransactions( @RequestBody(required=true) AssignTransactionsToFundsTransferCommand command ) {
 		try {
-			FundsTransferBusinessDelegate.getFundsTransferInstance().addToTransactions( command );   
+			FundsTransferService.getFundsTransferInstance().addToTransactions( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Transactions", exc );
@@ -324,7 +324,7 @@ public class FundsTransferRestController extends BaseSpringRestController {
 	public void removeFromTransactions( 	@RequestBody(required=true) RemoveTransactionsFromFundsTransferCommand command )
 	{		
 		try {
-			FundsTransferBusinessDelegate.getFundsTransferInstance().removeFromTransactions( command );
+			FundsTransferService.getFundsTransferInstance().removeFromTransactions( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Transactions", exc );

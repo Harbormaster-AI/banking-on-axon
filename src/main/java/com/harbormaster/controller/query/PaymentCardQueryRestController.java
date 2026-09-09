@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>PaymentCardQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	PaymentCardBusinessDelegate
+ *  	PaymentCardService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class PaymentCardQueryRestController extends BaseSpringRestController {
     	PaymentCard entity = null;
 
     	try {  
-    		entity = PaymentCardBusinessDelegate.getPaymentCardInstance().getPaymentCard( new PaymentCardFetchOneSummary( paymentCardId ) );
+    		entity = PaymentCardService.getPaymentCardInstance().getPaymentCard( new PaymentCardFetchOneSummary( paymentCardId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load PaymentCard using Id " + paymentCardId );
@@ -116,7 +114,7 @@ public class PaymentCardQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the PaymentCard
-            paymentCardList = PaymentCardBusinessDelegate.getPaymentCardInstance().getAllPaymentCard();
+            paymentCardList = PaymentCardService.getPaymentCardInstance().getAllPaymentCard();
             
             if ( paymentCardList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all PaymentCards" );

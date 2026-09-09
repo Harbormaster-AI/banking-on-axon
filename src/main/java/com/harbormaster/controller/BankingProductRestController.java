@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	BankingProductBusinessDelegate
+ *  	BankingProductBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class BankingProductRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = BankingProductBusinessDelegate.getBankingProductInstance().createBankingProduct( command );
+			completableFuture = BankingProductService.getBankingProductInstance().createBankingProduct( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class BankingProductRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateBankingProductCommand
 			// -----------------------------------------------
-			completableFuture = BankingProductBusinessDelegate.getBankingProductInstance().updateBankingProduct(command);;
+			completableFuture = BankingProductService.getBankingProductInstance().updateBankingProduct(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "BankingProductController:update() - successfully update BankingProduct - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class BankingProductRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteBankingProductCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	BankingProductBusinessDelegate delegate = BankingProductBusinessDelegate.getBankingProductInstance();
+        	BankingProductService delegate = BankingProductService.getBankingProductInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted BankingProduct with key " + command.getBankingProductId() );
@@ -155,7 +155,7 @@ public class BankingProductRestController extends BaseSpringRestController {
     	BankingProduct entity = null;
 
     	try {  
-    		entity = BankingProductBusinessDelegate.getBankingProductInstance().getBankingProduct( new BankingProductFetchOneSummary( uuid ) );   
+    		entity = BankingProductService.getBankingProductInstance().getBankingProduct( new BankingProductFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load BankingProduct using Id " + uuid );
@@ -175,7 +175,7 @@ public class BankingProductRestController extends BaseSpringRestController {
         
     	try {
             // load the BankingProduct
-            bankingProductList = BankingProductBusinessDelegate.getBankingProductInstance().getAllBankingProduct();
+            bankingProductList = BankingProductService.getBankingProductInstance().getAllBankingProduct();
             
             if ( bankingProductList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all BankingProducts" );
@@ -196,7 +196,7 @@ public class BankingProductRestController extends BaseSpringRestController {
 	@PutMapping("/assignBank")
 	public void assignBank( @RequestBody AssignBankToBankingProductCommand command ) {
 		try {
-			BankingProductBusinessDelegate.getBankingProductInstance().assignBank( command );   
+			BankingProductService.getBankingProductInstance().assignBank( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Bank", exc );
@@ -210,7 +210,7 @@ public class BankingProductRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBank")
 	public void unAssignBank( @RequestBody(required=true)  UnAssignBankFromBankingProductCommand command ) {
 		try {
-			BankingProductBusinessDelegate.getBankingProductInstance().unAssignBank( command );   
+			BankingProductService.getBankingProductInstance().unAssignBank( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Bank", exc );
@@ -225,7 +225,7 @@ public class BankingProductRestController extends BaseSpringRestController {
 	@PutMapping("/addToAccounts")
 	public void addToAccounts( @RequestBody(required=true) AssignAccountsToBankingProductCommand command ) {
 		try {
-			BankingProductBusinessDelegate.getBankingProductInstance().addToAccounts( command );   
+			BankingProductService.getBankingProductInstance().addToAccounts( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Accounts", exc );
@@ -240,7 +240,7 @@ public class BankingProductRestController extends BaseSpringRestController {
 	public void removeFromAccounts( 	@RequestBody(required=true) RemoveAccountsFromBankingProductCommand command )
 	{		
 		try {
-			BankingProductBusinessDelegate.getBankingProductInstance().removeFromAccounts( command );
+			BankingProductService.getBankingProductInstance().removeFromAccounts( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Accounts", exc );
@@ -254,7 +254,7 @@ public class BankingProductRestController extends BaseSpringRestController {
 	@PutMapping("/addToLoanAccounts")
 	public void addToLoanAccounts( @RequestBody(required=true) AssignLoanAccountsToBankingProductCommand command ) {
 		try {
-			BankingProductBusinessDelegate.getBankingProductInstance().addToLoanAccounts( command );   
+			BankingProductService.getBankingProductInstance().addToLoanAccounts( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set LoanAccounts", exc );
@@ -269,7 +269,7 @@ public class BankingProductRestController extends BaseSpringRestController {
 	public void removeFromLoanAccounts( 	@RequestBody(required=true) RemoveLoanAccountsFromBankingProductCommand command )
 	{		
 		try {
-			BankingProductBusinessDelegate.getBankingProductInstance().removeFromLoanAccounts( command );
+			BankingProductService.getBankingProductInstance().removeFromLoanAccounts( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set LoanAccounts", exc );
@@ -283,7 +283,7 @@ public class BankingProductRestController extends BaseSpringRestController {
 	@PutMapping("/addToPaymentCards")
 	public void addToPaymentCards( @RequestBody(required=true) AssignPaymentCardsToBankingProductCommand command ) {
 		try {
-			BankingProductBusinessDelegate.getBankingProductInstance().addToPaymentCards( command );   
+			BankingProductService.getBankingProductInstance().addToPaymentCards( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set PaymentCards", exc );
@@ -298,7 +298,7 @@ public class BankingProductRestController extends BaseSpringRestController {
 	public void removeFromPaymentCards( 	@RequestBody(required=true) RemovePaymentCardsFromBankingProductCommand command )
 	{		
 		try {
-			BankingProductBusinessDelegate.getBankingProductInstance().removeFromPaymentCards( command );
+			BankingProductService.getBankingProductInstance().removeFromPaymentCards( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set PaymentCards", exc );

@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	BankBusinessDelegate
+ *  	BankBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class BankRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = BankBusinessDelegate.getBankInstance().createBank( command );
+			completableFuture = BankService.getBankInstance().createBank( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class BankRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateBankCommand
 			// -----------------------------------------------
-			completableFuture = BankBusinessDelegate.getBankInstance().updateBank(command);;
+			completableFuture = BankService.getBankInstance().updateBank(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "BankController:update() - successfully update Bank - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class BankRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteBankCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	BankBusinessDelegate delegate = BankBusinessDelegate.getBankInstance();
+        	BankService delegate = BankService.getBankInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Bank with key " + command.getBankId() );
@@ -155,7 +155,7 @@ public class BankRestController extends BaseSpringRestController {
     	Bank entity = null;
 
     	try {  
-    		entity = BankBusinessDelegate.getBankInstance().getBank( new BankFetchOneSummary( uuid ) );   
+    		entity = BankService.getBankInstance().getBank( new BankFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Bank using Id " + uuid );
@@ -175,7 +175,7 @@ public class BankRestController extends BaseSpringRestController {
         
     	try {
             // load the Bank
-            bankList = BankBusinessDelegate.getBankInstance().getAllBank();
+            bankList = BankService.getBankInstance().getAllBank();
             
             if ( bankList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Banks" );
@@ -197,7 +197,7 @@ public class BankRestController extends BaseSpringRestController {
 	@PutMapping("/addToBranches")
 	public void addToBranches( @RequestBody(required=true) AssignBranchesToBankCommand command ) {
 		try {
-			BankBusinessDelegate.getBankInstance().addToBranches( command );   
+			BankService.getBankInstance().addToBranches( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Branches", exc );
@@ -212,7 +212,7 @@ public class BankRestController extends BaseSpringRestController {
 	public void removeFromBranches( 	@RequestBody(required=true) RemoveBranchesFromBankCommand command )
 	{		
 		try {
-			BankBusinessDelegate.getBankInstance().removeFromBranches( command );
+			BankService.getBankInstance().removeFromBranches( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Branches", exc );
@@ -226,7 +226,7 @@ public class BankRestController extends BaseSpringRestController {
 	@PutMapping("/addToProducts")
 	public void addToProducts( @RequestBody(required=true) AssignProductsToBankCommand command ) {
 		try {
-			BankBusinessDelegate.getBankInstance().addToProducts( command );   
+			BankService.getBankInstance().addToProducts( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Products", exc );
@@ -241,7 +241,7 @@ public class BankRestController extends BaseSpringRestController {
 	public void removeFromProducts( 	@RequestBody(required=true) RemoveProductsFromBankCommand command )
 	{		
 		try {
-			BankBusinessDelegate.getBankInstance().removeFromProducts( command );
+			BankService.getBankInstance().removeFromProducts( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Products", exc );
@@ -255,7 +255,7 @@ public class BankRestController extends BaseSpringRestController {
 	@PutMapping("/addToCustomers")
 	public void addToCustomers( @RequestBody(required=true) AssignCustomersToBankCommand command ) {
 		try {
-			BankBusinessDelegate.getBankInstance().addToCustomers( command );   
+			BankService.getBankInstance().addToCustomers( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Customers", exc );
@@ -270,7 +270,7 @@ public class BankRestController extends BaseSpringRestController {
 	public void removeFromCustomers( 	@RequestBody(required=true) RemoveCustomersFromBankCommand command )
 	{		
 		try {
-			BankBusinessDelegate.getBankInstance().removeFromCustomers( command );
+			BankService.getBankInstance().removeFromCustomers( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Customers", exc );
@@ -284,7 +284,7 @@ public class BankRestController extends BaseSpringRestController {
 	@PutMapping("/addToAccounts")
 	public void addToAccounts( @RequestBody(required=true) AssignAccountsToBankCommand command ) {
 		try {
-			BankBusinessDelegate.getBankInstance().addToAccounts( command );   
+			BankService.getBankInstance().addToAccounts( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Accounts", exc );
@@ -299,7 +299,7 @@ public class BankRestController extends BaseSpringRestController {
 	public void removeFromAccounts( 	@RequestBody(required=true) RemoveAccountsFromBankCommand command )
 	{		
 		try {
-			BankBusinessDelegate.getBankInstance().removeFromAccounts( command );
+			BankService.getBankInstance().removeFromAccounts( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Accounts", exc );
@@ -313,7 +313,7 @@ public class BankRestController extends BaseSpringRestController {
 	@PutMapping("/addToPaymentCards")
 	public void addToPaymentCards( @RequestBody(required=true) AssignPaymentCardsToBankCommand command ) {
 		try {
-			BankBusinessDelegate.getBankInstance().addToPaymentCards( command );   
+			BankService.getBankInstance().addToPaymentCards( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set PaymentCards", exc );
@@ -328,7 +328,7 @@ public class BankRestController extends BaseSpringRestController {
 	public void removeFromPaymentCards( 	@RequestBody(required=true) RemovePaymentCardsFromBankCommand command )
 	{		
 		try {
-			BankBusinessDelegate.getBankInstance().removeFromPaymentCards( command );
+			BankService.getBankInstance().removeFromPaymentCards( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set PaymentCards", exc );
@@ -342,7 +342,7 @@ public class BankRestController extends BaseSpringRestController {
 	@PutMapping("/addToLoanAccounts")
 	public void addToLoanAccounts( @RequestBody(required=true) AssignLoanAccountsToBankCommand command ) {
 		try {
-			BankBusinessDelegate.getBankInstance().addToLoanAccounts( command );   
+			BankService.getBankInstance().addToLoanAccounts( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set LoanAccounts", exc );
@@ -357,7 +357,7 @@ public class BankRestController extends BaseSpringRestController {
 	public void removeFromLoanAccounts( 	@RequestBody(required=true) RemoveLoanAccountsFromBankCommand command )
 	{		
 		try {
-			BankBusinessDelegate.getBankInstance().removeFromLoanAccounts( command );
+			BankService.getBankInstance().removeFromLoanAccounts( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set LoanAccounts", exc );
@@ -371,7 +371,7 @@ public class BankRestController extends BaseSpringRestController {
 	@PutMapping("/addToExchangeRates")
 	public void addToExchangeRates( @RequestBody(required=true) AssignExchangeRatesToBankCommand command ) {
 		try {
-			BankBusinessDelegate.getBankInstance().addToExchangeRates( command );   
+			BankService.getBankInstance().addToExchangeRates( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set ExchangeRates", exc );
@@ -386,7 +386,7 @@ public class BankRestController extends BaseSpringRestController {
 	public void removeFromExchangeRates( 	@RequestBody(required=true) RemoveExchangeRatesFromBankCommand command )
 	{		
 		try {
-			BankBusinessDelegate.getBankInstance().removeFromExchangeRates( command );
+			BankService.getBankInstance().removeFromExchangeRates( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set ExchangeRates", exc );
@@ -400,7 +400,7 @@ public class BankRestController extends BaseSpringRestController {
 	@PutMapping("/addToConsents")
 	public void addToConsents( @RequestBody(required=true) AssignConsentsToBankCommand command ) {
 		try {
-			BankBusinessDelegate.getBankInstance().addToConsents( command );   
+			BankService.getBankInstance().addToConsents( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Consents", exc );
@@ -415,7 +415,7 @@ public class BankRestController extends BaseSpringRestController {
 	public void removeFromConsents( 	@RequestBody(required=true) RemoveConsentsFromBankCommand command )
 	{		
 		try {
-			BankBusinessDelegate.getBankInstance().removeFromConsents( command );
+			BankService.getBankInstance().removeFromConsents( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Consents", exc );
@@ -429,7 +429,7 @@ public class BankRestController extends BaseSpringRestController {
 	@PutMapping("/addToThirdPartyProviders")
 	public void addToThirdPartyProviders( @RequestBody(required=true) AssignThirdPartyProvidersToBankCommand command ) {
 		try {
-			BankBusinessDelegate.getBankInstance().addToThirdPartyProviders( command );   
+			BankService.getBankInstance().addToThirdPartyProviders( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set ThirdPartyProviders", exc );
@@ -444,7 +444,7 @@ public class BankRestController extends BaseSpringRestController {
 	public void removeFromThirdPartyProviders( 	@RequestBody(required=true) RemoveThirdPartyProvidersFromBankCommand command )
 	{		
 		try {
-			BankBusinessDelegate.getBankInstance().removeFromThirdPartyProviders( command );
+			BankService.getBankInstance().removeFromThirdPartyProviders( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set ThirdPartyProviders", exc );

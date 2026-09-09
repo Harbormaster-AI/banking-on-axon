@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>RiskAssessmentQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	RiskAssessmentBusinessDelegate
+ *  	RiskAssessmentService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class RiskAssessmentQueryRestController extends BaseSpringRestController 
     	RiskAssessment entity = null;
 
     	try {  
-    		entity = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().getRiskAssessment( new RiskAssessmentFetchOneSummary( riskAssessmentId ) );
+    		entity = RiskAssessmentService.getRiskAssessmentInstance().getRiskAssessment( new RiskAssessmentFetchOneSummary( riskAssessmentId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load RiskAssessment using Id " + riskAssessmentId );
@@ -116,7 +114,7 @@ public class RiskAssessmentQueryRestController extends BaseSpringRestController 
         
     	try {
             // load the RiskAssessment
-            riskAssessmentList = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().getAllRiskAssessment();
+            riskAssessmentList = RiskAssessmentService.getRiskAssessmentInstance().getAllRiskAssessment();
             
             if ( riskAssessmentList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all RiskAssessments" );

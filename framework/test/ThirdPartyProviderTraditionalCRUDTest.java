@@ -88,7 +88,7 @@ public class ThirdPartyProviderTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a ThirdPartyProvider" );
 
 			try {            
-				ThirdPartyProvider entity = ThirdPartyProviderBusinessDelegate.getThirdPartyProviderInstance().createThirdPartyProvider( generateNewEntity() );
+				ThirdPartyProvider entity = ThirdPartyProviderService.getThirdPartyProviderInstance().createThirdPartyProvider( generateNewEntity() );
 				thePrimaryKey = entity.getThirdPartyProviderId();
 				LOGGER.info( "-- Successfully created a ThirdPartyProvider with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class ThirdPartyProviderTest{
 			ThirdPartyProviderFetchOneSummary fetchOneSummary = new ThirdPartyProviderFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = ThirdPartyProviderBusinessDelegate.getThirdPartyProviderInstance().getThirdPartyProvider( fetchOneSummary );
+				entity = ThirdPartyProviderService.getThirdPartyProviderInstance().getThirdPartyProvider( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class ThirdPartyProviderTest{
 				// for use later on...
 				thePrimaryKey = entity.getThirdPartyProviderId();
 
-				ThirdPartyProviderBusinessDelegate proxy = ThirdPartyProviderBusinessDelegate.getThirdPartyProviderInstance();            
+				ThirdPartyProviderService proxy = ThirdPartyProviderService.getThirdPartyProviderInstance();            
 				proxy.updateThirdPartyProvider( entity );   
 
 				LOGGER.info( "-- Successfully saved ThirdPartyProvider - " + entity.toString() );
@@ -172,7 +172,7 @@ public class ThirdPartyProviderTest{
 
 			try{
 			    ThirdPartyProvider entity = testRead(); 
-				ThirdPartyProviderBusinessDelegate.getThirdPartyProviderInstance().delete( entity );
+				ThirdPartyProviderService.getThirdPartyProviderInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted ThirdPartyProvider with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class ThirdPartyProviderTest{
 			List<ThirdPartyProvider> collection  = null;
 
 			try {
-				// call the static get method on the ThirdPartyProviderBusinessDelegate
-				collection = ThirdPartyProviderBusinessDelegate.getThirdPartyProviderInstance().getAllThirdPartyProvider();
+				// call the static get method on the ThirdPartyProviderService
+				collection = ThirdPartyProviderService.getThirdPartyProviderInstance().getAllThirdPartyProvider();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

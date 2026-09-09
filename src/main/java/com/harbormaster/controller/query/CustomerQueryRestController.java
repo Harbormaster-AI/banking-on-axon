@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>CustomerQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	CustomerBusinessDelegate
+ *  	CustomerService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class CustomerQueryRestController extends BaseSpringRestController {
     	Customer entity = null;
 
     	try {  
-    		entity = CustomerBusinessDelegate.getCustomerInstance().getCustomer( new CustomerFetchOneSummary( customerId ) );
+    		entity = CustomerService.getCustomerInstance().getCustomer( new CustomerFetchOneSummary( customerId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Customer using Id " + customerId );
@@ -116,7 +114,7 @@ public class CustomerQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Customer
-            customerList = CustomerBusinessDelegate.getCustomerInstance().getAllCustomer();
+            customerList = CustomerService.getCustomerInstance().getAllCustomer();
             
             if ( customerList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Customers" );

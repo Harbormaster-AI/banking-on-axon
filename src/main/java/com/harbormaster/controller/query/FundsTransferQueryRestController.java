@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>FundsTransferQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	FundsTransferBusinessDelegate
+ *  	FundsTransferService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class FundsTransferQueryRestController extends BaseSpringRestController {
     	FundsTransfer entity = null;
 
     	try {  
-    		entity = FundsTransferBusinessDelegate.getFundsTransferInstance().getFundsTransfer( new FundsTransferFetchOneSummary( fundsTransferId ) );
+    		entity = FundsTransferService.getFundsTransferInstance().getFundsTransfer( new FundsTransferFetchOneSummary( fundsTransferId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load FundsTransfer using Id " + fundsTransferId );
@@ -116,7 +114,7 @@ public class FundsTransferQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the FundsTransfer
-            fundsTransferList = FundsTransferBusinessDelegate.getFundsTransferInstance().getAllFundsTransfer();
+            fundsTransferList = FundsTransferService.getFundsTransferInstance().getAllFundsTransfer();
             
             if ( fundsTransferList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all FundsTransfers" );

@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>KycProfileQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	KycProfileBusinessDelegate
+ *  	KycProfileService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class KycProfileQueryRestController extends BaseSpringRestController {
     	KycProfile entity = null;
 
     	try {  
-    		entity = KycProfileBusinessDelegate.getKycProfileInstance().getKycProfile( new KycProfileFetchOneSummary( kycProfileId ) );
+    		entity = KycProfileService.getKycProfileInstance().getKycProfile( new KycProfileFetchOneSummary( kycProfileId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load KycProfile using Id " + kycProfileId );
@@ -116,7 +114,7 @@ public class KycProfileQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the KycProfile
-            kycProfileList = KycProfileBusinessDelegate.getKycProfileInstance().getAllKycProfile();
+            kycProfileList = KycProfileService.getKycProfileInstance().getAllKycProfile();
             
             if ( kycProfileList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all KycProfiles" );

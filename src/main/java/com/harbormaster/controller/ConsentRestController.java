@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	ConsentBusinessDelegate
+ *  	ConsentBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class ConsentRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = ConsentBusinessDelegate.getConsentInstance().createConsent( command );
+			completableFuture = ConsentService.getConsentInstance().createConsent( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class ConsentRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateConsentCommand
 			// -----------------------------------------------
-			completableFuture = ConsentBusinessDelegate.getConsentInstance().updateConsent(command);;
+			completableFuture = ConsentService.getConsentInstance().updateConsent(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "ConsentController:update() - successfully update Consent - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class ConsentRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteConsentCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	ConsentBusinessDelegate delegate = ConsentBusinessDelegate.getConsentInstance();
+        	ConsentService delegate = ConsentService.getConsentInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted Consent with key " + command.getConsentId() );
@@ -155,7 +155,7 @@ public class ConsentRestController extends BaseSpringRestController {
     	Consent entity = null;
 
     	try {  
-    		entity = ConsentBusinessDelegate.getConsentInstance().getConsent( new ConsentFetchOneSummary( uuid ) );   
+    		entity = ConsentService.getConsentInstance().getConsent( new ConsentFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Consent using Id " + uuid );
@@ -175,7 +175,7 @@ public class ConsentRestController extends BaseSpringRestController {
         
     	try {
             // load the Consent
-            consentList = ConsentBusinessDelegate.getConsentInstance().getAllConsent();
+            consentList = ConsentService.getConsentInstance().getAllConsent();
             
             if ( consentList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Consents" );
@@ -196,7 +196,7 @@ public class ConsentRestController extends BaseSpringRestController {
 	@PutMapping("/assignCustomer")
 	public void assignCustomer( @RequestBody AssignCustomerToConsentCommand command ) {
 		try {
-			ConsentBusinessDelegate.getConsentInstance().assignCustomer( command );   
+			ConsentService.getConsentInstance().assignCustomer( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Customer", exc );
@@ -210,7 +210,7 @@ public class ConsentRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignCustomer")
 	public void unAssignCustomer( @RequestBody(required=true)  UnAssignCustomerFromConsentCommand command ) {
 		try {
-			ConsentBusinessDelegate.getConsentInstance().unAssignCustomer( command );   
+			ConsentService.getConsentInstance().unAssignCustomer( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Customer", exc );
@@ -224,7 +224,7 @@ public class ConsentRestController extends BaseSpringRestController {
 	@PutMapping("/assignBank")
 	public void assignBank( @RequestBody AssignBankToConsentCommand command ) {
 		try {
-			ConsentBusinessDelegate.getConsentInstance().assignBank( command );   
+			ConsentService.getConsentInstance().assignBank( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Bank", exc );
@@ -238,7 +238,7 @@ public class ConsentRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBank")
 	public void unAssignBank( @RequestBody(required=true)  UnAssignBankFromConsentCommand command ) {
 		try {
-			ConsentBusinessDelegate.getConsentInstance().unAssignBank( command );   
+			ConsentService.getConsentInstance().unAssignBank( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Bank", exc );
@@ -252,7 +252,7 @@ public class ConsentRestController extends BaseSpringRestController {
 	@PutMapping("/assignThirdPartyProvider")
 	public void assignThirdPartyProvider( @RequestBody AssignThirdPartyProviderToConsentCommand command ) {
 		try {
-			ConsentBusinessDelegate.getConsentInstance().assignThirdPartyProvider( command );   
+			ConsentService.getConsentInstance().assignThirdPartyProvider( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign ThirdPartyProvider", exc );
@@ -266,7 +266,7 @@ public class ConsentRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignThirdPartyProvider")
 	public void unAssignThirdPartyProvider( @RequestBody(required=true)  UnAssignThirdPartyProviderFromConsentCommand command ) {
 		try {
-			ConsentBusinessDelegate.getConsentInstance().unAssignThirdPartyProvider( command );   
+			ConsentService.getConsentInstance().unAssignThirdPartyProvider( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign ThirdPartyProvider", exc );
@@ -281,7 +281,7 @@ public class ConsentRestController extends BaseSpringRestController {
 	@PutMapping("/addToAuthorizedAccounts")
 	public void addToAuthorizedAccounts( @RequestBody(required=true) AssignAuthorizedAccountsToConsentCommand command ) {
 		try {
-			ConsentBusinessDelegate.getConsentInstance().addToAuthorizedAccounts( command );   
+			ConsentService.getConsentInstance().addToAuthorizedAccounts( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set AuthorizedAccounts", exc );
@@ -296,7 +296,7 @@ public class ConsentRestController extends BaseSpringRestController {
 	public void removeFromAuthorizedAccounts( 	@RequestBody(required=true) RemoveAuthorizedAccountsFromConsentCommand command )
 	{		
 		try {
-			ConsentBusinessDelegate.getConsentInstance().removeFromAuthorizedAccounts( command );
+			ConsentService.getConsentInstance().removeFromAuthorizedAccounts( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set AuthorizedAccounts", exc );

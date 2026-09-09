@@ -88,7 +88,7 @@ public class FeeChargeTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a FeeCharge" );
 
 			try {            
-				FeeCharge entity = FeeChargeBusinessDelegate.getFeeChargeInstance().createFeeCharge( generateNewEntity() );
+				FeeCharge entity = FeeChargeService.getFeeChargeInstance().createFeeCharge( generateNewEntity() );
 				thePrimaryKey = entity.getFeeChargeId();
 				LOGGER.info( "-- Successfully created a FeeCharge with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class FeeChargeTest{
 			FeeChargeFetchOneSummary fetchOneSummary = new FeeChargeFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = FeeChargeBusinessDelegate.getFeeChargeInstance().getFeeCharge( fetchOneSummary );
+				entity = FeeChargeService.getFeeChargeInstance().getFeeCharge( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class FeeChargeTest{
 				// for use later on...
 				thePrimaryKey = entity.getFeeChargeId();
 
-				FeeChargeBusinessDelegate proxy = FeeChargeBusinessDelegate.getFeeChargeInstance();            
+				FeeChargeService proxy = FeeChargeService.getFeeChargeInstance();            
 				proxy.updateFeeCharge( entity );   
 
 				LOGGER.info( "-- Successfully saved FeeCharge - " + entity.toString() );
@@ -172,7 +172,7 @@ public class FeeChargeTest{
 
 			try{
 			    FeeCharge entity = testRead(); 
-				FeeChargeBusinessDelegate.getFeeChargeInstance().delete( entity );
+				FeeChargeService.getFeeChargeInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted FeeCharge with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class FeeChargeTest{
 			List<FeeCharge> collection  = null;
 
 			try {
-				// call the static get method on the FeeChargeBusinessDelegate
-				collection = FeeChargeBusinessDelegate.getFeeChargeInstance().getAllFeeCharge();
+				// call the static get method on the FeeChargeService
+				collection = FeeChargeService.getFeeChargeInstance().getAllFeeCharge();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

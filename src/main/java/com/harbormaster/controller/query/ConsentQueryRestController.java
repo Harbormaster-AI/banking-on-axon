@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>ConsentQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	ConsentBusinessDelegate
+ *  	ConsentService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class ConsentQueryRestController extends BaseSpringRestController {
     	Consent entity = null;
 
     	try {  
-    		entity = ConsentBusinessDelegate.getConsentInstance().getConsent( new ConsentFetchOneSummary( consentId ) );
+    		entity = ConsentService.getConsentInstance().getConsent( new ConsentFetchOneSummary( consentId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Consent using Id " + consentId );
@@ -116,7 +114,7 @@ public class ConsentQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Consent
-            consentList = ConsentBusinessDelegate.getConsentInstance().getAllConsent();
+            consentList = ConsentService.getConsentInstance().getAllConsent();
             
             if ( consentList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Consents" );

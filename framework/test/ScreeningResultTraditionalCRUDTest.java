@@ -88,7 +88,7 @@ public class ScreeningResultTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a ScreeningResult" );
 
 			try {            
-				ScreeningResult entity = ScreeningResultBusinessDelegate.getScreeningResultInstance().createScreeningResult( generateNewEntity() );
+				ScreeningResult entity = ScreeningResultService.getScreeningResultInstance().createScreeningResult( generateNewEntity() );
 				thePrimaryKey = entity.getScreeningResultId();
 				LOGGER.info( "-- Successfully created a ScreeningResult with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class ScreeningResultTest{
 			ScreeningResultFetchOneSummary fetchOneSummary = new ScreeningResultFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = ScreeningResultBusinessDelegate.getScreeningResultInstance().getScreeningResult( fetchOneSummary );
+				entity = ScreeningResultService.getScreeningResultInstance().getScreeningResult( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class ScreeningResultTest{
 				// for use later on...
 				thePrimaryKey = entity.getScreeningResultId();
 
-				ScreeningResultBusinessDelegate proxy = ScreeningResultBusinessDelegate.getScreeningResultInstance();            
+				ScreeningResultService proxy = ScreeningResultService.getScreeningResultInstance();            
 				proxy.updateScreeningResult( entity );   
 
 				LOGGER.info( "-- Successfully saved ScreeningResult - " + entity.toString() );
@@ -172,7 +172,7 @@ public class ScreeningResultTest{
 
 			try{
 			    ScreeningResult entity = testRead(); 
-				ScreeningResultBusinessDelegate.getScreeningResultInstance().delete( entity );
+				ScreeningResultService.getScreeningResultInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted ScreeningResult with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class ScreeningResultTest{
 			List<ScreeningResult> collection  = null;
 
 			try {
-				// call the static get method on the ScreeningResultBusinessDelegate
-				collection = ScreeningResultBusinessDelegate.getScreeningResultInstance().getAllScreeningResult();
+				// call the static get method on the ScreeningResultService
+				collection = ScreeningResultService.getScreeningResultInstance().getAllScreeningResult();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

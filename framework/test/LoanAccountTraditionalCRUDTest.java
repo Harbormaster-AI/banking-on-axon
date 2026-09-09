@@ -88,7 +88,7 @@ public class LoanAccountTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a LoanAccount" );
 
 			try {            
-				LoanAccount entity = LoanAccountBusinessDelegate.getLoanAccountInstance().createLoanAccount( generateNewEntity() );
+				LoanAccount entity = LoanAccountService.getLoanAccountInstance().createLoanAccount( generateNewEntity() );
 				thePrimaryKey = entity.getLoanAccountId();
 				LOGGER.info( "-- Successfully created a LoanAccount with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class LoanAccountTest{
 			LoanAccountFetchOneSummary fetchOneSummary = new LoanAccountFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = LoanAccountBusinessDelegate.getLoanAccountInstance().getLoanAccount( fetchOneSummary );
+				entity = LoanAccountService.getLoanAccountInstance().getLoanAccount( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class LoanAccountTest{
 				// for use later on...
 				thePrimaryKey = entity.getLoanAccountId();
 
-				LoanAccountBusinessDelegate proxy = LoanAccountBusinessDelegate.getLoanAccountInstance();            
+				LoanAccountService proxy = LoanAccountService.getLoanAccountInstance();            
 				proxy.updateLoanAccount( entity );   
 
 				LOGGER.info( "-- Successfully saved LoanAccount - " + entity.toString() );
@@ -172,7 +172,7 @@ public class LoanAccountTest{
 
 			try{
 			    LoanAccount entity = testRead(); 
-				LoanAccountBusinessDelegate.getLoanAccountInstance().delete( entity );
+				LoanAccountService.getLoanAccountInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted LoanAccount with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class LoanAccountTest{
 			List<LoanAccount> collection  = null;
 
 			try {
-				// call the static get method on the LoanAccountBusinessDelegate
-				collection = LoanAccountBusinessDelegate.getLoanAccountInstance().getAllLoanAccount();
+				// call the static get method on the LoanAccountService
+				collection = LoanAccountService.getLoanAccountInstance().getAllLoanAccount();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>ExternalAccountQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	ExternalAccountBusinessDelegate
+ *  	ExternalAccountService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class ExternalAccountQueryRestController extends BaseSpringRestController
     	ExternalAccount entity = null;
 
     	try {  
-    		entity = ExternalAccountBusinessDelegate.getExternalAccountInstance().getExternalAccount( new ExternalAccountFetchOneSummary( externalAccountId ) );
+    		entity = ExternalAccountService.getExternalAccountInstance().getExternalAccount( new ExternalAccountFetchOneSummary( externalAccountId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ExternalAccount using Id " + externalAccountId );
@@ -116,7 +114,7 @@ public class ExternalAccountQueryRestController extends BaseSpringRestController
         
     	try {
             // load the ExternalAccount
-            externalAccountList = ExternalAccountBusinessDelegate.getExternalAccountInstance().getAllExternalAccount();
+            externalAccountList = ExternalAccountService.getExternalAccountInstance().getAllExternalAccount();
             
             if ( externalAccountList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ExternalAccounts" );

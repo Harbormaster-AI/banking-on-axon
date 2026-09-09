@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>ATMQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	ATMBusinessDelegate
+ *  	ATMService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class ATMQueryRestController extends BaseSpringRestController {
     	ATM entity = null;
 
     	try {  
-    		entity = ATMBusinessDelegate.getATMInstance().getATM( new ATMFetchOneSummary( aTMId ) );
+    		entity = ATMService.getATMInstance().getATM( new ATMFetchOneSummary( aTMId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ATM using Id " + aTMId );
@@ -116,7 +114,7 @@ public class ATMQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the ATM
-            aTMList = ATMBusinessDelegate.getATMInstance().getAllATM();
+            aTMList = ATMService.getATMInstance().getAllATM();
             
             if ( aTMList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ATMs" );

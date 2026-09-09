@@ -88,7 +88,7 @@ public class FXTradeTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a FXTrade" );
 
 			try {            
-				FXTrade entity = FXTradeBusinessDelegate.getFXTradeInstance().createFXTrade( generateNewEntity() );
+				FXTrade entity = FXTradeService.getFXTradeInstance().createFXTrade( generateNewEntity() );
 				thePrimaryKey = entity.getFXTradeId();
 				LOGGER.info( "-- Successfully created a FXTrade with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class FXTradeTest{
 			FXTradeFetchOneSummary fetchOneSummary = new FXTradeFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = FXTradeBusinessDelegate.getFXTradeInstance().getFXTrade( fetchOneSummary );
+				entity = FXTradeService.getFXTradeInstance().getFXTrade( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class FXTradeTest{
 				// for use later on...
 				thePrimaryKey = entity.getFXTradeId();
 
-				FXTradeBusinessDelegate proxy = FXTradeBusinessDelegate.getFXTradeInstance();            
+				FXTradeService proxy = FXTradeService.getFXTradeInstance();            
 				proxy.updateFXTrade( entity );   
 
 				LOGGER.info( "-- Successfully saved FXTrade - " + entity.toString() );
@@ -172,7 +172,7 @@ public class FXTradeTest{
 
 			try{
 			    FXTrade entity = testRead(); 
-				FXTradeBusinessDelegate.getFXTradeInstance().delete( entity );
+				FXTradeService.getFXTradeInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted FXTrade with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class FXTradeTest{
 			List<FXTrade> collection  = null;
 
 			try {
-				// call the static get method on the FXTradeBusinessDelegate
-				collection = FXTradeBusinessDelegate.getFXTradeInstance().getAllFXTrade();
+				// call the static get method on the FXTradeService
+				collection = FXTradeService.getFXTradeInstance().getAllFXTrade();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

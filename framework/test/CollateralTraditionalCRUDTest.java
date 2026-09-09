@@ -88,7 +88,7 @@ public class CollateralTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a Collateral" );
 
 			try {            
-				Collateral entity = CollateralBusinessDelegate.getCollateralInstance().createCollateral( generateNewEntity() );
+				Collateral entity = CollateralService.getCollateralInstance().createCollateral( generateNewEntity() );
 				thePrimaryKey = entity.getCollateralId();
 				LOGGER.info( "-- Successfully created a Collateral with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class CollateralTest{
 			CollateralFetchOneSummary fetchOneSummary = new CollateralFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = CollateralBusinessDelegate.getCollateralInstance().getCollateral( fetchOneSummary );
+				entity = CollateralService.getCollateralInstance().getCollateral( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class CollateralTest{
 				// for use later on...
 				thePrimaryKey = entity.getCollateralId();
 
-				CollateralBusinessDelegate proxy = CollateralBusinessDelegate.getCollateralInstance();            
+				CollateralService proxy = CollateralService.getCollateralInstance();            
 				proxy.updateCollateral( entity );   
 
 				LOGGER.info( "-- Successfully saved Collateral - " + entity.toString() );
@@ -172,7 +172,7 @@ public class CollateralTest{
 
 			try{
 			    Collateral entity = testRead(); 
-				CollateralBusinessDelegate.getCollateralInstance().delete( entity );
+				CollateralService.getCollateralInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted Collateral with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class CollateralTest{
 			List<Collateral> collection  = null;
 
 			try {
-				// call the static get method on the CollateralBusinessDelegate
-				collection = CollateralBusinessDelegate.getCollateralInstance().getAllCollateral();
+				// call the static get method on the CollateralService
+				collection = CollateralService.getCollateralInstance().getAllCollateral();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

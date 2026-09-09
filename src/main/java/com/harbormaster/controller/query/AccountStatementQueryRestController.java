@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>AccountStatementQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	AccountStatementBusinessDelegate
+ *  	AccountStatementService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class AccountStatementQueryRestController extends BaseSpringRestControlle
     	AccountStatement entity = null;
 
     	try {  
-    		entity = AccountStatementBusinessDelegate.getAccountStatementInstance().getAccountStatement( new AccountStatementFetchOneSummary( accountStatementId ) );
+    		entity = AccountStatementService.getAccountStatementInstance().getAccountStatement( new AccountStatementFetchOneSummary( accountStatementId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load AccountStatement using Id " + accountStatementId );
@@ -116,7 +114,7 @@ public class AccountStatementQueryRestController extends BaseSpringRestControlle
         
     	try {
             // load the AccountStatement
-            accountStatementList = AccountStatementBusinessDelegate.getAccountStatementInstance().getAllAccountStatement();
+            accountStatementList = AccountStatementService.getAccountStatementInstance().getAllAccountStatement();
             
             if ( accountStatementList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all AccountStatements" );

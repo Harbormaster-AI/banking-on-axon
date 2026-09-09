@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>FeeChargeQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	FeeChargeBusinessDelegate
+ *  	FeeChargeService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class FeeChargeQueryRestController extends BaseSpringRestController {
     	FeeCharge entity = null;
 
     	try {  
-    		entity = FeeChargeBusinessDelegate.getFeeChargeInstance().getFeeCharge( new FeeChargeFetchOneSummary( feeChargeId ) );
+    		entity = FeeChargeService.getFeeChargeInstance().getFeeCharge( new FeeChargeFetchOneSummary( feeChargeId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load FeeCharge using Id " + feeChargeId );
@@ -116,7 +114,7 @@ public class FeeChargeQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the FeeCharge
-            feeChargeList = FeeChargeBusinessDelegate.getFeeChargeInstance().getAllFeeCharge();
+            feeChargeList = FeeChargeService.getFeeChargeInstance().getAllFeeCharge();
             
             if ( feeChargeList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all FeeCharges" );

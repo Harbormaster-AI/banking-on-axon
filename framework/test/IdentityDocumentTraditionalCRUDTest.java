@@ -88,7 +88,7 @@ public class IdentityDocumentTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a IdentityDocument" );
 
 			try {            
-				IdentityDocument entity = IdentityDocumentBusinessDelegate.getIdentityDocumentInstance().createIdentityDocument( generateNewEntity() );
+				IdentityDocument entity = IdentityDocumentService.getIdentityDocumentInstance().createIdentityDocument( generateNewEntity() );
 				thePrimaryKey = entity.getIdentityDocumentId();
 				LOGGER.info( "-- Successfully created a IdentityDocument with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class IdentityDocumentTest{
 			IdentityDocumentFetchOneSummary fetchOneSummary = new IdentityDocumentFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = IdentityDocumentBusinessDelegate.getIdentityDocumentInstance().getIdentityDocument( fetchOneSummary );
+				entity = IdentityDocumentService.getIdentityDocumentInstance().getIdentityDocument( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class IdentityDocumentTest{
 				// for use later on...
 				thePrimaryKey = entity.getIdentityDocumentId();
 
-				IdentityDocumentBusinessDelegate proxy = IdentityDocumentBusinessDelegate.getIdentityDocumentInstance();            
+				IdentityDocumentService proxy = IdentityDocumentService.getIdentityDocumentInstance();            
 				proxy.updateIdentityDocument( entity );   
 
 				LOGGER.info( "-- Successfully saved IdentityDocument - " + entity.toString() );
@@ -172,7 +172,7 @@ public class IdentityDocumentTest{
 
 			try{
 			    IdentityDocument entity = testRead(); 
-				IdentityDocumentBusinessDelegate.getIdentityDocumentInstance().delete( entity );
+				IdentityDocumentService.getIdentityDocumentInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted IdentityDocument with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class IdentityDocumentTest{
 			List<IdentityDocument> collection  = null;
 
 			try {
-				// call the static get method on the IdentityDocumentBusinessDelegate
-				collection = IdentityDocumentBusinessDelegate.getIdentityDocumentInstance().getAllIdentityDocument();
+				// call the static get method on the IdentityDocumentService
+				collection = IdentityDocumentService.getIdentityDocumentInstance().getAllIdentityDocument();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

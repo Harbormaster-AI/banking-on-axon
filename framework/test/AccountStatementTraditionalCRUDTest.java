@@ -88,7 +88,7 @@ public class AccountStatementTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a AccountStatement" );
 
 			try {            
-				AccountStatement entity = AccountStatementBusinessDelegate.getAccountStatementInstance().createAccountStatement( generateNewEntity() );
+				AccountStatement entity = AccountStatementService.getAccountStatementInstance().createAccountStatement( generateNewEntity() );
 				thePrimaryKey = entity.getAccountStatementId();
 				LOGGER.info( "-- Successfully created a AccountStatement with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class AccountStatementTest{
 			AccountStatementFetchOneSummary fetchOneSummary = new AccountStatementFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = AccountStatementBusinessDelegate.getAccountStatementInstance().getAccountStatement( fetchOneSummary );
+				entity = AccountStatementService.getAccountStatementInstance().getAccountStatement( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class AccountStatementTest{
 				// for use later on...
 				thePrimaryKey = entity.getAccountStatementId();
 
-				AccountStatementBusinessDelegate proxy = AccountStatementBusinessDelegate.getAccountStatementInstance();            
+				AccountStatementService proxy = AccountStatementService.getAccountStatementInstance();            
 				proxy.updateAccountStatement( entity );   
 
 				LOGGER.info( "-- Successfully saved AccountStatement - " + entity.toString() );
@@ -172,7 +172,7 @@ public class AccountStatementTest{
 
 			try{
 			    AccountStatement entity = testRead(); 
-				AccountStatementBusinessDelegate.getAccountStatementInstance().delete( entity );
+				AccountStatementService.getAccountStatementInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted AccountStatement with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class AccountStatementTest{
 			List<AccountStatement> collection  = null;
 
 			try {
-				// call the static get method on the AccountStatementBusinessDelegate
-				collection = AccountStatementBusinessDelegate.getAccountStatementInstance().getAllAccountStatement();
+				// call the static get method on the AccountStatementService
+				collection = AccountStatementService.getAccountStatementInstance().getAllAccountStatement();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

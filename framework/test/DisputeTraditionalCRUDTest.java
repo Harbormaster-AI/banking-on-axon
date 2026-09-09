@@ -88,7 +88,7 @@ public class DisputeTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a Dispute" );
 
 			try {            
-				Dispute entity = DisputeBusinessDelegate.getDisputeInstance().createDispute( generateNewEntity() );
+				Dispute entity = DisputeService.getDisputeInstance().createDispute( generateNewEntity() );
 				thePrimaryKey = entity.getDisputeId();
 				LOGGER.info( "-- Successfully created a Dispute with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class DisputeTest{
 			DisputeFetchOneSummary fetchOneSummary = new DisputeFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = DisputeBusinessDelegate.getDisputeInstance().getDispute( fetchOneSummary );
+				entity = DisputeService.getDisputeInstance().getDispute( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class DisputeTest{
 				// for use later on...
 				thePrimaryKey = entity.getDisputeId();
 
-				DisputeBusinessDelegate proxy = DisputeBusinessDelegate.getDisputeInstance();            
+				DisputeService proxy = DisputeService.getDisputeInstance();            
 				proxy.updateDispute( entity );   
 
 				LOGGER.info( "-- Successfully saved Dispute - " + entity.toString() );
@@ -172,7 +172,7 @@ public class DisputeTest{
 
 			try{
 			    Dispute entity = testRead(); 
-				DisputeBusinessDelegate.getDisputeInstance().delete( entity );
+				DisputeService.getDisputeInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted Dispute with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class DisputeTest{
 			List<Dispute> collection  = null;
 
 			try {
-				// call the static get method on the DisputeBusinessDelegate
-				collection = DisputeBusinessDelegate.getDisputeInstance().getAllDispute();
+				// call the static get method on the DisputeService
+				collection = DisputeService.getDisputeInstance().getAllDispute();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

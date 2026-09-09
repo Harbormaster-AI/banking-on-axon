@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	StandingInstructionBusinessDelegate
+ *  	StandingInstructionBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class StandingInstructionRestController extends BaseSpringRestController 
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = StandingInstructionBusinessDelegate.getStandingInstructionInstance().createStandingInstruction( command );
+			completableFuture = StandingInstructionService.getStandingInstructionInstance().createStandingInstruction( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class StandingInstructionRestController extends BaseSpringRestController 
 			// -----------------------------------------------
 			// delegate the UpdateStandingInstructionCommand
 			// -----------------------------------------------
-			completableFuture = StandingInstructionBusinessDelegate.getStandingInstructionInstance().updateStandingInstruction(command);;
+			completableFuture = StandingInstructionService.getStandingInstructionInstance().updateStandingInstruction(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "StandingInstructionController:update() - successfully update StandingInstruction - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class StandingInstructionRestController extends BaseSpringRestController 
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteStandingInstructionCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	StandingInstructionBusinessDelegate delegate = StandingInstructionBusinessDelegate.getStandingInstructionInstance();
+        	StandingInstructionService delegate = StandingInstructionService.getStandingInstructionInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted StandingInstruction with key " + command.getStandingInstructionId() );
@@ -155,7 +155,7 @@ public class StandingInstructionRestController extends BaseSpringRestController 
     	StandingInstruction entity = null;
 
     	try {  
-    		entity = StandingInstructionBusinessDelegate.getStandingInstructionInstance().getStandingInstruction( new StandingInstructionFetchOneSummary( uuid ) );   
+    		entity = StandingInstructionService.getStandingInstructionInstance().getStandingInstruction( new StandingInstructionFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load StandingInstruction using Id " + uuid );
@@ -175,7 +175,7 @@ public class StandingInstructionRestController extends BaseSpringRestController 
         
     	try {
             // load the StandingInstruction
-            standingInstructionList = StandingInstructionBusinessDelegate.getStandingInstructionInstance().getAllStandingInstruction();
+            standingInstructionList = StandingInstructionService.getStandingInstructionInstance().getAllStandingInstruction();
             
             if ( standingInstructionList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all StandingInstructions" );
@@ -196,7 +196,7 @@ public class StandingInstructionRestController extends BaseSpringRestController 
 	@PutMapping("/assignAccount")
 	public void assignAccount( @RequestBody AssignAccountToStandingInstructionCommand command ) {
 		try {
-			StandingInstructionBusinessDelegate.getStandingInstructionInstance().assignAccount( command );   
+			StandingInstructionService.getStandingInstructionInstance().assignAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Account", exc );
@@ -210,7 +210,7 @@ public class StandingInstructionRestController extends BaseSpringRestController 
 	@PutMapping("/unAssignAccount")
 	public void unAssignAccount( @RequestBody(required=true)  UnAssignAccountFromStandingInstructionCommand command ) {
 		try {
-			StandingInstructionBusinessDelegate.getStandingInstructionInstance().unAssignAccount( command );   
+			StandingInstructionService.getStandingInstructionInstance().unAssignAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Account", exc );
@@ -224,7 +224,7 @@ public class StandingInstructionRestController extends BaseSpringRestController 
 	@PutMapping("/assignBeneficiary")
 	public void assignBeneficiary( @RequestBody AssignBeneficiaryToStandingInstructionCommand command ) {
 		try {
-			StandingInstructionBusinessDelegate.getStandingInstructionInstance().assignBeneficiary( command );   
+			StandingInstructionService.getStandingInstructionInstance().assignBeneficiary( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Beneficiary", exc );
@@ -238,7 +238,7 @@ public class StandingInstructionRestController extends BaseSpringRestController 
 	@PutMapping("/unAssignBeneficiary")
 	public void unAssignBeneficiary( @RequestBody(required=true)  UnAssignBeneficiaryFromStandingInstructionCommand command ) {
 		try {
-			StandingInstructionBusinessDelegate.getStandingInstructionInstance().unAssignBeneficiary( command );   
+			StandingInstructionService.getStandingInstructionInstance().unAssignBeneficiary( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Beneficiary", exc );

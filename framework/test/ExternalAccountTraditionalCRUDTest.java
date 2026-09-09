@@ -88,7 +88,7 @@ public class ExternalAccountTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a ExternalAccount" );
 
 			try {            
-				ExternalAccount entity = ExternalAccountBusinessDelegate.getExternalAccountInstance().createExternalAccount( generateNewEntity() );
+				ExternalAccount entity = ExternalAccountService.getExternalAccountInstance().createExternalAccount( generateNewEntity() );
 				thePrimaryKey = entity.getExternalAccountId();
 				LOGGER.info( "-- Successfully created a ExternalAccount with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class ExternalAccountTest{
 			ExternalAccountFetchOneSummary fetchOneSummary = new ExternalAccountFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = ExternalAccountBusinessDelegate.getExternalAccountInstance().getExternalAccount( fetchOneSummary );
+				entity = ExternalAccountService.getExternalAccountInstance().getExternalAccount( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class ExternalAccountTest{
 				// for use later on...
 				thePrimaryKey = entity.getExternalAccountId();
 
-				ExternalAccountBusinessDelegate proxy = ExternalAccountBusinessDelegate.getExternalAccountInstance();            
+				ExternalAccountService proxy = ExternalAccountService.getExternalAccountInstance();            
 				proxy.updateExternalAccount( entity );   
 
 				LOGGER.info( "-- Successfully saved ExternalAccount - " + entity.toString() );
@@ -172,7 +172,7 @@ public class ExternalAccountTest{
 
 			try{
 			    ExternalAccount entity = testRead(); 
-				ExternalAccountBusinessDelegate.getExternalAccountInstance().delete( entity );
+				ExternalAccountService.getExternalAccountInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted ExternalAccount with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class ExternalAccountTest{
 			List<ExternalAccount> collection  = null;
 
 			try {
-				// call the static get method on the ExternalAccountBusinessDelegate
-				collection = ExternalAccountBusinessDelegate.getExternalAccountInstance().getAllExternalAccount();
+				// call the static get method on the ExternalAccountService
+				collection = ExternalAccountService.getExternalAccountInstance().getAllExternalAccount();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

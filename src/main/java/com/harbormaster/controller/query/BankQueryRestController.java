@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>BankQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	BankBusinessDelegate
+ *  	BankService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class BankQueryRestController extends BaseSpringRestController {
     	Bank entity = null;
 
     	try {  
-    		entity = BankBusinessDelegate.getBankInstance().getBank( new BankFetchOneSummary( bankId ) );
+    		entity = BankService.getBankInstance().getBank( new BankFetchOneSummary( bankId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load Bank using Id " + bankId );
@@ -116,7 +114,7 @@ public class BankQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the Bank
-            bankList = BankBusinessDelegate.getBankInstance().getAllBank();
+            bankList = BankService.getBankInstance().getAllBank();
             
             if ( bankList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all Banks" );

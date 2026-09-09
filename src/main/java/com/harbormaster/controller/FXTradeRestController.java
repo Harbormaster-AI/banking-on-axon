@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	FXTradeBusinessDelegate
+ *  	FXTradeBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = FXTradeBusinessDelegate.getFXTradeInstance().createFXTrade( command );
+			completableFuture = FXTradeService.getFXTradeInstance().createFXTrade( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateFXTradeCommand
 			// -----------------------------------------------
-			completableFuture = FXTradeBusinessDelegate.getFXTradeInstance().updateFXTrade(command);;
+			completableFuture = FXTradeService.getFXTradeInstance().updateFXTrade(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "FXTradeController:update() - successfully update FXTrade - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class FXTradeRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteFXTradeCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	FXTradeBusinessDelegate delegate = FXTradeBusinessDelegate.getFXTradeInstance();
+        	FXTradeService delegate = FXTradeService.getFXTradeInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted FXTrade with key " + command.getFXTradeId() );
@@ -155,7 +155,7 @@ public class FXTradeRestController extends BaseSpringRestController {
     	FXTrade entity = null;
 
     	try {  
-    		entity = FXTradeBusinessDelegate.getFXTradeInstance().getFXTrade( new FXTradeFetchOneSummary( uuid ) );   
+    		entity = FXTradeService.getFXTradeInstance().getFXTrade( new FXTradeFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load FXTrade using Id " + uuid );
@@ -175,7 +175,7 @@ public class FXTradeRestController extends BaseSpringRestController {
         
     	try {
             // load the FXTrade
-            fXTradeList = FXTradeBusinessDelegate.getFXTradeInstance().getAllFXTrade();
+            fXTradeList = FXTradeService.getFXTradeInstance().getAllFXTrade();
             
             if ( fXTradeList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all FXTrades" );
@@ -196,7 +196,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/assignCustomer")
 	public void assignCustomer( @RequestBody AssignCustomerToFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().assignCustomer( command );   
+			FXTradeService.getFXTradeInstance().assignCustomer( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Customer", exc );
@@ -210,7 +210,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignCustomer")
 	public void unAssignCustomer( @RequestBody(required=true)  UnAssignCustomerFromFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().unAssignCustomer( command );   
+			FXTradeService.getFXTradeInstance().unAssignCustomer( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Customer", exc );
@@ -224,7 +224,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/assignBank")
 	public void assignBank( @RequestBody AssignBankToFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().assignBank( command );   
+			FXTradeService.getFXTradeInstance().assignBank( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Bank", exc );
@@ -238,7 +238,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBank")
 	public void unAssignBank( @RequestBody(required=true)  UnAssignBankFromFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().unAssignBank( command );   
+			FXTradeService.getFXTradeInstance().unAssignBank( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Bank", exc );
@@ -252,7 +252,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/assignExchangeRate")
 	public void assignExchangeRate( @RequestBody AssignExchangeRateToFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().assignExchangeRate( command );   
+			FXTradeService.getFXTradeInstance().assignExchangeRate( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign ExchangeRate", exc );
@@ -266,7 +266,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignExchangeRate")
 	public void unAssignExchangeRate( @RequestBody(required=true)  UnAssignExchangeRateFromFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().unAssignExchangeRate( command );   
+			FXTradeService.getFXTradeInstance().unAssignExchangeRate( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign ExchangeRate", exc );
@@ -280,7 +280,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/assignSourceAccount")
 	public void assignSourceAccount( @RequestBody AssignSourceAccountToFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().assignSourceAccount( command );   
+			FXTradeService.getFXTradeInstance().assignSourceAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign SourceAccount", exc );
@@ -294,7 +294,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignSourceAccount")
 	public void unAssignSourceAccount( @RequestBody(required=true)  UnAssignSourceAccountFromFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().unAssignSourceAccount( command );   
+			FXTradeService.getFXTradeInstance().unAssignSourceAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign SourceAccount", exc );
@@ -308,7 +308,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/assignDestinationAccount")
 	public void assignDestinationAccount( @RequestBody AssignDestinationAccountToFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().assignDestinationAccount( command );   
+			FXTradeService.getFXTradeInstance().assignDestinationAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign DestinationAccount", exc );
@@ -322,7 +322,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignDestinationAccount")
 	public void unAssignDestinationAccount( @RequestBody(required=true)  UnAssignDestinationAccountFromFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().unAssignDestinationAccount( command );   
+			FXTradeService.getFXTradeInstance().unAssignDestinationAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign DestinationAccount", exc );
@@ -336,7 +336,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/assignTransaction")
 	public void assignTransaction( @RequestBody AssignTransactionToFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().assignTransaction( command );   
+			FXTradeService.getFXTradeInstance().assignTransaction( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Transaction", exc );
@@ -350,7 +350,7 @@ public class FXTradeRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignTransaction")
 	public void unAssignTransaction( @RequestBody(required=true)  UnAssignTransactionFromFXTradeCommand command ) {
 		try {
-			FXTradeBusinessDelegate.getFXTradeInstance().unAssignTransaction( command );   
+			FXTradeService.getFXTradeInstance().unAssignTransaction( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Transaction", exc );

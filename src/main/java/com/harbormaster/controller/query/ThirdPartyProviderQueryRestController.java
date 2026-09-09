@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>ThirdPartyProviderQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	ThirdPartyProviderBusinessDelegate
+ *  	ThirdPartyProviderService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class ThirdPartyProviderQueryRestController extends BaseSpringRestControl
     	ThirdPartyProvider entity = null;
 
     	try {  
-    		entity = ThirdPartyProviderBusinessDelegate.getThirdPartyProviderInstance().getThirdPartyProvider( new ThirdPartyProviderFetchOneSummary( thirdPartyProviderId ) );
+    		entity = ThirdPartyProviderService.getThirdPartyProviderInstance().getThirdPartyProvider( new ThirdPartyProviderFetchOneSummary( thirdPartyProviderId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ThirdPartyProvider using Id " + thirdPartyProviderId );
@@ -116,7 +114,7 @@ public class ThirdPartyProviderQueryRestController extends BaseSpringRestControl
         
     	try {
             // load the ThirdPartyProvider
-            thirdPartyProviderList = ThirdPartyProviderBusinessDelegate.getThirdPartyProviderInstance().getAllThirdPartyProvider();
+            thirdPartyProviderList = ThirdPartyProviderService.getThirdPartyProviderInstance().getAllThirdPartyProvider();
             
             if ( thirdPartyProviderList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ThirdPartyProviders" );

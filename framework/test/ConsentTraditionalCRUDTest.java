@@ -88,7 +88,7 @@ public class ConsentTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a Consent" );
 
 			try {            
-				Consent entity = ConsentBusinessDelegate.getConsentInstance().createConsent( generateNewEntity() );
+				Consent entity = ConsentService.getConsentInstance().createConsent( generateNewEntity() );
 				thePrimaryKey = entity.getConsentId();
 				LOGGER.info( "-- Successfully created a Consent with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class ConsentTest{
 			ConsentFetchOneSummary fetchOneSummary = new ConsentFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = ConsentBusinessDelegate.getConsentInstance().getConsent( fetchOneSummary );
+				entity = ConsentService.getConsentInstance().getConsent( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class ConsentTest{
 				// for use later on...
 				thePrimaryKey = entity.getConsentId();
 
-				ConsentBusinessDelegate proxy = ConsentBusinessDelegate.getConsentInstance();            
+				ConsentService proxy = ConsentService.getConsentInstance();            
 				proxy.updateConsent( entity );   
 
 				LOGGER.info( "-- Successfully saved Consent - " + entity.toString() );
@@ -172,7 +172,7 @@ public class ConsentTest{
 
 			try{
 			    Consent entity = testRead(); 
-				ConsentBusinessDelegate.getConsentInstance().delete( entity );
+				ConsentService.getConsentInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted Consent with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class ConsentTest{
 			List<Consent> collection  = null;
 
 			try {
-				// call the static get method on the ConsentBusinessDelegate
-				collection = ConsentBusinessDelegate.getConsentInstance().getAllConsent();
+				// call the static get method on the ConsentService
+				collection = ConsentService.getConsentInstance().getAllConsent();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

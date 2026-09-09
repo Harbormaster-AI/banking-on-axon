@@ -88,7 +88,7 @@ public class RepaymentScheduleTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a RepaymentSchedule" );
 
 			try {            
-				RepaymentSchedule entity = RepaymentScheduleBusinessDelegate.getRepaymentScheduleInstance().createRepaymentSchedule( generateNewEntity() );
+				RepaymentSchedule entity = RepaymentScheduleService.getRepaymentScheduleInstance().createRepaymentSchedule( generateNewEntity() );
 				thePrimaryKey = entity.getRepaymentScheduleId();
 				LOGGER.info( "-- Successfully created a RepaymentSchedule with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class RepaymentScheduleTest{
 			RepaymentScheduleFetchOneSummary fetchOneSummary = new RepaymentScheduleFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = RepaymentScheduleBusinessDelegate.getRepaymentScheduleInstance().getRepaymentSchedule( fetchOneSummary );
+				entity = RepaymentScheduleService.getRepaymentScheduleInstance().getRepaymentSchedule( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class RepaymentScheduleTest{
 				// for use later on...
 				thePrimaryKey = entity.getRepaymentScheduleId();
 
-				RepaymentScheduleBusinessDelegate proxy = RepaymentScheduleBusinessDelegate.getRepaymentScheduleInstance();            
+				RepaymentScheduleService proxy = RepaymentScheduleService.getRepaymentScheduleInstance();            
 				proxy.updateRepaymentSchedule( entity );   
 
 				LOGGER.info( "-- Successfully saved RepaymentSchedule - " + entity.toString() );
@@ -172,7 +172,7 @@ public class RepaymentScheduleTest{
 
 			try{
 			    RepaymentSchedule entity = testRead(); 
-				RepaymentScheduleBusinessDelegate.getRepaymentScheduleInstance().delete( entity );
+				RepaymentScheduleService.getRepaymentScheduleInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted RepaymentSchedule with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class RepaymentScheduleTest{
 			List<RepaymentSchedule> collection  = null;
 
 			try {
-				// call the static get method on the RepaymentScheduleBusinessDelegate
-				collection = RepaymentScheduleBusinessDelegate.getRepaymentScheduleInstance().getAllRepaymentSchedule();
+				// call the static get method on the RepaymentScheduleService
+				collection = RepaymentScheduleService.getRepaymentScheduleInstance().getAllRepaymentSchedule();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

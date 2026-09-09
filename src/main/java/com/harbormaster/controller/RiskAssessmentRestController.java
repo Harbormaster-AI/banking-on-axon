@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	RiskAssessmentBusinessDelegate
+ *  	RiskAssessmentBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().createRiskAssessment( command );
+			completableFuture = RiskAssessmentService.getRiskAssessmentInstance().createRiskAssessment( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateRiskAssessmentCommand
 			// -----------------------------------------------
-			completableFuture = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().updateRiskAssessment(command);;
+			completableFuture = RiskAssessmentService.getRiskAssessmentInstance().updateRiskAssessment(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "RiskAssessmentController:update() - successfully update RiskAssessment - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteRiskAssessmentCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	RiskAssessmentBusinessDelegate delegate = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance();
+        	RiskAssessmentService delegate = RiskAssessmentService.getRiskAssessmentInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted RiskAssessment with key " + command.getRiskAssessmentId() );
@@ -155,7 +155,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
     	RiskAssessment entity = null;
 
     	try {  
-    		entity = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().getRiskAssessment( new RiskAssessmentFetchOneSummary( uuid ) );   
+    		entity = RiskAssessmentService.getRiskAssessmentInstance().getRiskAssessment( new RiskAssessmentFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load RiskAssessment using Id " + uuid );
@@ -175,7 +175,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
         
     	try {
             // load the RiskAssessment
-            riskAssessmentList = RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().getAllRiskAssessment();
+            riskAssessmentList = RiskAssessmentService.getRiskAssessmentInstance().getAllRiskAssessment();
             
             if ( riskAssessmentList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all RiskAssessments" );
@@ -196,7 +196,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
 	@PutMapping("/assignKycProfile")
 	public void assignKycProfile( @RequestBody AssignKycProfileToRiskAssessmentCommand command ) {
 		try {
-			RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().assignKycProfile( command );   
+			RiskAssessmentService.getRiskAssessmentInstance().assignKycProfile( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign KycProfile", exc );
@@ -210,7 +210,7 @@ public class RiskAssessmentRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignKycProfile")
 	public void unAssignKycProfile( @RequestBody(required=true)  UnAssignKycProfileFromRiskAssessmentCommand command ) {
 		try {
-			RiskAssessmentBusinessDelegate.getRiskAssessmentInstance().unAssignKycProfile( command );   
+			RiskAssessmentService.getRiskAssessmentInstance().unAssignKycProfile( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign KycProfile", exc );

@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	ExchangeRateBusinessDelegate
+ *  	ExchangeRateBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class ExchangeRateRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = ExchangeRateBusinessDelegate.getExchangeRateInstance().createExchangeRate( command );
+			completableFuture = ExchangeRateService.getExchangeRateInstance().createExchangeRate( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class ExchangeRateRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdateExchangeRateCommand
 			// -----------------------------------------------
-			completableFuture = ExchangeRateBusinessDelegate.getExchangeRateInstance().updateExchangeRate(command);;
+			completableFuture = ExchangeRateService.getExchangeRateInstance().updateExchangeRate(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "ExchangeRateController:update() - successfully update ExchangeRate - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class ExchangeRateRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeleteExchangeRateCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	ExchangeRateBusinessDelegate delegate = ExchangeRateBusinessDelegate.getExchangeRateInstance();
+        	ExchangeRateService delegate = ExchangeRateService.getExchangeRateInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted ExchangeRate with key " + command.getExchangeRateId() );
@@ -155,7 +155,7 @@ public class ExchangeRateRestController extends BaseSpringRestController {
     	ExchangeRate entity = null;
 
     	try {  
-    		entity = ExchangeRateBusinessDelegate.getExchangeRateInstance().getExchangeRate( new ExchangeRateFetchOneSummary( uuid ) );   
+    		entity = ExchangeRateService.getExchangeRateInstance().getExchangeRate( new ExchangeRateFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load ExchangeRate using Id " + uuid );
@@ -175,7 +175,7 @@ public class ExchangeRateRestController extends BaseSpringRestController {
         
     	try {
             // load the ExchangeRate
-            exchangeRateList = ExchangeRateBusinessDelegate.getExchangeRateInstance().getAllExchangeRate();
+            exchangeRateList = ExchangeRateService.getExchangeRateInstance().getAllExchangeRate();
             
             if ( exchangeRateList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all ExchangeRates" );
@@ -196,7 +196,7 @@ public class ExchangeRateRestController extends BaseSpringRestController {
 	@PutMapping("/assignBank")
 	public void assignBank( @RequestBody AssignBankToExchangeRateCommand command ) {
 		try {
-			ExchangeRateBusinessDelegate.getExchangeRateInstance().assignBank( command );   
+			ExchangeRateService.getExchangeRateInstance().assignBank( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Bank", exc );
@@ -210,7 +210,7 @@ public class ExchangeRateRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBank")
 	public void unAssignBank( @RequestBody(required=true)  UnAssignBankFromExchangeRateCommand command ) {
 		try {
-			ExchangeRateBusinessDelegate.getExchangeRateInstance().unAssignBank( command );   
+			ExchangeRateService.getExchangeRateInstance().unAssignBank( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Bank", exc );
@@ -225,7 +225,7 @@ public class ExchangeRateRestController extends BaseSpringRestController {
 	@PutMapping("/addToFxTrades")
 	public void addToFxTrades( @RequestBody(required=true) AssignFxTradesToExchangeRateCommand command ) {
 		try {
-			ExchangeRateBusinessDelegate.getExchangeRateInstance().addToFxTrades( command );   
+			ExchangeRateService.getExchangeRateInstance().addToFxTrades( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set FxTrades", exc );
@@ -240,7 +240,7 @@ public class ExchangeRateRestController extends BaseSpringRestController {
 	public void removeFromFxTrades( 	@RequestBody(required=true) RemoveFxTradesFromExchangeRateCommand command )
 	{		
 		try {
-			ExchangeRateBusinessDelegate.getExchangeRateInstance().removeFromFxTrades( command );
+			ExchangeRateService.getExchangeRateInstance().removeFromFxTrades( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set FxTrades", exc );

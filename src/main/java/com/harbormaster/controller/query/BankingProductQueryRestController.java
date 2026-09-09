@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>BankingProductQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	BankingProductBusinessDelegate
+ *  	BankingProductService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class BankingProductQueryRestController extends BaseSpringRestController 
     	BankingProduct entity = null;
 
     	try {  
-    		entity = BankingProductBusinessDelegate.getBankingProductInstance().getBankingProduct( new BankingProductFetchOneSummary( bankingProductId ) );
+    		entity = BankingProductService.getBankingProductInstance().getBankingProduct( new BankingProductFetchOneSummary( bankingProductId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load BankingProduct using Id " + bankingProductId );
@@ -116,7 +114,7 @@ public class BankingProductQueryRestController extends BaseSpringRestController 
         
     	try {
             // load the BankingProduct
-            bankingProductList = BankingProductBusinessDelegate.getBankingProductInstance().getAllBankingProduct();
+            bankingProductList = BankingProductService.getBankingProductInstance().getAllBankingProduct();
             
             if ( bankingProductList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all BankingProducts" );

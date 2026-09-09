@@ -88,7 +88,7 @@ public class StandingInstructionTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a StandingInstruction" );
 
 			try {            
-				StandingInstruction entity = StandingInstructionBusinessDelegate.getStandingInstructionInstance().createStandingInstruction( generateNewEntity() );
+				StandingInstruction entity = StandingInstructionService.getStandingInstructionInstance().createStandingInstruction( generateNewEntity() );
 				thePrimaryKey = entity.getStandingInstructionId();
 				LOGGER.info( "-- Successfully created a StandingInstruction with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class StandingInstructionTest{
 			StandingInstructionFetchOneSummary fetchOneSummary = new StandingInstructionFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = StandingInstructionBusinessDelegate.getStandingInstructionInstance().getStandingInstruction( fetchOneSummary );
+				entity = StandingInstructionService.getStandingInstructionInstance().getStandingInstruction( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class StandingInstructionTest{
 				// for use later on...
 				thePrimaryKey = entity.getStandingInstructionId();
 
-				StandingInstructionBusinessDelegate proxy = StandingInstructionBusinessDelegate.getStandingInstructionInstance();            
+				StandingInstructionService proxy = StandingInstructionService.getStandingInstructionInstance();            
 				proxy.updateStandingInstruction( entity );   
 
 				LOGGER.info( "-- Successfully saved StandingInstruction - " + entity.toString() );
@@ -172,7 +172,7 @@ public class StandingInstructionTest{
 
 			try{
 			    StandingInstruction entity = testRead(); 
-				StandingInstructionBusinessDelegate.getStandingInstructionInstance().delete( entity );
+				StandingInstructionService.getStandingInstructionInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted StandingInstruction with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class StandingInstructionTest{
 			List<StandingInstruction> collection  = null;
 
 			try {
-				// call the static get method on the StandingInstructionBusinessDelegate
-				collection = StandingInstructionBusinessDelegate.getStandingInstructionInstance().getAllStandingInstruction();
+				// call the static get method on the StandingInstructionService
+				collection = StandingInstructionService.getStandingInstructionInstance().getAllStandingInstruction();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

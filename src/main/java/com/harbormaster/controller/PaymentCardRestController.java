@@ -32,7 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 
@@ -63,7 +63,7 @@ import com.harbormaster.exception.*;
  *
  * <h3>Services Used</h3>
  *
- *  	PaymentCardBusinessDelegate
+ *  	PaymentCardBusinessService
  *
  * <h3>Produces</h3>
  *
@@ -94,7 +94,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
 		CompletableFuture<UUID> completableFuture = null;
 		try {       
         	
-			completableFuture = PaymentCardBusinessDelegate.getPaymentCardInstance().createPaymentCard( command );
+			completableFuture = PaymentCardService.getPaymentCardInstance().createPaymentCard( command );
         }
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, exc.getMessage(), exc );        	
@@ -115,7 +115,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
 			// -----------------------------------------------
 			// delegate the UpdatePaymentCardCommand
 			// -----------------------------------------------
-			completableFuture = PaymentCardBusinessDelegate.getPaymentCardInstance().updatePaymentCard(command);;
+			completableFuture = PaymentCardService.getPaymentCardInstance().updatePaymentCard(command);;
 	    }
 	    catch( Throwable exc ) {
 	    	LOGGER.log( Level.WARNING, "PaymentCardController:update() - successfully update PaymentCard - " + exc.getMessage());        	
@@ -133,7 +133,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
     public CompletableFuture<Void> delete( @RequestBody(required=true) DeletePaymentCardCommand command ) {                
     	CompletableFuture<Void> completableFuture = null;
     	try {
-        	PaymentCardBusinessDelegate delegate = PaymentCardBusinessDelegate.getPaymentCardInstance();
+        	PaymentCardService delegate = PaymentCardService.getPaymentCardInstance();
 
         	completableFuture = delegate.delete( command );
     		LOGGER.log( Level.WARNING, "Successfully deleted PaymentCard with key " + command.getPaymentCardId() );
@@ -155,7 +155,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
     	PaymentCard entity = null;
 
     	try {  
-    		entity = PaymentCardBusinessDelegate.getPaymentCardInstance().getPaymentCard( new PaymentCardFetchOneSummary( uuid ) );   
+    		entity = PaymentCardService.getPaymentCardInstance().getPaymentCard( new PaymentCardFetchOneSummary( uuid ) );   
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load PaymentCard using Id " + uuid );
@@ -175,7 +175,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
         
     	try {
             // load the PaymentCard
-            paymentCardList = PaymentCardBusinessDelegate.getPaymentCardInstance().getAllPaymentCard();
+            paymentCardList = PaymentCardService.getPaymentCardInstance().getAllPaymentCard();
             
             if ( paymentCardList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all PaymentCards" );
@@ -196,7 +196,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
 	@PutMapping("/assignBank")
 	public void assignBank( @RequestBody AssignBankToPaymentCardCommand command ) {
 		try {
-			PaymentCardBusinessDelegate.getPaymentCardInstance().assignBank( command );   
+			PaymentCardService.getPaymentCardInstance().assignBank( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Bank", exc );
@@ -210,7 +210,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignBank")
 	public void unAssignBank( @RequestBody(required=true)  UnAssignBankFromPaymentCardCommand command ) {
 		try {
-			PaymentCardBusinessDelegate.getPaymentCardInstance().unAssignBank( command );   
+			PaymentCardService.getPaymentCardInstance().unAssignBank( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Bank", exc );
@@ -224,7 +224,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
 	@PutMapping("/assignAccount")
 	public void assignAccount( @RequestBody AssignAccountToPaymentCardCommand command ) {
 		try {
-			PaymentCardBusinessDelegate.getPaymentCardInstance().assignAccount( command );   
+			PaymentCardService.getPaymentCardInstance().assignAccount( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Account", exc );
@@ -238,7 +238,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignAccount")
 	public void unAssignAccount( @RequestBody(required=true)  UnAssignAccountFromPaymentCardCommand command ) {
 		try {
-			PaymentCardBusinessDelegate.getPaymentCardInstance().unAssignAccount( command );   
+			PaymentCardService.getPaymentCardInstance().unAssignAccount( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Account", exc );
@@ -252,7 +252,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
 	@PutMapping("/assignCustomer")
 	public void assignCustomer( @RequestBody AssignCustomerToPaymentCardCommand command ) {
 		try {
-			PaymentCardBusinessDelegate.getPaymentCardInstance().assignCustomer( command );   
+			PaymentCardService.getPaymentCardInstance().assignCustomer( command );   
 		}
         catch( Throwable exc ) {
         	LOGGER.log( Level.WARNING, "Failed to assign Customer", exc );
@@ -266,7 +266,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
 	@PutMapping("/unAssignCustomer")
 	public void unAssignCustomer( @RequestBody(required=true)  UnAssignCustomerFromPaymentCardCommand command ) {
 		try {
-			PaymentCardBusinessDelegate.getPaymentCardInstance().unAssignCustomer( command );   
+			PaymentCardService.getPaymentCardInstance().unAssignCustomer( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to unassign Customer", exc );
@@ -281,7 +281,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
 	@PutMapping("/addToTransactions")
 	public void addToTransactions( @RequestBody(required=true) AssignTransactionsToPaymentCardCommand command ) {
 		try {
-			PaymentCardBusinessDelegate.getPaymentCardInstance().addToTransactions( command );   
+			PaymentCardService.getPaymentCardInstance().addToTransactions( command );   
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to add to Set Transactions", exc );
@@ -296,7 +296,7 @@ public class PaymentCardRestController extends BaseSpringRestController {
 	public void removeFromTransactions( 	@RequestBody(required=true) RemoveTransactionsFromPaymentCardCommand command )
 	{		
 		try {
-			PaymentCardBusinessDelegate.getPaymentCardInstance().removeFromTransactions( command );
+			PaymentCardService.getPaymentCardInstance().removeFromTransactions( command );
 		}
 		catch( Exception exc ) {
 			LOGGER.log( Level.WARNING, "Failed to remove from Set Transactions", exc );

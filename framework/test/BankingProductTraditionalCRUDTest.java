@@ -88,7 +88,7 @@ public class BankingProductTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a BankingProduct" );
 
 			try {            
-				BankingProduct entity = BankingProductBusinessDelegate.getBankingProductInstance().createBankingProduct( generateNewEntity() );
+				BankingProduct entity = BankingProductService.getBankingProductInstance().createBankingProduct( generateNewEntity() );
 				thePrimaryKey = entity.getBankingProductId();
 				LOGGER.info( "-- Successfully created a BankingProduct with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class BankingProductTest{
 			BankingProductFetchOneSummary fetchOneSummary = new BankingProductFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = BankingProductBusinessDelegate.getBankingProductInstance().getBankingProduct( fetchOneSummary );
+				entity = BankingProductService.getBankingProductInstance().getBankingProduct( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class BankingProductTest{
 				// for use later on...
 				thePrimaryKey = entity.getBankingProductId();
 
-				BankingProductBusinessDelegate proxy = BankingProductBusinessDelegate.getBankingProductInstance();            
+				BankingProductService proxy = BankingProductService.getBankingProductInstance();            
 				proxy.updateBankingProduct( entity );   
 
 				LOGGER.info( "-- Successfully saved BankingProduct - " + entity.toString() );
@@ -172,7 +172,7 @@ public class BankingProductTest{
 
 			try{
 			    BankingProduct entity = testRead(); 
-				BankingProductBusinessDelegate.getBankingProductInstance().delete( entity );
+				BankingProductService.getBankingProductInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted BankingProduct with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class BankingProductTest{
 			List<BankingProduct> collection  = null;
 
 			try {
-				// call the static get method on the BankingProductBusinessDelegate
-				collection = BankingProductBusinessDelegate.getBankingProductInstance().getAllBankingProduct();
+				// call the static get method on the BankingProductService
+				collection = BankingProductService.getBankingProductInstance().getAllBankingProduct();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

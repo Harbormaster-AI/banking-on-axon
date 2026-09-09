@@ -32,13 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.harbormaster.api.*;
-import com.harbormaster.delegate.*;
+import com.harbormaster.service.*;
 import com.harbormaster.entity.*;
 import com.harbormaster.exception.*;
 import com.harbormaster.projector.*;
-
-import com.harbormaster.controller.*;
-
+    
 /**
  * <h2>FXTradeQueryRestController as REST API</h2>
  * <p>
@@ -66,7 +64,7 @@ import com.harbormaster.controller.*;
  *
  * <h3>Services Used</h3>
  *
- *  	FXTradeBusinessDelegate
+ *  	FXTradeService
  *
  * <h3>Produces</h3>
  *
@@ -96,7 +94,7 @@ public class FXTradeQueryRestController extends BaseSpringRestController {
     	FXTrade entity = null;
 
     	try {  
-    		entity = FXTradeBusinessDelegate.getFXTradeInstance().getFXTrade( new FXTradeFetchOneSummary( fXTradeId ) );
+    		entity = FXTradeService.getFXTradeInstance().getFXTrade( new FXTradeFetchOneSummary( fXTradeId ) );
         }
         catch( Throwable exc ) {
             LOGGER.log( Level.WARNING, "failed to load FXTrade using Id " + fXTradeId );
@@ -116,7 +114,7 @@ public class FXTradeQueryRestController extends BaseSpringRestController {
         
     	try {
             // load the FXTrade
-            fXTradeList = FXTradeBusinessDelegate.getFXTradeInstance().getAllFXTrade();
+            fXTradeList = FXTradeService.getFXTradeInstance().getAllFXTrade();
             
             if ( fXTradeList != null )
                 LOGGER.log( Level.INFO,  "successfully loaded all FXTrades" );

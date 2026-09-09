@@ -88,7 +88,7 @@ public class ExchangeRateTest{
 			StringBuilder msg = new StringBuilder( "-- Failed to create a ExchangeRate" );
 
 			try {            
-				ExchangeRate entity = ExchangeRateBusinessDelegate.getExchangeRateInstance().createExchangeRate( generateNewEntity() );
+				ExchangeRate entity = ExchangeRateService.getExchangeRateInstance().createExchangeRate( generateNewEntity() );
 				thePrimaryKey = entity.getExchangeRateId();
 				LOGGER.info( "-- Successfully created a ExchangeRate with primary key" + thePrimaryKey );
 			}
@@ -114,7 +114,7 @@ public class ExchangeRateTest{
 			ExchangeRateFetchOneSummary fetchOneSummary = new ExchangeRateFetchOneSummary( thePrimaryKey );
 
 			try {
-				entity = ExchangeRateBusinessDelegate.getExchangeRateInstance().getExchangeRate( fetchOneSummary );
+				entity = ExchangeRateService.getExchangeRateInstance().getExchangeRate( fetchOneSummary );
 
 				assertNotNull( entity,msg.toString() );
 
@@ -150,7 +150,7 @@ public class ExchangeRateTest{
 				// for use later on...
 				thePrimaryKey = entity.getExchangeRateId();
 
-				ExchangeRateBusinessDelegate proxy = ExchangeRateBusinessDelegate.getExchangeRateInstance();            
+				ExchangeRateService proxy = ExchangeRateService.getExchangeRateInstance();            
 				proxy.updateExchangeRate( entity );   
 
 				LOGGER.info( "-- Successfully saved ExchangeRate - " + entity.toString() );
@@ -172,7 +172,7 @@ public class ExchangeRateTest{
 
 			try{
 			    ExchangeRate entity = testRead(); 
-				ExchangeRateBusinessDelegate.getExchangeRateInstance().delete( entity );
+				ExchangeRateService.getExchangeRateInstance().delete( entity );
 
 				LOGGER.info( "-- Successfully deleted ExchangeRate with primary key " + thePrimaryKey );            
 			}
@@ -195,8 +195,8 @@ public class ExchangeRateTest{
 			List<ExchangeRate> collection  = null;
 
 			try {
-				// call the static get method on the ExchangeRateBusinessDelegate
-				collection = ExchangeRateBusinessDelegate.getExchangeRateInstance().getAllExchangeRate();
+				// call the static get method on the ExchangeRateService
+				collection = ExchangeRateService.getExchangeRateInstance().getAllExchangeRate();
 
 				if ( collection == null || collection.size() == 0 ) {
 					LOGGER.warning( unexpectedErrorMsg );

@@ -292,10 +292,10 @@ public class ConsentAggregate {
     @AggregateIdentifier
     private UUID consentId;
     
-    private  Set<${attribute.getAssociation().getType()}> grantedOn;
-    private  Set<${attribute.getAssociation().getType()}> expiresOn;
-    private  Set<${attribute.getAssociation().getType()}> consentType;
-    private  Set<${attribute.getAssociation().getType()}> status;
+    private  Date grantedOn;
+    private  Date expiresOn;
+    private ConsentType consentType;
+    private ConsentStatus status;
     private Customer customer = null;
     private Bank bank = null;
     private Set<Account> authorizedAccounts = new HashSet<>();

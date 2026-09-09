@@ -224,12 +224,12 @@ public class ExternalAccountAggregate {
     @AggregateIdentifier
     private UUID externalAccountId;
     
-    private  Set<${attribute.getAssociation().getType()}> name;
-    private  Set<${attribute.getAssociation().getType()}> iban;
-    private  Set<${attribute.getAssociation().getType()}> accountNumber;
-    private  Set<${attribute.getAssociation().getType()}> bic;
-    private  Set<${attribute.getAssociation().getType()}> bankName;
-    private  Set<${attribute.getAssociation().getType()}> country;
+    private String name;
+    private IBAN iban;
+    private AccountNumber accountNumber;
+    private BIC bic;
+    private String bankName;
+    private String country;
     private Customer customer = null;
     private Set<Transaction> transactions = new HashSet<>();
 

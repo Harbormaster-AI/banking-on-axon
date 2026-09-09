@@ -218,12 +218,12 @@ public class RepaymentScheduleAggregate {
     @AggregateIdentifier
     private UUID repaymentScheduleId;
     
-    private  Set<${attribute.getAssociation().getType()}> installmentNumber;
-    private  Set<${attribute.getAssociation().getType()}> dueDate;
-    private  Set<${attribute.getAssociation().getType()}> principalDue;
-    private  Set<${attribute.getAssociation().getType()}> interestDue;
-    private  Set<${attribute.getAssociation().getType()}> totalDue;
-    private  Set<${attribute.getAssociation().getType()}> status;
+    private Int installmentNumber;
+    private  Date dueDate;
+    private Money principalDue;
+    private Money interestDue;
+    private Money totalDue;
+    private InstallmentStatus status;
     private LoanAccount loanAccount = null;
     private LoanPayment payment = null;
 

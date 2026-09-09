@@ -218,9 +218,9 @@ public class ThirdPartyProviderAggregate {
     @AggregateIdentifier
     private UUID thirdPartyProviderId;
     
-    private  Set<${attribute.getAssociation().getType()}> name;
-    private  Set<${attribute.getAssociation().getType()}> registrationId;
-    private  Set<${attribute.getAssociation().getType()}> website;
+    private String name;
+    private String registrationId;
+    private String website;
     private Bank bank = null;
     private Set<Consent> consents = new HashSet<>();
 

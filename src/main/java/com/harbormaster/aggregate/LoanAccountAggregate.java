@@ -476,18 +476,18 @@ public class LoanAccountAggregate {
     @AggregateIdentifier
     private UUID loanAccountId;
     
-    private  Set<${attribute.getAssociation().getType()}> loanNumber;
-    private  Set<${attribute.getAssociation().getType()}> principalAmount;
-    private  Set<${attribute.getAssociation().getType()}> outstandingPrincipal;
-    private  Set<${attribute.getAssociation().getType()}> interestRate;
-    private  Set<${attribute.getAssociation().getType()}> originationDate;
-    private  Set<${attribute.getAssociation().getType()}> maturityDate;
-    private  Set<${attribute.getAssociation().getType()}> paymentDayOfMonth;
-    private  Set<${attribute.getAssociation().getType()}> currency;
-    private  Set<${attribute.getAssociation().getType()}> loanType;
-    private  Set<${attribute.getAssociation().getType()}> rateType;
-    private  Set<${attribute.getAssociation().getType()}> compounding;
-    private  Set<${attribute.getAssociation().getType()}> status;
+    private String loanNumber;
+    private Money principalAmount;
+    private Money outstandingPrincipal;
+    private Percentage interestRate;
+    private  Date originationDate;
+    private  Date maturityDate;
+    private Int paymentDayOfMonth;
+    private String currency;
+    private LoanType loanType;
+    private RateType rateType;
+    private InterestCompounding compounding;
+    private LoanStatus status;
     private Bank bank = null;
     private Branch branch = null;
     private BankingProduct product = null;

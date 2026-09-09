@@ -298,13 +298,13 @@ public class PaymentCardAggregate {
     @AggregateIdentifier
     private UUID paymentCardId;
     
-    private  Set<${attribute.getAssociation().getType()}> cardNumber;
-    private  Set<${attribute.getAssociation().getType()}> embossedName;
-    private  Set<${attribute.getAssociation().getType()}> expiryMonth;
-    private  Set<${attribute.getAssociation().getType()}> expiryYear;
-    private  Set<${attribute.getAssociation().getType()}> cardType;
-    private  Set<${attribute.getAssociation().getType()}> cardStatus;
-    private  Set<${attribute.getAssociation().getType()}> network;
+    private CardPAN cardNumber;
+    private String embossedName;
+    private Int expiryMonth;
+    private Int expiryYear;
+    private CardType cardType;
+    private CardStatus cardStatus;
+    private CardNetwork network;
     private Bank bank = null;
     private Account account = null;
     private Customer customer = null;

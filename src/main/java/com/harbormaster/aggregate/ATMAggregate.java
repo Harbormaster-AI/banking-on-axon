@@ -176,9 +176,9 @@ public class ATMAggregate {
     @AggregateIdentifier
     private UUID aTMId;
     
-    private  Set<${attribute.getAssociation().getType()}> terminalId;
-    private  Set<${attribute.getAssociation().getType()}> location;
-    private  Set<${attribute.getAssociation().getType()}> status;
+    private String terminalId;
+    private Address location;
+    private ATMStatus status;
     private Branch branch = null;
 
     private static final Logger LOGGER 	= Logger.getLogger(ATMAggregate.class.getName());

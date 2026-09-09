@@ -176,9 +176,9 @@ public class ScreeningResultAggregate {
     @AggregateIdentifier
     private UUID screeningResultId;
     
-    private  Set<${attribute.getAssociation().getType()}> screeningDate;
-    private  Set<${attribute.getAssociation().getType()}> provider;
-    private  Set<${attribute.getAssociation().getType()}> outcome;
+    private  Date screeningDate;
+    private String provider;
+    private ScreeningOutcome outcome;
     private KycProfile kycProfile = null;
 
     private static final Logger LOGGER 	= Logger.getLogger(ScreeningResultAggregate.class.getName());

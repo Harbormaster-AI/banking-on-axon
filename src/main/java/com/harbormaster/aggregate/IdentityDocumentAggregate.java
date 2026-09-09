@@ -178,10 +178,10 @@ public class IdentityDocumentAggregate {
     @AggregateIdentifier
     private UUID identityDocumentId;
     
-    private  Set<${attribute.getAssociation().getType()}> documentNumber;
-    private  Set<${attribute.getAssociation().getType()}> issuingCountry;
-    private  Set<${attribute.getAssociation().getType()}> expirationDate;
-    private  Set<${attribute.getAssociation().getType()}> documentType;
+    private String documentNumber;
+    private String issuingCountry;
+    private  Date expirationDate;
+    private IdentityDocumentType documentType;
     private KycProfile kycProfile = null;
 
     private static final Logger LOGGER 	= Logger.getLogger(IdentityDocumentAggregate.class.getName());

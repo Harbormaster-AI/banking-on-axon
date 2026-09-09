@@ -528,17 +528,17 @@ public class CustomerAggregate {
     @AggregateIdentifier
     private UUID customerId;
     
-    private  Set<${attribute.getAssociation().getType()}> firstName;
-    private  Set<${attribute.getAssociation().getType()}> lastName;
-    private  Set<${attribute.getAssociation().getType()}> legalName;
-    private  Set<${attribute.getAssociation().getType()}> dateOfBirth;
-    private  Set<${attribute.getAssociation().getType()}> taxId;
-    private  Set<${attribute.getAssociation().getType()}> email;
-    private  Set<${attribute.getAssociation().getType()}> phone;
-    private  Set<${attribute.getAssociation().getType()}> address;
-    private  Set<${attribute.getAssociation().getType()}> customerType;
-    private  Set<${attribute.getAssociation().getType()}> riskRating;
-    private  Set<${attribute.getAssociation().getType()}> kycStatus;
+    private String firstName;
+    private String lastName;
+    private String legalName;
+    private  Date dateOfBirth;
+    private String taxId;
+    private String email;
+    private String phone;
+    private Address address;
+    private CustomerType customerType;
+    private RiskRating riskRating;
+    private KycStatus kycStatus;
     private Bank bank = null;
     private Set<Account> accounts = new HashSet<>();
     private Set<LoanAccount> loanAccounts = new HashSet<>();

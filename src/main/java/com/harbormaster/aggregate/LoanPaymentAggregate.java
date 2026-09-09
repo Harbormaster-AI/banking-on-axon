@@ -216,11 +216,11 @@ public class LoanPaymentAggregate {
     @AggregateIdentifier
     private UUID loanPaymentId;
     
-    private  Set<${attribute.getAssociation().getType()}> paymentReference;
-    private  Set<${attribute.getAssociation().getType()}> amount;
-    private  Set<${attribute.getAssociation().getType()}> paymentDate;
-    private  Set<${attribute.getAssociation().getType()}> method;
-    private  Set<${attribute.getAssociation().getType()}> status;
+    private String paymentReference;
+    private Money amount;
+    private  Date paymentDate;
+    private PaymentMethod method;
+    private PaymentStatus status;
     private LoanAccount loanAccount = null;
     private Transaction transaction = null;
 

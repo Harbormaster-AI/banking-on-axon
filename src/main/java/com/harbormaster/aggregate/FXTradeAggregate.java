@@ -364,13 +364,13 @@ public class FXTradeAggregate {
     @AggregateIdentifier
     private UUID fXTradeId;
     
-    private  Set<${attribute.getAssociation().getType()}> tradeReference;
-    private  Set<${attribute.getAssociation().getType()}> tradeDate;
-    private  Set<${attribute.getAssociation().getType()}> settlementDate;
-    private  Set<${attribute.getAssociation().getType()}> amountSold;
-    private  Set<${attribute.getAssociation().getType()}> amountBought;
-    private  Set<${attribute.getAssociation().getType()}> rate;
-    private  Set<${attribute.getAssociation().getType()}> status;
+    private String tradeReference;
+    private  Date tradeDate;
+    private  Date settlementDate;
+    private Money amountSold;
+    private Money amountBought;
+    private java.math.BigDecimal rate;
+    private TradeStatus status;
     private Customer customer = null;
     private Bank bank = null;
     private ExchangeRate exchangeRate = null;

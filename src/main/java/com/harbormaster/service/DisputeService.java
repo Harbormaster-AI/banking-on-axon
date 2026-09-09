@@ -104,6 +104,7 @@ extends BaseService {
     	queryGateway 		= applicationContext.getBean(QueryGateway.class);
     	commandGateway 		= applicationContext.getBean(CommandGateway.class);
     	queryUpdateEmitter  = applicationContext.getBean(QueryUpdateEmitter.class);
+		validator			= applicationContext.getBean(DisputeValidator.class)
 	}
 
 
@@ -141,7 +142,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate the command
         	// --------------------------------------    	
-        	DisputeValidator.getInstance().validate( command );    
+        	validator.validate( command );    
 
     		// ---------------------------------------
     		// issue the CreateDisputeCommand - by convention the future return value for a create command
@@ -179,7 +180,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate 
         	// --------------------------------------    	
-        	DisputeValidator.getInstance().validate( command );    
+        	validator.validate( command );    
 
         	// --------------------------------------
         	// issue the UpdateDisputeCommand and return right away
@@ -210,7 +211,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate the command
         	// --------------------------------------    	
-        	DisputeValidator.getInstance().validate( command );    
+        	validator.validate( command );    
         	
         	// --------------------------------------
         	// issue the DeleteDisputeCommand and return right away
@@ -247,7 +248,7 @@ extends BaseService {
         	// --------------------------------------
         	// validate the fetch one summary
         	// --------------------------------------    	
-        	DisputeValidator.getInstance().validate( summary );    
+        	validator.validate( summary );    
         	
         	// --------------------------------------
         	// use queryGateway to send request to Find a Dispute
@@ -315,7 +316,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	DisputeValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -341,7 +342,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	DisputeValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -376,7 +377,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	DisputeValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -402,7 +403,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	DisputeValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -437,7 +438,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	DisputeValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -463,7 +464,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	DisputeValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -498,7 +499,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	DisputeValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -524,7 +525,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	DisputeValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -559,6 +560,7 @@ extends BaseService {
 	private final QueryGateway queryGateway;
 	private final CommandGateway commandGateway;
 	private final QueryUpdateEmitter queryUpdateEmitter;
+	private final DisputeValidator validator;
 	private Dispute dispute 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(DisputeService.class.getName());
     

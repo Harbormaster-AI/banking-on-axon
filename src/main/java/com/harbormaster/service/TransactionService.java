@@ -104,6 +104,7 @@ extends BaseService {
     	queryGateway 		= applicationContext.getBean(QueryGateway.class);
     	commandGateway 		= applicationContext.getBean(CommandGateway.class);
     	queryUpdateEmitter  = applicationContext.getBean(QueryUpdateEmitter.class);
+		validator			= applicationContext.getBean(TransactionValidator.class)
 	}
 
 
@@ -141,7 +142,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate the command
         	// --------------------------------------    	
-        	TransactionValidator.getInstance().validate( command );    
+        	validator.validate( command );    
 
     		// ---------------------------------------
     		// issue the CreateTransactionCommand - by convention the future return value for a create command
@@ -179,7 +180,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate 
         	// --------------------------------------    	
-        	TransactionValidator.getInstance().validate( command );    
+        	validator.validate( command );    
 
         	// --------------------------------------
         	// issue the UpdateTransactionCommand and return right away
@@ -210,7 +211,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate the command
         	// --------------------------------------    	
-        	TransactionValidator.getInstance().validate( command );    
+        	validator.validate( command );    
         	
         	// --------------------------------------
         	// issue the DeleteTransactionCommand and return right away
@@ -247,7 +248,7 @@ extends BaseService {
         	// --------------------------------------
         	// validate the fetch one summary
         	// --------------------------------------    	
-        	TransactionValidator.getInstance().validate( summary );    
+        	validator.validate( summary );    
         	
         	// --------------------------------------
         	// use queryGateway to send request to Find a Transaction
@@ -315,7 +316,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -341,7 +342,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -376,7 +377,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -402,7 +403,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -437,7 +438,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -463,7 +464,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -498,7 +499,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -524,7 +525,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -559,7 +560,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -585,7 +586,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -620,7 +621,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -646,7 +647,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	TransactionValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -681,6 +682,7 @@ extends BaseService {
 	private final QueryGateway queryGateway;
 	private final CommandGateway commandGateway;
 	private final QueryUpdateEmitter queryUpdateEmitter;
+	private final TransactionValidator validator;
 	private Transaction transaction 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(TransactionService.class.getName());
     

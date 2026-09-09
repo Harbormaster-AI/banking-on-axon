@@ -104,6 +104,7 @@ extends BaseService {
     	queryGateway 		= applicationContext.getBean(QueryGateway.class);
     	commandGateway 		= applicationContext.getBean(CommandGateway.class);
     	queryUpdateEmitter  = applicationContext.getBean(QueryUpdateEmitter.class);
+		validator			= applicationContext.getBean(LoanAccountValidator.class)
 	}
 
 
@@ -141,7 +142,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate the command
         	// --------------------------------------    	
-        	LoanAccountValidator.getInstance().validate( command );    
+        	validator.validate( command );    
 
     		// ---------------------------------------
     		// issue the CreateLoanAccountCommand - by convention the future return value for a create command
@@ -179,7 +180,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate 
         	// --------------------------------------    	
-        	LoanAccountValidator.getInstance().validate( command );    
+        	validator.validate( command );    
 
         	// --------------------------------------
         	// issue the UpdateLoanAccountCommand and return right away
@@ -210,7 +211,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate the command
         	// --------------------------------------    	
-        	LoanAccountValidator.getInstance().validate( command );    
+        	validator.validate( command );    
         	
         	// --------------------------------------
         	// issue the DeleteLoanAccountCommand and return right away
@@ -247,7 +248,7 @@ extends BaseService {
         	// --------------------------------------
         	// validate the fetch one summary
         	// --------------------------------------    	
-        	LoanAccountValidator.getInstance().validate( summary );    
+        	validator.validate( summary );    
         	
         	// --------------------------------------
         	// use queryGateway to send request to Find a LoanAccount
@@ -315,7 +316,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -341,7 +342,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -376,7 +377,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -402,7 +403,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -437,7 +438,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -463,7 +464,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -499,7 +500,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -529,7 +530,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -565,7 +566,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -595,7 +596,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -631,7 +632,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -661,7 +662,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -697,7 +698,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -727,7 +728,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -763,7 +764,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -793,7 +794,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanAccountValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -828,6 +829,7 @@ extends BaseService {
 	private final QueryGateway queryGateway;
 	private final CommandGateway commandGateway;
 	private final QueryUpdateEmitter queryUpdateEmitter;
+	private final LoanAccountValidator validator;
 	private LoanAccount loanAccount 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(LoanAccountService.class.getName());
     

@@ -104,6 +104,7 @@ extends BaseService {
     	queryGateway 		= applicationContext.getBean(QueryGateway.class);
     	commandGateway 		= applicationContext.getBean(CommandGateway.class);
     	queryUpdateEmitter  = applicationContext.getBean(QueryUpdateEmitter.class);
+		validator			= applicationContext.getBean(CustomerValidator.class)
 	}
 
 
@@ -141,7 +142,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate the command
         	// --------------------------------------    	
-        	CustomerValidator.getInstance().validate( command );    
+        	validator.validate( command );    
 
     		// ---------------------------------------
     		// issue the CreateCustomerCommand - by convention the future return value for a create command
@@ -179,7 +180,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate 
         	// --------------------------------------    	
-        	CustomerValidator.getInstance().validate( command );    
+        	validator.validate( command );    
 
         	// --------------------------------------
         	// issue the UpdateCustomerCommand and return right away
@@ -210,7 +211,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate the command
         	// --------------------------------------    	
-        	CustomerValidator.getInstance().validate( command );    
+        	validator.validate( command );    
         	
         	// --------------------------------------
         	// issue the DeleteCustomerCommand and return right away
@@ -247,7 +248,7 @@ extends BaseService {
         	// --------------------------------------
         	// validate the fetch one summary
         	// --------------------------------------    	
-        	CustomerValidator.getInstance().validate( summary );    
+        	validator.validate( summary );    
         	
         	// --------------------------------------
         	// use queryGateway to send request to Find a Customer
@@ -315,7 +316,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -341,7 +342,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -377,7 +378,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -407,7 +408,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -443,7 +444,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -473,7 +474,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -509,7 +510,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -539,7 +540,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -575,7 +576,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -605,7 +606,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -641,7 +642,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -671,7 +672,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -707,7 +708,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -737,7 +738,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -773,7 +774,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -803,7 +804,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -839,7 +840,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -869,7 +870,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	CustomerValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
 	    	// issue the command
@@ -904,6 +905,7 @@ extends BaseService {
 	private final QueryGateway queryGateway;
 	private final CommandGateway commandGateway;
 	private final QueryUpdateEmitter queryUpdateEmitter;
+	private final CustomerValidator validator;
 	private Customer customer 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(CustomerService.class.getName());
     

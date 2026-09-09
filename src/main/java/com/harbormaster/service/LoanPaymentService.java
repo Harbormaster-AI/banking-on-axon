@@ -104,6 +104,7 @@ extends BaseService {
     	queryGateway 		= applicationContext.getBean(QueryGateway.class);
     	commandGateway 		= applicationContext.getBean(CommandGateway.class);
     	queryUpdateEmitter  = applicationContext.getBean(QueryUpdateEmitter.class);
+		validator			= applicationContext.getBean(LoanPaymentValidator.class)
 	}
 
 
@@ -141,7 +142,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate the command
         	// --------------------------------------    	
-        	LoanPaymentValidator.getInstance().validate( command );    
+        	validator.validate( command );    
 
     		// ---------------------------------------
     		// issue the CreateLoanPaymentCommand - by convention the future return value for a create command
@@ -179,7 +180,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate 
         	// --------------------------------------    	
-        	LoanPaymentValidator.getInstance().validate( command );    
+        	validator.validate( command );    
 
         	// --------------------------------------
         	// issue the UpdateLoanPaymentCommand and return right away
@@ -210,7 +211,7 @@ extends BaseService {
 			// --------------------------------------
         	// validate the command
         	// --------------------------------------    	
-        	LoanPaymentValidator.getInstance().validate( command );    
+        	validator.validate( command );    
         	
         	// --------------------------------------
         	// issue the DeleteLoanPaymentCommand and return right away
@@ -247,7 +248,7 @@ extends BaseService {
         	// --------------------------------------
         	// validate the fetch one summary
         	// --------------------------------------    	
-        	LoanPaymentValidator.getInstance().validate( summary );    
+        	validator.validate( summary );    
         	
         	// --------------------------------------
         	// use queryGateway to send request to Find a LoanPayment
@@ -315,7 +316,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	LoanPaymentValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -341,7 +342,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanPaymentValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -376,7 +377,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// best to validate the command now
 	    	// --------------------------------------    
-	    	LoanPaymentValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 
 	    	// --------------------------------------
         	// issue the command
@@ -402,7 +403,7 @@ extends BaseService {
 			// --------------------------------------
 	    	// validate the command
 	    	// --------------------------------------    
-	    	LoanPaymentValidator.getInstance().validate( command );    
+	    	validator.validate( command );    
 	
 	    	// --------------------------------------
 	    	// issue the command
@@ -437,6 +438,7 @@ extends BaseService {
 	private final QueryGateway queryGateway;
 	private final CommandGateway commandGateway;
 	private final QueryUpdateEmitter queryUpdateEmitter;
+	private final LoanPaymentValidator validator;
 	private LoanPayment loanPayment 	= null;
     private static final Logger LOGGER 			= Logger.getLogger(LoanPaymentService.class.getName());
     

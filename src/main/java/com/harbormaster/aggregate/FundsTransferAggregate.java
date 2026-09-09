@@ -336,14 +336,14 @@ public class FundsTransferAggregate {
     @AggregateIdentifier
     private UUID fundsTransferId;
     
-    private                                                                                         String transferReference;
-    private                                                                 Money amount;
-    private                                                                                                                          Date requestedDate;
-    private                                                                                                                          Date executionDate;
-    private                                                                                         String purpose;
-    private                                                                 Money feeAmount;
-    private                                                                 PaymentMethod method;
-    private                                                                 PaymentStatus status;
+    private String transferReference;
+    private Money amount;
+    private  Date requestedDate;
+    private  Date executionDate;
+    private String purpose;
+    private Money feeAmount;
+    private PaymentMethod method;
+    private PaymentStatus status;
     private Account sourceAccount = null;
     private Account destinationAccount = null;
     private ExternalAccount externalBeneficiary = null;

@@ -292,10 +292,10 @@ public class ConsentAggregate {
     @AggregateIdentifier
     private UUID consentId;
     
-    private                                                                                                                          Date grantedOn;
-    private                                                                                                                          Date expiresOn;
-    private                                                                 ConsentType consentType;
-    private                                                                 ConsentStatus status;
+    private  Date grantedOn;
+    private  Date expiresOn;
+    private ConsentType consentType;
+    private ConsentStatus status;
     private Customer customer = null;
     private Bank bank = null;
     private Set<Account> authorizedAccounts = new HashSet<>();

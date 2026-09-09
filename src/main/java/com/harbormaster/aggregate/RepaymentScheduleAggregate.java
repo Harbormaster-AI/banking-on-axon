@@ -218,12 +218,12 @@ public class RepaymentScheduleAggregate {
     @AggregateIdentifier
     private UUID repaymentScheduleId;
     
-    private                                                                                         int installmentNumber;
-    private                                                                                                                          Date dueDate;
-    private                                                                 Money principalDue;
-    private                                                                 Money interestDue;
-    private                                                                 Money totalDue;
-    private                                                                 InstallmentStatus status;
+    private int installmentNumber;
+    private  Date dueDate;
+    private Money principalDue;
+    private Money interestDue;
+    private Money totalDue;
+    private InstallmentStatus status;
     private LoanAccount loanAccount = null;
     private LoanPayment payment = null;
 

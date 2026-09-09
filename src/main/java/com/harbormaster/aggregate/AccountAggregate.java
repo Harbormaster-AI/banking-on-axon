@@ -470,15 +470,15 @@ public class AccountAggregate {
     @AggregateIdentifier
     private UUID accountId;
     
-    private                                                                 AccountNumber accountNumber;
-    private                                                                 IBAN iban;
-    private                                                                                         String accountName;
-    private                                                                                         String currency;
-    private                                                                                                                          Date openedOn;
-    private                                                                                                                          Date closedOn;
-    private                                                                 AccountType accountType;
-    private                                                                 AccountOwnershipType ownershipType;
-    private                                                                 AccountStatus status;
+    private AccountNumber accountNumber;
+    private IBAN iban;
+    private String accountName;
+    private String currency;
+    private  Date openedOn;
+    private  Date closedOn;
+    private AccountType accountType;
+    private AccountOwnershipType ownershipType;
+    private AccountStatus status;
     private Bank bank = null;
     private Branch branch = null;
     private BankingProduct product = null;

@@ -218,9 +218,9 @@ public class ThirdPartyProviderAggregate {
     @AggregateIdentifier
     private UUID thirdPartyProviderId;
     
-    private                                                                                         String name;
-    private                                                                                         String registrationId;
-    private                                                                                         String website;
+    private String name;
+    private String registrationId;
+    private String website;
     private Bank bank = null;
     private Set<Consent> consents = new HashSet<>();
 

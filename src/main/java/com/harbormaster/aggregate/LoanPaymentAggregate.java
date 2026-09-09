@@ -216,11 +216,11 @@ public class LoanPaymentAggregate {
     @AggregateIdentifier
     private UUID loanPaymentId;
     
-    private                                                                                         String paymentReference;
-    private                                                                 Money amount;
-    private                                                                                                                          Date paymentDate;
-    private                                                                 PaymentMethod method;
-    private                                                                 PaymentStatus status;
+    private String paymentReference;
+    private Money amount;
+    private  Date paymentDate;
+    private PaymentMethod method;
+    private PaymentStatus status;
     private LoanAccount loanAccount = null;
     private Transaction transaction = null;
 

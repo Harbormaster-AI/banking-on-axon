@@ -298,13 +298,13 @@ public class PaymentCardAggregate {
     @AggregateIdentifier
     private UUID paymentCardId;
     
-    private                                                                 CardPAN cardNumber;
-    private                                                                                         String embossedName;
-    private                                                                                         int expiryMonth;
-    private                                                                                         int expiryYear;
-    private                                                                 CardType cardType;
-    private                                                                 CardStatus cardStatus;
-    private                                                                 CardNetwork network;
+    private CardPAN cardNumber;
+    private String embossedName;
+    private int expiryMonth;
+    private int expiryYear;
+    private CardType cardType;
+    private CardStatus cardStatus;
+    private CardNetwork network;
     private Bank bank = null;
     private Account account = null;
     private Customer customer = null;

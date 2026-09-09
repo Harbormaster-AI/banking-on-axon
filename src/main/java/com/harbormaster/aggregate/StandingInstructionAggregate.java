@@ -216,11 +216,11 @@ public class StandingInstructionAggregate {
     @AggregateIdentifier
     private UUID standingInstructionId;
     
-    private                                                                                         String instructionId;
-    private                                                                 Money amount;
-    private                                                                                                                          Date nextExecutionDate;
-    private                                                                 StandingInstructionFrequency frequency;
-    private                                                                 StandingInstructionStatus status;
+    private String instructionId;
+    private Money amount;
+    private  Date nextExecutionDate;
+    private StandingInstructionFrequency frequency;
+    private StandingInstructionStatus status;
     private Account account = null;
     private ExternalAccount beneficiary = null;
 

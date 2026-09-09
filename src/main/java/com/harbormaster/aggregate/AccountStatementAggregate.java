@@ -182,12 +182,12 @@ public class AccountStatementAggregate {
     @AggregateIdentifier
     private UUID accountStatementId;
     
-    private                                                                                         String statementNumber;
-    private                                                                                                                          Date periodStart;
-    private                                                                                                                          Date periodEnd;
-    private                                                                 Money openingBalance;
-    private                                                                 Money closingBalance;
-    private                                                                 StatementDeliveryMethod deliveryMethod;
+    private String statementNumber;
+    private  Date periodStart;
+    private  Date periodEnd;
+    private Money openingBalance;
+    private Money closingBalance;
+    private StatementDeliveryMethod deliveryMethod;
     private Account account = null;
 
     private static final Logger LOGGER 	= Logger.getLogger(AccountStatementAggregate.class.getName());

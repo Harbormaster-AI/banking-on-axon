@@ -286,10 +286,10 @@ public class DisputeAggregate {
     @AggregateIdentifier
     private UUID disputeId;
     
-    private                                                                                         String disputeReference;
-    private                                                                                                                          Date raisedOn;
-    private                                                                                         String reason;
-    private                                                                 DisputeStatus status;
+    private String disputeReference;
+    private  Date raisedOn;
+    private String reason;
+    private DisputeStatus status;
     private Transaction transaction = null;
     private Customer customer = null;
     private Account account = null;

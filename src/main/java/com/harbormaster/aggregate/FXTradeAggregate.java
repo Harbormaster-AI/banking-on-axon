@@ -364,13 +364,13 @@ public class FXTradeAggregate {
     @AggregateIdentifier
     private UUID fXTradeId;
     
-    private                                                                                         String tradeReference;
-    private                                                                                                                          Date tradeDate;
-    private                                                                                                                          Date settlementDate;
-    private                                                                 Money amountSold;
-    private                                                                 Money amountBought;
-    private                                                                                                                          Date rate;
-    private                                                                 TradeStatus status;
+    private String tradeReference;
+    private  Date tradeDate;
+    private  Date settlementDate;
+    private Money amountSold;
+    private Money amountBought;
+    private  Date rate;
+    private TradeStatus status;
     private Customer customer = null;
     private Bank bank = null;
     private ExchangeRate exchangeRate = null;

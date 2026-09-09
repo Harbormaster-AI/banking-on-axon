@@ -304,10 +304,10 @@ public class BankingProductAggregate {
     @AggregateIdentifier
     private UUID bankingProductId;
     
-    private                                                                                         String productCode;
-    private                                                                                         String name;
-    private                                                                                         String description;
-    private                                                                 ProductCategory productCategory;
+    private String productCode;
+    private String name;
+    private String description;
+    private ProductCategory productCategory;
     private Bank bank = null;
     private Set<Account> accounts = new HashSet<>();
     private Set<LoanAccount> loanAccounts = new HashSet<>();

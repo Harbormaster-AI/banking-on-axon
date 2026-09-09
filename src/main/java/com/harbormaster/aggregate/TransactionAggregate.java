@@ -366,14 +366,14 @@ public class TransactionAggregate {
     @AggregateIdentifier
     private UUID transactionId;
     
-    private                                                                                                                          Date bookingDate;
-    private                                                                                                                          Date valueDate;
-    private                                                                 Money amount;
-    private                                                                                         String description;
-    private                                                                 TransactionDirection direction;
-    private                                                                 TransactionType transactionType;
-    private                                                                 TransactionStatus status;
-    private                                                                 ChannelType channel;
+    private  Date bookingDate;
+    private  Date valueDate;
+    private Money amount;
+    private String description;
+    private TransactionDirection direction;
+    private TransactionType transactionType;
+    private TransactionStatus status;
+    private ChannelType channel;
     private Account account = null;
     private ExternalAccount externalCounterparty = null;
     private PaymentCard paymentCard = null;

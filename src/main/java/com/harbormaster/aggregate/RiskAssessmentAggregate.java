@@ -176,9 +176,9 @@ public class RiskAssessmentAggregate {
     @AggregateIdentifier
     private UUID riskAssessmentId;
     
-    private                                                                                         int score;
-    private                                                                                                                          Date assessedOn;
-    private                                                                 RiskRating rating;
+    private int score;
+    private  Date assessedOn;
+    private RiskRating rating;
     private KycProfile kycProfile = null;
 
     private static final Logger LOGGER 	= Logger.getLogger(RiskAssessmentAggregate.class.getName());

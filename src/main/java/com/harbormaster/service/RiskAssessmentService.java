@@ -104,7 +104,7 @@ extends BaseService {
     	queryGateway 		= applicationContext.getBean(QueryGateway.class);
     	commandGateway 		= applicationContext.getBean(CommandGateway.class);
     	queryUpdateEmitter  = applicationContext.getBean(QueryUpdateEmitter.class);
-		validator			= applicationContext.getBean(RiskAssessmentValidator.class)
+		validator			= applicationContext.getBean(RiskAssessmentValidator.class);
 	}
 
 
